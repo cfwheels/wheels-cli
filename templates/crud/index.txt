@@ -1,0 +1,5 @@
+<!--- |ObjectNameSingular| Index --->
+<cfparam name="|ObjectNamePlural|">
+<cfoutput>
+
+</cfoutput>

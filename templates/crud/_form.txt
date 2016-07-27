@@ -1,0 +1,4 @@
+<!--- |ObjectNameSingular| Form Contents ---> 
+<cfoutput>
+<!--- Add your form fields here --->
+</cfoutput>

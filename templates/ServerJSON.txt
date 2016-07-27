@@ -1,0 +1,13 @@
+{
+    "name":"|appName|",
+    "force":true,
+    "web":{
+        "http":{
+            "host":"localhost"
+        },
+        "rewrites":{
+            "enable":true,
+            "config":"urlrewrite.xml"
+        }
+    }
+}

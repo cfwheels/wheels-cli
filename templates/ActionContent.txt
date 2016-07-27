@@ -1,0 +1,6 @@
+	/**
+	*  @hint |ActionHint|
+	*/
+	function |Action|() {
+		
+	}

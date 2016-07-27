@@ -1,0 +1,7 @@
+component extends="Controller" { 
+
+	function init() { 
+	 
+	}
+|Actions|
+}

@@ -1,0 +1,68 @@
+component extends="Controller" { 
+
+	function init() { 
+		// Verify Params
+		verifies(except="index,new", params="key", paramsTypes="integer", error="Sorry, that |ObjectNameSingular| can't be found");
+		verifies(only="create,update", post=true); 
+	}
+
+	/**
+	*  @hint View all |ObjectNamePlural|
+	*/
+	function index() {
+		|ObjectNamePlural|=model("|ObjectNameSingular|").findAll();
+	}
+
+	/**
+	*  @hint View |ObjectNameSingular|
+	*/
+	function show() {
+		|ObjectNameSingular|=model("|ObjectNameSingular|").findByKey(params.key);
+	}
+
+	/**
+	*  @hint Add New |ObjectNameSingular|
+	*/
+	function new() {
+		|ObjectNameSingular|=model("|ObjectNameSingular|").new();
+	}
+
+	/**
+	*  @hint Create |ObjectNameSingular|
+	*/
+	function create() {
+		|ObjectNameSingular|=model("|ObjectNameSingular|").new(params.|ObjectNameSingular|);
+		if(|ObjectNameSingular|.save()){
+			redirectTo(action="index", success="|ObjectNameSingular| successfully created");
+		} else {
+			renderPage(action="new");
+		}		
+	}
+
+	/**
+	*  @hint Edit |ObjectNameSingular|
+	*/
+	function edit() {
+		|ObjectNameSingular|=model("|ObjectNameSingular|").findByKey(params.key);		
+	}
+
+	/**
+	*  @hint Update |ObjectNameSingular|
+	*/
+	function update() {
+		|ObjectNameSingular|=model("|ObjectNameSingular|").findByKey(params.key);
+		if(|ObjectNameSingular|.update(params.|ObjectNameSingular|)){
+			redirectTo(action="index", success="|ObjectNameSingular| successfully updated");
+		} else {
+			renderPage(action="edit");
+		}
+	}	
+
+	/**
+	*  @hint Delete |ObjectNameSingular|
+	*/
+	function delete() {
+		|ObjectNameSingular|=model("|ObjectNameSingular|").deleteByKey(params.key);		
+		redirectTo(action="index", success="|ObjectNameSingular| successfully deleted");
+	} 		
+}	
