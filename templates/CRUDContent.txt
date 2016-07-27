@@ -3,7 +3,6 @@ component extends="Controller" {
 	function init() { 
 		// Verify Params
 		verifies(except="index,new", params="key", paramsTypes="integer", error="Sorry, that |ObjectNameSingular| can't be found");
-		verifies(only="create,update", post=true); 
 	}
 
 	/**
