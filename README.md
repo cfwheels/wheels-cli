@@ -94,16 +94,13 @@ Generates `edit.cfm` in `/views/foo/` using `templates/crud/edit.txt`
 
 `wheels generate test foo`  // TODO
 
-### Test Suite (TBC)
+### Test Suite
 
-Would be create so we can run tests from the command line.
+Run tests from the command line.  
 
-`wheels test [suite] [package]`
-
-i.e,  
-`wheels test app` - Runs all tests in `/tests/`  
-`wheels test core` - Runs all tests in `/wheels/tests/`  
-`wheels test plugin shortcodes` - Runs all tests in `/plugins/shortcodes/tests/`  
+`wheels test core 	[serverName] [reload] [debug]`
+`wheels test app 	[serverName] [reload] [debug]`
+`wheels test plugin  [pluginName] [serverName] [debug]` 
 
 ### Misc
 
