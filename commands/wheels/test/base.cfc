@@ -120,7 +120,7 @@ component excludeFromHelp=true {
 			 		 	 .line(); 
 		 		} else {
 		 			if(debug){
-		 				print.greenline("#r.cleantestcase# | #r.numtests# | #r.numerrors# | #r.numfailures# | ");
+		 				print.greenline("#r.cleantestcase#: #r.testname# :#r.time#");
 	 				} else {
 		 				hiddenCount++; 
 	 				} 
