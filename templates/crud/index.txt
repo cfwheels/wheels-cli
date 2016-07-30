@@ -1,5 +1,5 @@
 <!--- |ObjectNameSingular| Index --->
 <cfparam name="|ObjectNamePlural|">
 <cfoutput>
-
+	<h1>|ObjectNamePlural| index</h1>
 </cfoutput>

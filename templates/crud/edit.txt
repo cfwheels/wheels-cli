@@ -1,6 +1,7 @@
 <!--- |ObjectNameSingular| Edit Form --->
 <cfparam name="|ObjectNameSingular|">
 <cfoutput>
+<h1>Edit |ObjectNameSingular|</h1>
 #startFormTag(id="|ObjectNameSingular|EditForm", action="update", key=params.key)#
 	#includePartial("form")#
 	#submitTag(value="Update |ObjectNameSingular|")#

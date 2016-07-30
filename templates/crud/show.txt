@@ -1,5 +1,5 @@
 <!--- |ObjectNameSingular| Show --->
 <cfparam name="|ObjectNameSingular|">
-<cfoutput>
-
+<cfoutput> 
+<h1>View |ObjectNameSingular|</h1>
 </cfoutput>

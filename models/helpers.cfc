@@ -1,5 +1,9 @@
 component accessors="true" singleton {
+ 
 
+//=====================================================================
+//=     Templates
+//=====================================================================
     // Return .txt template location
     public string function getTemplate(required string template){
         var templateDirectory=getTemplateDirectory();
@@ -19,6 +23,13 @@ component accessors="true" singleton {
 //=====================================================================
 //=     String Functions stolen from cfwheels
 //=====================================================================
+ 
+    public string function stripTags(required string html){
+        var loc = {};
+        loc.rv = REReplaceNoCase(arguments.html, "<\ *[a-z].*?>", "", "all");
+        loc.rv = REReplaceNoCase(loc.rv, "<\ */\ *[a-z].*?>", "", "all");
+        return loc.rv
+    }
     public string function capitalize(string str){
         var rv=UCase(Left(arguments.str, 1)) & Mid(arguments.str, 2, Len(arguments.str)-1);
         return rv;

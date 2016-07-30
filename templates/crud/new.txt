@@ -1,6 +1,7 @@
 <!--- |ObjectNameSingular| Creation Form --->
 <cfparam name="|ObjectNameSingular|">
 <cfoutput>
+<h1>Create New |ObjectNameSingular|</h1>
 #startFormTag(id="|ObjectNameSingular|NewForm", action="create")#
 	#includePartial("form")#
 	#submitTag(value="Create |ObjectNameSingular|")#

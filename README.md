@@ -25,7 +25,7 @@ Sets up:
 
 ### Scaffolding
 
-Scaffolding creates a full CRUD model, controller & view files from a singluar noun  
+Scaffolding creates a full CRUD model, controller & view files from a singluar noun, including DB Migration Schema
 TODO: add test scaffolding  
 TODO: check CamelCasing..
 
@@ -52,7 +52,7 @@ Will create:
  - Test:       	`/test/models/Creditcard_model_test.cfc` // TODO
  - Views:      	`/views/creditcards/debit.cfm` [etc] 
 
-The `scaffold` command uses the `generate` command internally to do all of this:
+The `scaffold` command uses the `generate` and `dbmigrate` command internally to do all of this:
 
 ### Generate
 
@@ -93,6 +93,11 @@ Generates `edit.cfm` in `/views/foo/` using `templates/crud/edit.txt`
 **Tests**
 
 `wheels generate test foo`  // TODO
+
+### DBMigrate
+
+Docs incoming...
+
 
 ### Test Suite
 
