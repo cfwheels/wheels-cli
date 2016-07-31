@@ -1,5 +1,9 @@
-<!---
-    |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+/**
+ * Create a migration CFC
+ * 
+ **/ 
+ <!--- 
+     |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 	| Parameter     | Required | Type    | Default | Description                                                                                                                                           |
     |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 	| table         | Yes      | string  |         | existing table name                                                                                                                                   |
@@ -16,54 +20,40 @@
     EXAMPLE:
       addColumn(table='users', columnType='string', columnName='password', default='', null=true);
 --->
-<cfcomponent extends="|DBMigrateExtends|" hint="|DBMigrateDescription|">
-  <cffunction name="up">
-  	<cfset hasError = false />
-  	<cftransaction>
-	    <cfscript>
-	    	try{
-	    		addColumn(table='|tableName|', columnType='|columnType|', columnName='|columnName|', default='|default|', null=|null|);
-	    	}
-	    	catch (any ex){
-	    		hasError = true;
-		      	catchObject = ex;
-	    	}		    
-	    </cfscript>
-	    <cfif hasError>
-	    	<cftransaction action="rollback" />
-	    	<cfthrow 
-			    detail = "#catchObject.detail#"
-			    errorCode = "1"
-			    message = "#catchObject.message#"
-			    type = "Any">
-	    <cfelse>
-	    	<cftransaction action="commit" />
-	    </cfif>
-	 </cftransaction>
-  </cffunction>
-  <cffunction name="down">
-  	<cfset hasError = false />
-  	<cftransaction>
-	    <cfscript>
-	    	try{
-	    		removeColumn(table='|tableName|',columnName='|columnName|');
-	    	}
-	    	catch (any ex){
-	    		hasError = true;
-		      	catchObject = ex;
-	    	}
-			
-	    </cfscript>
-	    <cfif hasError>
-	    	<cftransaction action="rollback" />
-	    	<cfthrow 
-			    detail = "#catchObject.detail#"
-			    errorCode = "1"
-			    message = "#catchObject.message#"
-			    type = "Any">
-	    <cfelse>
-	    	<cftransaction action="commit" />
-	    </cfif>
-	 </cftransaction>
-  </cffunction>
-</cfcomponent>
+component extends="../base"  { 
+	
+	property name='helpers'		inject='helpers@wheels'; 
+	/**
+	 * I create a migration file in /db/migrate
+	 * 
+	 * Usage: wheels dbmigrate create column [tablename] [force] [id] [primaryKey]  
+	 **/
+	function run(
+		required string name,
+		required string columnType,
+		string columnName="",
+		string referenceName="",
+		string default="",
+		boolean null=true,
+		number limit=0,
+		number precision=0,
+		number scale=0) {
+
+		// Get Template
+		var content=fileRead(helpers.getTemplate("dbmigrate/create-column.txt"));
+
+		// Changes here 
+		content=replaceNoCase(content, "|tableName|", "#name#", "all");   
+		content=replaceNoCase(content, "|columnType|", "#columnType#", "all");   
+		content=replaceNoCase(content, "|columnName|", "#columnName#", "all");   
+		content=replaceNoCase(content, "|referenceName|", "#referenceName#", "all");   
+		content=replaceNoCase(content, "|default|", "#default#", "all");   
+		content=replaceNoCase(content, "|null|", "#null#", "all");   
+		content=replaceNoCase(content, "|limit|", "#limit#", "all");   
+		content=replaceNoCase(content, "|precision|", "#precision#", "all");   
+		content=replaceNoCase(content, "|scale|", "#scale#", "all");   
+
+		// Make File
+		 $createMigrationFile(name=lcase(trim(arguments.name)),	action="create_column",	content=content); 
+	} 
+} 

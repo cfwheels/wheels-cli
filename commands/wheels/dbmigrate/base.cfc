@@ -28,22 +28,22 @@ component excludeFromHelp=true {
  			}
 	} 
 
-	function $remotePost(struct postcontents){
-		$preConnectionCheck()
-		var serverDetails = $getServerInfo(); 
-		var postURL = "http://" & serverDetails.host & ":" & serverDetails.port 
-  					   & "/" & "index.cfm?controller=wheels&action=wheels&view=plugins&name=dbmigrate";
-   
-		var httpService = new http();;
-			httpService.setUrl( postURL );
-			httpService.setMethod( "POST" );
-			httpService.setCharset( "utf-8" ); 
-			for (field in postcontents){
-				httpService.addParam(type="formfield", name="#field#", value="#postcontents[field]#"); 
-			} 
-			httpResponse = httpService.send().getPrefix();
-			print.line(httpResponse.fileContent);
-	}
+	//function $remotePost(struct postcontents){
+	//	$preConnectionCheck()
+	//	var serverDetails = $getServerInfo(); 
+	//	var postURL = "http://" & serverDetails.host & ":" & serverDetails.port 
+  	//				   & "/" & "index.cfm?controller=wheels&action=wheels&view=plugins&name=dbmigrate"; 
+	//	var httpService = new http();;
+	//		httpService.setUrl( postURL );
+	//		httpService.setMethod( "POST" );
+	//		httpService.setCharset( "utf-8" ); 
+	//		for (field in postcontents){
+	//			httpService.addParam(type="formfield", name="#field#", value="#postcontents[field]#"); 
+	//		} 
+	//		httpResponse = httpService.send().getPrefix();
+	//	var result=deserializeJSON(httpResponse.fileContent);
+	//		print.line(result.message);
+	//}
 
 	function $getServerInfo(){
 		$preConnectionCheck()
@@ -59,16 +59,30 @@ component excludeFromHelp=true {
 	function $getDBMigrateInfo(){ 
 		$preConnectionCheck()
   		var serverDetails = $getServerInfo();
-  		getURL = serverDetails.serverURL & "/index.cfm?controller=wheels&action=wheels&view=plugins&name=dbmigratebridge";
-  		return $getRemoteJSON(getURL); 
-	}	
-
+  		var getURL = serverDetails.serverURL & "/index.cfm?controller=wheels&action=wheels&view=plugins&name=dbmigratebridge";
+  		var loc = new Http( url=getURL ).send().getPrefix(); 
+		if(isJson(loc.filecontent)){
+  			loc.result=deserializeJSON(loc.filecontent);
+  			if(loc.result.success){  
+					return loc.result;  
+  			} else {
+  				error(loc.result.messages);
+  			}
+  		} else {
+  			print.line(helpers.stripTags(Formatter.unescapeHTML(loc.filecontent)));
+  			error("Error returned from DBMigrate Bridge"); 
+  		} 
+	}	 
 	function $getRemoteJSON(getURL){ 
 		loc = new Http( url=getURL ).send().getPrefix(); 
 		if(isJson(loc.filecontent)){
   			loc.result=deserializeJSON(loc.filecontent);
   			if(loc.result.success){
-  				return loc.result;
+  				if(structKeyExists(loc.result, "MESSAGES")){
+					return loc.result.messages; 
+				} else {
+					return loc.result; 
+				}
   			} else {
   				error(loc.result.messages);
   			}

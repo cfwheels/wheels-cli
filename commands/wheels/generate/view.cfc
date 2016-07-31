@@ -16,8 +16,10 @@ component {
 		string template=""
 	){ 
 		var objectName         = trim(listLast( arguments.objectname, '/\' ));
-		var objectNameSingluar = lcase(helpers.singularize(objectName));
+		var objectNameSingular = lcase(helpers.singularize(objectName));
 		var objectNamePlural   = lcase(helpers.pluralize(objectName));  
+		var objectNameSingularC = helpers.capitalize(objectNameSingular);
+		var objectNamePluralC   = helpers.capitalize(objectNamePlural);  
 		var viewdirectory     = fileSystemUtil.resolvePath( "views" ); 
 		var directory 		  = fileSystemUtil.resolvePath( "views" & "/" & objectNamePlural); 
 		print.line( "Creating View File..." ).toConsole();
@@ -42,8 +44,10 @@ component {
 			viewContent 	= fileRead( helpers.getTemplate( arguments.template & '.txt')); 
 		}  
 		// Replace Object tokens
-		viewContent 	 = replaceNoCase( viewContent, '|ObjectNameSingular|', objectNameSingluar, 'all' ); 
+		viewContent 	 = replaceNoCase( viewContent, '|ObjectNameSingular|', objectNameSingular, 'all' ); 
 		viewContent 	 = replaceNoCase( viewContent, '|ObjectNamePlural|', objectNamePlural, 'all' );
+		viewContent 	 = replaceNoCase( viewContent, '|ObjectNameSingularC|', objectNameSingularC, 'all' ); 
+		viewContent 	 = replaceNoCase( viewContent, '|ObjectNamePluralC|', objectNamePluralC, 'all' );
 		var viewName = lcase(arguments.name) & ".cfm";
 		var viewPath = directory & "/" & viewName;
 

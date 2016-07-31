@@ -1,6 +1,15 @@
 component accessors="true" singleton {
  
-
+    // Return commonly used model name variants
+    public struct function getNameVariants(required string name){
+        var loc={};
+        loc.objectName          = lcase(trim(arguments.name));
+        loc.objectNameSingular  = singularize(loc.objectName);
+        loc.objectNamePlural    = pluralize(loc.objectName);  
+        loc.objectNameSingularC = capitalize(loc.objectNameSingular);
+        loc.objectNamePluralC   = capitalize(loc.objectNamePlural); 
+        return loc;
+    }
 //=====================================================================
 //=     Templates
 //=====================================================================

@@ -22,18 +22,25 @@ component extends="../base"  {
 	 * I create a migration file in /db/migrate
 	 * 
 	 * Usage: wheels dbmigrate create table [name] [force] [id] [primaryKey]  
+	 * @name.hint The Object Name
+	 * @force.hint Force Creation
+	 * @id.hint Auto create ID column as autoincrement ID
+	 * @primaryKey.hint overrides default primary key name
 	 **/
 	function run(
 		required string name, 
-		boolean force=false,
-		boolean id=true,
+		boolean force    = false,
+		boolean id 		 = true,
 		string primaryKey="id") {
 
 		// Get Template
 		var content=fileRead(helpers.getTemplate("dbmigrate/create-table.txt"));
 
 		// Changes here 
-		content=replaceNoCase(content, "|tableName|", "#name#", "all");   
+		content=replaceNoCase(content, "|tableName|", "#name#", "all"); 
+		content=replaceNoCase(content, "|force|", "#force#", "all");  
+		content=replaceNoCase(content, "|id|", "#id#", "all");  
+		content=replaceNoCase(content, "|primaryKey|", "#primaryKey#", "all");    
 
 		// Make File
 		 $createMigrationFile(name=lcase(trim(arguments.name)),	action="create_table",	content=content); 

@@ -6,8 +6,7 @@
  **/
 component {
 	
-	property name='helpers'		inject='helpers@wheels';
-	property name='serverService' inject='ServerService'; 
+	property name='helpers'		inject='helpers@wheels'; 
 	/**
 	 * @name.hint Name of the model to create without the .cfc: assumes singluar can be foo/foo 
 	 * @fields.hint Comma Delimited list of fields with type after semicolon
@@ -22,10 +21,9 @@ component {
 		var directory 			= fileSystemUtil.resolvePath("models");
 		var appName				= listLast( getCWD(), '/\' ); 
 
-		print.line( "Trying to Generate DB Tables").toConsole(); 
+		print.line( "Trying to Generate DB Tables").toConsole();  
+		command('wheels dbmigrate create table #objectNamePlural#').run();  
 
-		command('wheels dbmigrate create table #objectNamePlural#').run();
- 
 		print.line( "Creating Model File..." ).toConsole();
 		
 		// Validate directory

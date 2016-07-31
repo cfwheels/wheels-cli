@@ -24,8 +24,7 @@
   	<cftransaction>
 	    <cfscript>
 	    	try{
-				t = createTable(name='|tableName|');
-				  
+				t = createTable(name='|tableName|', force='|force|', id='|id|', primaryKey='|primaryKey|'); 
 				t.timestamps();
 				t.create();
 	    	}
