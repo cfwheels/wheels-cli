@@ -1,6 +1,6 @@
 # CFWheels CLI for CommandBox
 
-This is a basic port (without Active record etc) of the Rails command line;
+This is a basic port of the Rails command line;
 Skips things like `rails server` which are provided by commandBox already.
 
 ## Install
@@ -12,8 +12,8 @@ Ensure that the path has `cfwheels-cli` in it (not `cfwheelscli`) or anything el
 
 ### New Application
 
-`wheels new [AppName]`  
-Creates a new CFWheels installation in a folder called `[AppName]` in the current directory. Defaults to the latest production version of CFWheels. TODO: add version (so `wheels new app @2.x` or `@1.4.x` etc);
+`wheels new]`  
+Starts a new installation wizard: creates a new CFWheels installation in a folder called `[AppName]` in the current directory. Defaults to the latest production version of CFWheels. TODO: add version (so `wheels new app @2.x` or `@1.4.x` etc);
 
 Sets up:
  - wheels
@@ -22,6 +22,7 @@ Sets up:
  - application name
  - urlrewrite.xml
  - turns on url rewriting and sets `index.cfm` in settings
+ - Copies over DBMigrate and DBMigratebridge plugins required for active record style integration with CLI.
 
 ### Scaffolding
 
@@ -39,6 +40,7 @@ Will create:
  - Controller: 	`/controllers/Creditcards.cfc`
  - Test:       	`/test/controllers/Creditcards_controller_test.cfc` // TODO
  - Test:       	`/test/models/Creditcard_model_test.cfc` // TODO
+ - DB:			`/db/migrate/YYYYMMDDHHMMSS_create_table_creditcards.cfc`
  - Views:      	`/views/creditcards/index.cfm` + Default CRUD files etc 
 
  or with optional arguments
@@ -65,6 +67,7 @@ The `wheels generate` command uses templates to create a whole lot of things.
  - `model` - Generates a model file in `/models/`
  - `view` - Generates a simple view file in `/views/[name]/[viewName]`
  - `test` - Generates test files for model/controller/view in `/test/[name]`
+ - `property` - Generates a property to add to a model
  
 Examples:
 
@@ -94,18 +97,56 @@ Generates `edit.cfm` in `/views/foo/` using `templates/crud/edit.txt`
 
 `wheels generate test foo`  // TODO
 
+**Properties**
+
+`wheels generate property car registration`  
+Adds a column to the "Car" DB model, and TODO: generate and insert appropriate form fields. Might turn this more into an interactive wizard as there's so many potential arguments.
+
 ### DBMigrate
 
-Docs incoming...
+The dbmigrate command powers the DBMigrateplugin via a bridging plugin.  
+Used in `scaffold/generate` commands for all database interaction.
+
+`wheels dbmigrate info`  
+Get DB migrate information (list of possible migrations etc) directly from the DBMigrate plugin
+
+`wheels dbmigrate latest`  
+Migrate to the latest version of the DB schema
+
+`wheels dbmigrate exec 098098098_foo`  
+Migrate to version 098098098_foo
+
+`wheels dbmigrate exec 0`  
+Migrate to version 0: this is essentially same as resetting the database
+
+`wheels dbmigrate up`  
+TODO: Go up a version from the current
+
+`wheels dbmigrate down`  
+TODO: Go down a version from the current
+
+`wheels dbmigrate create [something]`  
+i.e, `wheels dbmigrate create table dogs` to create the dogs table.  
+ TODO: columns, etc etc
+
+`wheels dbmigrate remove [something]`  
+i.e, `wheels dbmigrate remove table dogs`: Delete table Dogs
+
+`wheels dbmigrate update [something]`  
+i.e, `wheels dbmigrate update table dogs`: update table Dogs
+
+`wheels dbmigrate rename [something]`   
+i.e, `wheels dbmigrate rename table dogs`: Rename Dogs
+
 
 
 ### Test Suite
 
 Run tests from the command line.  
 
-`wheels test core 	[serverName] [reload] [debug]`
-`wheels test app 	[serverName] [reload] [debug]`
-`wheels test plugin  [pluginName] [serverName] [debug]` 
+`wheels test core 	[serverName] [reload] [debug]`  
+`wheels test app 	[serverName] [reload] [debug]`  
+`wheels test plugin  [pluginName] [serverName] [debug]`   
 
 ### Misc
 
