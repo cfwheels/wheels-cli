@@ -3,7 +3,8 @@
     "force":true,
     "web":{
         "http":{
-            "host":"localhost"
+            "host":"localhost",
+            "port": 60000
         },
         "rewrites":{
             "enable":true,

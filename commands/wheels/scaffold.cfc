@@ -26,6 +26,10 @@ component {
 		command('wheels generate view #objectname# edit crud/edit').run();
 		command('wheels generate view #objectname# _form crud/_form').run();
 		print.line(); 
+
+		print.greenline( "Migrating DB" ).toConsole();
+		command('wheels dbmigrate latest').run(); 
+		print.line();
 	}
 
 }

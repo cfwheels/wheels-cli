@@ -1,5 +1,18 @@
 component accessors="true" singleton {
-
+ 
+    // Return commonly used model name variants
+    public struct function getNameVariants(required string name){
+        var loc={};
+        loc.objectName          = lcase(trim(arguments.name));
+        loc.objectNameSingular  = singularize(loc.objectName);
+        loc.objectNamePlural    = pluralize(loc.objectName);  
+        loc.objectNameSingularC = capitalize(loc.objectNameSingular);
+        loc.objectNamePluralC   = capitalize(loc.objectNamePlural); 
+        return loc;
+    }
+//=====================================================================
+//=     Templates
+//=====================================================================
     // Return .txt template location
     public string function getTemplate(required string template){
         var templateDirectory=getTemplateDirectory();
@@ -19,6 +32,13 @@ component accessors="true" singleton {
 //=====================================================================
 //=     String Functions stolen from cfwheels
 //=====================================================================
+ 
+    public string function stripTags(required string html){
+        var loc = {};
+        loc.rv = REReplaceNoCase(arguments.html, "<\ *[a-z].*?>", "", "all");
+        loc.rv = REReplaceNoCase(loc.rv, "<\ */\ *[a-z].*?>", "", "all");
+        return loc.rv
+    }
     public string function capitalize(string str){
         var rv=UCase(Left(arguments.str, 1)) & Mid(arguments.str, 2, Len(arguments.str)-1);
         return rv;
