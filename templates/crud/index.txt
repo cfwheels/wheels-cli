@@ -2,7 +2,7 @@
 <cfparam name="|ObjectNamePlural|">
 <cfoutput>
 	<h1>|ObjectNamePluralC| index</h1>
-	<p>#linkTo(action="new", text="Create New |ObjectNameSingularC|")#</p>
+	<p>#linkTo(action="new", text="Create New |ObjectNameSingularC|", class="btn btn-default")#</p>
 
 	<cfif |ObjectNamePlural|.recordcount>
 		<table class="table">

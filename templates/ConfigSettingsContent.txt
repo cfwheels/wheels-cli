@@ -24,4 +24,5 @@
 	// Set to false for plugin development
 	set(deletePluginDirectories=false);  
 	set(overwritePlugins=false);
+	// CLI-Appends-Here
 </cfscript>

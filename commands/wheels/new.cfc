@@ -63,6 +63,14 @@ component {
  			if(!len(datasourceName)){
  				datasourceName = appName;
  			}
+		print.line();
+ 		
+ 		//---------------- This is just an idea at the moment really.
+  		print.greenBoldLine( "========= Twitter Bootstrap ======================" ).toConsole();
+		var useBootstrap3=false;
+	    if(confirm("Would you like us to setup some default Bootstrap3 settings? [y/n]")){
+	    	useBootstrap3 = true;
+	    } 
 
 		print.greenBoldLine( "==================================================" );
  		if(confirm("Great! Think we all good to go. We're going to install CFWheels in '/#appName#/', with a reload password of '#reloadPassword#', and a datasource of '#datasourceName#'. Sound good? [y/n]")){
@@ -101,6 +109,24 @@ component {
 				    .params( path=expandPath("../modules/cfwheels-cli/plugins"), newPath='/plugins/', filter="*.zip" )
 				    .run();
 	 		print.line();
+
+	 		// Definitely refactor this into some sort of templating system?
+	 		if(useBootstrap3){
+	 		print.greenline( "========= Installing Bootstrap3 Settings").toConsole();
+	 		 	// Replace Default Template with something more sensible
+	 		 	var bsLayout=fileRead( helpers.getTemplate('/bootstrap3/layout.cfm' ) );
+	 		 		bsLayout = replaceNoCase( bsLayout, "|appName|", appName, 'all' );
+	 		 		file action='write' file='#fileSystemUtil.resolvePath("/views/layout.cfm")#' mode ='777' output='#trim(bsLayout)#';  
+	 		 	// Add Bootstrap 3 default form settings
+	 		 	var bsSettings=fileRead( helpers.getTemplate('/bootstrap3/settings.cfm' ) );
+				settingsContent = replaceNoCase( settingsContent, '// CLI-Appends-Here', bsSettings & cr & '// CLI-Appends-Here', 'one');
+				file action='write' file='#fileSystemUtil.resolvePath("/config/settings.cfm")#' mode ='777' output='#trim(settingsContent)#'; 
+	 		 	// Flashwrapper Plugin needed 
+	 		 	command( 'cp' )
+				    .params( path=expandPath("../modules/cfwheels-cli/templates/bootstrap3/plugins/"), newPath='/plugins/', filter="*.zip" )
+				    .run();
+	 		print.line();
+		    }
 	 		
 			command('ls').run();  
 			print.line()
