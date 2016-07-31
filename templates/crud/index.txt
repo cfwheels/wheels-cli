@@ -5,7 +5,28 @@
 	<p>#linkTo(action="new", text="Create New |ObjectNameSingularC|")#</p>
 
 	<cfif |ObjectNamePlural|.recordcount>
-
+		<table class="table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<cfloop query="|ObjectNamePlural|">
+				<tr>
+					<td>
+						#id#
+					</td>
+					<td>
+						#linkTo(action="show", key=id, text="View")# |
+						#linkTo(action="edit", key=id, text="Edit")# |
+						#linkTo(action="delete", key=id, text="Delete", confirm="Are you Sure?")#
+					</td>
+				</tr>
+				</cfloop>
+			</tbody>
+		</table>
 	<cfelse> 
 		<p>Sorry, there are no |ObjectNamePluralC| yet</p>
 	</cfif>

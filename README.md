@@ -12,8 +12,8 @@ Ensure that the path has `cfwheels-cli` in it (not `cfwheelscli`) or anything el
 
 ### New Application
 
-`wheels new]`  
-Starts a new installation wizard: creates a new CFWheels installation in a folder called `[AppName]` in the current directory. Defaults to the latest production version of CFWheels. TODO: add version (so `wheels new app @2.x` or `@1.4.x` etc);
+`wheels new`  
+Starts a new installation wizard: creates a new CFWheels installation in a folder called `[AppName]` in the current directory. Defaults to the latest production version of CFWheels. TODO: add version (so `wheels new @2.x` or `@1.4.x` etc);
 
 Sets up:
  - wheels
@@ -26,7 +26,7 @@ Sets up:
 
 ### Scaffolding
 
-Scaffolding creates a full CRUD model, controller & view files from a singluar noun, including DB Migration Schema
+Scaffolding creates a full CRUD model, controller & view files from a singluar noun, including DB Migration Schema  
 TODO: add test scaffolding  
 TODO: check CamelCasing..
 

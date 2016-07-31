@@ -78,8 +78,8 @@ component excludeFromHelp=true {
 		if(isJson(loc.filecontent)){
   			loc.result=deserializeJSON(loc.filecontent);
   			if(loc.result.success){
-  				if(structKeyExists(loc.result, "MESSAGES")){
-					return loc.result.messages; 
+  				if(structKeyExists(loc.result, "MESSAGE")){
+					return loc.result.message; 
 				} else {
 					return loc.result; 
 				}

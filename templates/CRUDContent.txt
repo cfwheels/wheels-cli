@@ -2,7 +2,7 @@ component extends="Controller" {
 
 	function init() { 
 		// Verify Params
-		verifies(except="index,new", params="key", paramsTypes="integer", handler="objectNotFound");
+		verifies(except="index,new,create", params="key", paramsTypes="integer", handler="objectNotFound");
 	}
 
 	/**
@@ -16,10 +16,7 @@ component extends="Controller" {
 	*  @hint View |ObjectNameSingular|
 	*/
 	function show() {
-		|ObjectNameSingular|=model("|ObjectNameSingular|").findByKey(params.key);
-		if(!isObject("|ObjectNameSingular|")){
-			objectNotFound();
-		}
+		|ObjectNameSingular|=model("|ObjectNameSingular|").findByKey(params.key); 
 	}
 
 	/**
@@ -45,10 +42,7 @@ component extends="Controller" {
 	*  @hint Edit |ObjectNameSingular|
 	*/
 	function edit() {
-		|ObjectNameSingular|=model("|ObjectNameSingular|").findByKey(params.key);
-		if(!isObject("|ObjectNameSingular|")){
-			objectNotFound();
-		}		
+		|ObjectNameSingular|=model("|ObjectNameSingular|").findByKey(params.key); 
 	}
 
 	/**
