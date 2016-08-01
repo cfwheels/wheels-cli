@@ -26,25 +26,9 @@ component excludeFromHelp=true {
  			if(!directoryExists(DBMigrateBridgePluginLocation)){
  				error("We can't find your plugins/dbmigratebridge folder? Please check the plugin is successfully installed");
  			}
-	} 
+	}  
 
-	//function $remotePost(struct postcontents){
-	//	$preConnectionCheck()
-	//	var serverDetails = $getServerInfo(); 
-	//	var postURL = "http://" & serverDetails.host & ":" & serverDetails.port 
-  	//				   & "/" & "index.cfm?controller=wheels&action=wheels&view=plugins&name=dbmigrate"; 
-	//	var httpService = new http();;
-	//		httpService.setUrl( postURL );
-	//		httpService.setMethod( "POST" );
-	//		httpService.setCharset( "utf-8" ); 
-	//		for (field in postcontents){
-	//			httpService.addParam(type="formfield", name="#field#", value="#postcontents[field]#"); 
-	//		} 
-	//		httpResponse = httpService.send().getPrefix();
-	//	var result=deserializeJSON(httpResponse.fileContent);
-	//		print.line(result.message);
-	//}
-
+	// Get information about the currently running server so we can send commmands to dbmigrate
 	function $getServerInfo(){
 		$preConnectionCheck()
 		var serverDetails = serverService.resolveServerDetails( serverProps={ name=listLast( getCWD(), '/\' ) } ); 
@@ -56,6 +40,7 @@ component excludeFromHelp=true {
 	  	return loc;
 	}
 
+	// Get all info we know about dbmigrate
 	function $getDBMigrateInfo(){ 
 		$preConnectionCheck()
   		var serverDetails = $getServerInfo();
@@ -73,7 +58,9 @@ component excludeFromHelp=true {
   			error("Error returned from DBMigrate Bridge"); 
   		} 
 	}	 
-	function $getRemoteJSON(getURL){ 
+
+	// Basically sends a command
+	function $sendToDBMigrateBridge(getURL){ 
 		loc = new Http( url=getURL ).send().getPrefix(); 
 		if(isJson(loc.filecontent)){
   			loc.result=deserializeJSON(loc.filecontent);
@@ -91,9 +78,8 @@ component excludeFromHelp=true {
   			error("Error returned from DBMigrate Bridge"); 
   		}
 	}
-
-
-
+  	
+  	// Create the physical migration cfc in /db/migrate/
 	function $createMigrationFile(required string name, required string action, required string content){  
 			var directory1=fileSystemUtil.resolvePath("/db/"); 
 			var directory2=fileSystemUtil.resolvePath("/db/migrate/"); 

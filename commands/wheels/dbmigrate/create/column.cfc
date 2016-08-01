@@ -54,6 +54,6 @@ component extends="../base"  {
 		content=replaceNoCase(content, "|scale|", "#scale#", "all");   
 
 		// Make File
-		 $createMigrationFile(name=lcase(trim(arguments.name)),	action="create_column",	content=content); 
+		 $createMigrationFile(name=lcase(trim(arguments.name)) & '_' & lcase(trim(arguments.columnName)),	action="create_column",	content=content); 
 	} 
 } 

@@ -10,7 +10,7 @@ component {
 	/**
 	 * @name.hint Table Name 
 	 * @columnName.hint Name of Column
-	 * @columnType.hint Type of Column
+	 * @columnType.hint Type of Column: string|text|date|time|datetime|timestamp|?boolean?
 	 **/
 	function run(
 		required string name,
@@ -44,10 +44,10 @@ component {
  		){
 		var loc = {rv=""}
 		switch(type){
-			//cf_sql_bit,cf_sql_tinyint Return a checkbox ?
-			//case "":
-			//	loc.rv="textField(objectName='#objectName#', property='#property#')";
-			//break;
+			//cf_sql_bit,cf_sql_tinyint Return a checkbox  
+			case "boolean":
+				loc.rv="checkbox(objectName='#objectName#', property='#property#')";
+			break;
 			//cf_sql_longvarchar Return a textarea
 			case "text":
 				loc.rv="textArea(objectName='#objectName#', property='#property#')";
@@ -65,7 +65,7 @@ component {
 			case "timestamp":
 				loc.rv="dateTimeSelect(objectName='#objectName#', property='#property#')";
 			break;  
-			// Return a text if everything fails
+			// Return a text field if everything fails, i.e assume string
 			default:
 				loc.rv="textField(objectName='#objectName#', property='#property#')";
 			break;

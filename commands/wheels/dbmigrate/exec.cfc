@@ -19,6 +19,6 @@ component  extends="base" {
   		getURL = serverDetails.serverURL & 
   			"/index.cfm?controller=wheels&action=wheels&view=plugins&name=dbmigratebridge&command=migrateTo&version=#loc.version#";
   		print.line("DBMigrateBridge > MigrateTo > #loc.version#");
-		print.line(Formatter.formatJson($getRemoteJSON(getURL)));
+		print.line(Formatter.formatJson($sendToDBMigrateBridge(getURL)));
 	} 
 }
