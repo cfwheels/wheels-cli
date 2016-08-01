@@ -23,6 +23,7 @@ Sets up:
  - urlrewrite.xml
  - turns on url rewriting and sets `index.cfm` in settings
  - Copies over DBMigrate and DBMigratebridge plugins required for active record style integration with CLI.
+ - TODO: templating?
 
 ### Scaffolding
 
@@ -100,7 +101,7 @@ Generates `edit.cfm` in `/views/foo/` using `templates/crud/edit.txt`
 **Properties**
 
 `wheels generate property car registration`  
-Adds a column to the "Car" DB model, and TODO: generate and insert appropriate form fields. Might turn this more into an interactive wizard as there's so many potential arguments.
+Adds a column to the "Car" DB model, and generates and inserts appropriate form fields. 
 
 ### DBMigrate
 
@@ -120,10 +121,10 @@ Migrate to version 098098098_foo
 Migrate to version 0: this is essentially same as resetting the database
 
 `wheels dbmigrate up`  
-TODO: Go up a version from the current
+Go up a version from the current, ultimately till latest version
 
 `wheels dbmigrate down`  
-TODO: Go down a version from the current
+Go down a version from the current, ultimate till an empty database
 
 `wheels dbmigrate create [something]`  
 i.e, `wheels dbmigrate create table dogs` to create the dogs table.  
