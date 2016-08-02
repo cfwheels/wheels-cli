@@ -1,7 +1,7 @@
 /**
  * Migration one version DOWN
  **/
-component extends="base"  {
+component extends="../base"  {
 	
 	/**
 	 * 

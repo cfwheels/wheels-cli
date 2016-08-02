@@ -4,9 +4,8 @@
  * 
  *  
  **/
-component {
-	
-	property name='helpers'		inject='helpers@wheels'; 
+component extends="../base"  {
+	 
 	/**
 	 * @name.hint Table Name 
 	 * @columnName.hint Name of Column
@@ -18,59 +17,32 @@ component {
 		string columnType="string" 
 	){  
      
-    	var obj = helpers.getNameVariants(arguments.name);
+    	var obj = helpers.getNameVariants(arguments.name); 
 
+    	// Quick Sanity Checks: are we actually adding a property to an existing model?
+    	// Check for existence of model file: NB, DB columns can of course exist without a model file, 
+    	// But we should confirm they've got it correct.
+    	if(!fileExists(fileSystemUtil.resolvePath("/models/#obj.objectNameSingularC#.cfc"))){
+    		if(!confirm("Hold On! We couldn't find a corresponding Model at /models/#obj.objectNameSingularC#.cfc: are you sure you wish to add the property '#arguments.columnName#' to #obj.objectNamePlural#? [y/n]")){
+    			print.line("Fair enough. Aborting!");
+    			return;
+    		}
+    	}
+    	// Create Column
 		command('wheels dbmigrate create column')
 			.params(name=obj.objectNamePlural,  columnName=columnName, columnType=columnType)
 			.run();
 		print.line("Attempting to migrate to latest DB schema");
-		command('wheels dbmigrate latest').run(); 
+		command('wheels dbmigrate latest').run();  
 
 		// Insert form field
-		print.line("Inserting field into /views/#obj.objectNamePlural#/_form.cfm");
-		var target = fileSystemUtil.resolvePath("/views/#obj.objectNamePlural#/_form.cfm");
-		var content = fileRead(target);
-		var field = $generateFormField(objectname=obj.objectNameSingular, property=arguments.columnName, type=arguments.columnType);
+		print.line("Inserting field into view form");
+		$injectIntoView(objectnames=obj, property=arguments.columnName, type=arguments.columnType, action="input"); 
 
-		content = replaceNoCase( content, '<!--- CLI-Appends-Here --->', field & cr & '<!--- CLI-Appends-Here --->', 'all');
-		content = Replace(content, "[", "##", "all");
-		content = Replace(content, "]", "##", "all"); 
+		// Insert default output  
+		print.line("Inserting output into views"); 
+		$injectIntoView(objectnames=obj, property=arguments.columnName, type=arguments.columnType, action="output");   
 
-		file action='write' file='#target#' mode ='777' output='#trim(content)#';
-
-	} 
- 
- 	function $generateFormField(required string objectName, required string property, required string type 
- 		){
-		var loc = {rv=""}
-		switch(type){
-			//cf_sql_bit,cf_sql_tinyint Return a checkbox  
-			case "boolean":
-				loc.rv="checkbox(objectName='#objectName#', property='#property#')";
-			break;
-			//cf_sql_longvarchar Return a textarea
-			case "text":
-				loc.rv="textArea(objectName='#objectName#', property='#property#')";
-			break;		
-			//cf_sql_date	 Return a calendar
-			case "date":
-				loc.rv="dateSelect(objectName='#objectName#', property='#property#')";
-			break;	
-			//cf_sql_time	Return a time picker	
-			case "time":
-				loc.rv="timeSelect(objectName='#objectName#', property='#property#')";
-			break;		
-			//cf_sql_timestamp	Return a calendar and time picker
-			case "datetime":
-			case "timestamp":
-				loc.rv="dateTimeSelect(objectName='#objectName#', property='#property#')";
-			break;  
-			// Return a text field if everything fails, i.e assume string
-			default:
-				loc.rv="textField(objectName='#objectName#', property='#property#')";
-			break;
-		}
-		loc.rv = "[" & loc.rv & "]";
-		return loc.rv;
- 	} 
+	}  
+	 
 }

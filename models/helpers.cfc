@@ -12,7 +12,8 @@ component accessors="true" singleton {
     }
 //=====================================================================
 //=     Templates
-//=====================================================================
+//===================================================================== 
+
     // Return .txt template location
     public string function getTemplate(required string template){
         var templateDirectory=getTemplateDirectory();

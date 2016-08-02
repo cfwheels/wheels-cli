@@ -1,7 +1,7 @@
 /**
  * Info
  **/
-component {
+component  extends="base"  {
 	
 	/**
 	 * 

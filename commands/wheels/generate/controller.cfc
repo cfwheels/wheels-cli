@@ -3,10 +3,7 @@
  * Actions are passed in as arguments:
  * i.e, wheels generate controller controllerName one,two,three
  **/
-component {
-
-	property name='helpers'	inject='helpers@wheels';
-	property name='actions'	inject='actions@wheels';
+component extends="../base"  { 
 
 	/**
 	 * @name Name of the controller to create without the .cfc
@@ -39,7 +36,7 @@ component {
 			// Loop Over actions to generate them
 			for( var thisAction in listToArray( arguments.actionList ) ) {
 				if( thisAction == 'init' ) { continue; }   
-				allactions = allactions & actions.returnAction(thisAction);
+				allactions = allactions & $returnAction(thisAction);
 				print.yellowLine( "Generated Action: #thisAction#"); 
 			}
 			actionContent 		= allactions;

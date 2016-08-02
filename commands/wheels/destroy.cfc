@@ -2,9 +2,8 @@
  * Destroy: kill an object and it's associated DB transactions and view/controller/model files
  * wheels destroy user
  **/
-component {
-	
-	property name='helpers'	inject='helpers@wheels';
+component extends="base"  {
+	 
 
 	/**
 	 * @name.hint Name of object to destroy 

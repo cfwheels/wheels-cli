@@ -2,9 +2,8 @@
  * Create a migration CFC
  * 
  **/   
-component extends="../base"  { 
-	
-	property name='helpers'		inject='helpers@wheels'; 
+component extends="../../base"  { 
+	 
 	/**
 	 * I create a migration file in /db/migrate
 	 * 

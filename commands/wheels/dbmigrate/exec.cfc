@@ -4,7 +4,7 @@
  * wheels dbmigrate exec 20160730115754
  * wheels dbmigrate exec 0
  **/
-component  extends="base" { 
+component  extends="../base" { 
 	
 	/**
 	 *  Migrate to specific version

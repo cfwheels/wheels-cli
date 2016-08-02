@@ -1,3 +1,0 @@
-component accessors="true" singleton {
-
-}

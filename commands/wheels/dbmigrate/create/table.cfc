@@ -15,9 +15,8 @@
     EXAMPLE:
       t = createTable(name='employees',force=false,id=true,primaryKey='empId'); 
 --->
-component extends="../base"  { 
-	
-	property name='helpers'		inject='helpers@wheels'; 
+component extends="../../base"  { 
+	 
 	/**
 	 * I create a migration file in /db/migrate
 	 * 

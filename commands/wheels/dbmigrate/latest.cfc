@@ -1,7 +1,7 @@
 /**
  * Migration to Latest
  **/
-component extends="base"  {
+component  extends="../base"  {
 	
 	/**
 	 * 

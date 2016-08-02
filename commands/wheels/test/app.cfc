@@ -6,8 +6,7 @@
 * {code} 
 * 
 **/
-component extends="base" {
-	property name='serverService' inject='ServerService';  
+component extends="../base" { 
 
 	/**
 	* @servername.hint Choose alternative server if not default

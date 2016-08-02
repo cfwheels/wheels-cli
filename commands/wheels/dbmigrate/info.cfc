@@ -1,7 +1,7 @@
 /**
  * Info
  **/
-component extends="base" { 
+component  extends="../base" { 
 	
 	/**
 	 *  Display DB Migrate info

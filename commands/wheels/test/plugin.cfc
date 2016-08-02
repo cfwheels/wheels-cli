@@ -6,8 +6,7 @@
 * {code} 
 * 
 **/
-component extends="base" {
-	property name='serverService' inject='ServerService';
+component extends="../base" { 
 
 	/**
 	* @pluginName.hint Name of plugin to test

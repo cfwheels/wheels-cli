@@ -2,7 +2,7 @@
  * Scaffold: create full CRUD for an object
  * wheels scaffold user
  **/
-component {
+component extends="base"  {
 	
 	/**
 	 * @name Name of object to scaffold 

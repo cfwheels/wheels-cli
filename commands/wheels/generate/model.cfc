@@ -4,9 +4,8 @@
  * 
  * Experimental: wheels generate User fields="id:int,firstname:varchar,lastname:varchar,email:varchar"
  **/
-component {
-	
-	property name='helpers'		inject='helpers@wheels'; 
+component extends="../base"  {
+	 
 	/**
 	 * @name.hint Name of the model to create without the .cfc: assumes singluar can be foo/foo 
 	 * @fields.hint Comma Delimited list of fields with type after semicolon

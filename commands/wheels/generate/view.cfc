@@ -2,9 +2,8 @@
  * I generate a view file in /views/VIEWNAME/NAME.cfm 
  * i.e, wheels generate view user edit
  **/
-component {
-	
-	property name='helpers'	inject='helpers@wheels';
+component extends="../base"  {
+	 
 	/**
 	 * @folder View path folder, i.e user (singular)
 	 * @name Name of the file to create, i.e, edit

@@ -20,9 +20,8 @@
     EXAMPLE:
       addColumn(table='users', columnType='string', columnName='password', default='', null=true);
 --->
-component extends="../base"  { 
-	
-	property name='helpers'		inject='helpers@wheels'; 
+component extends="../../base"  { 
+	 
 	/**
 	 * I create a migration file in /db/migrate
 	 * 

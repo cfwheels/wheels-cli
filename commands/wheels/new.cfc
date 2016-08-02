@@ -2,9 +2,8 @@
  * Create a new CFWheels application called {name} in current working directory. Rename to {name} and navigate to after 
  * Adds various configuration defaults and does some basic checks to make URL rewriting work out of the box.
  **/
-component {
-	
-	property name='helpers'	inject='helpers@wheels';
+component extends="base"  {
+	 
 
 	function run() { 	 
  		var appContent	        = fileRead( helpers.getTemplate('/ConfigAppContent.txt' ) );
