@@ -47,7 +47,7 @@ component extends="../base"  {
 		// Inject actions in controller content  
 		controllerContent 	 = replaceNoCase( controllerContent, '|actions|', actionContent, 'all' );
 		// Replace Object tokens
-		controllerContent 	 = replaceNoCase( controllerContent, '|ObjectNameSingular|', obj.objectNameSingluar, 'all' ); 
+		controllerContent 	 = replaceNoCase( controllerContent, '|ObjectNameSingular|', obj.objectNameSingular, 'all' ); 
 		controllerContent 	 = replaceNoCase( controllerContent, '|ObjectNamePlural|', obj.objectNamePlural, 'all' );
 
 		var controllerName = obj.objectNamePlural & ".cfc";
