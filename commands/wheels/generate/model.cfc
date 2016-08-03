@@ -14,14 +14,12 @@ component extends="../base"  {
 		required string name 
 	){  
 
-		var objectName          = trim(listLast( arguments.name, '/\' ));
-		var objectNameSingular  = lcase(helpers.singularize(objectName));
-		var objectNamePlural    = lcase(helpers.pluralize(objectName)); 
+    	var obj = helpers.getNameVariants(arguments.name); 
 		var directory 			= fileSystemUtil.resolvePath("models");
 		var appName				= listLast( getCWD(), '/\' ); 
 
 		print.line( "Trying to Generate DB Tables").toConsole();  
-		command('wheels dbmigrate create table #objectNamePlural#').run();  
+		command('wheels dbmigrate create table #obj.objectNamePlural#').run();  
 
 		print.line( "Creating Model File..." ).toConsole();
 		
@@ -34,9 +32,9 @@ component extends="../base"  {
 		var modelContent 	= fileRead( helpers.getTemplate('/ModelContent.txt'));  
 		
 		// Basic replacements
-		modelContent 	 = replaceNoCase( modelContent, '|modelName|', objectNameSingular, 'all' ); 
+		modelContent 	 = replaceNoCase( modelContent, '|modelName|', obj.objectNameSingular, 'all' ); 
 
-		var modelName = helpers.capitalize(objectNameSingular) & ".cfc";
+		var modelName = helpers.capitalize(obj.objectNameSingular) & ".cfc";
 		var modelPath = directory & "/" & modelName;
 
 		if(fileExists(modelPath)){

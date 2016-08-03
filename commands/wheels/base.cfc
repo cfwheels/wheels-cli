@@ -306,11 +306,11 @@ component excludeFromHelp=true {
 		} 
 		var result  = deserializeJSON(results.filecontent);
 
-		$outputResults(result, suite.debug); 
+		$outputTestResults(result, suite.debug); 
 	}
 
 	// Output pls
-	function $outputResults(result, debug){
+	function $outputTestResults(result, debug){
 	  	var hiddenCount = 0; 
 
 		if(result.ok){

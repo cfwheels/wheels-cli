@@ -15,9 +15,7 @@ component extends="../base"  {
 		string actionList="", 
 		directory='controllers'
 	){  
-		var objectName         = trim(listLast( arguments.name, '/\' ));
-		var objectNameSingluar = lcase(helpers.singularize(objectName));
-		var objectNamePlural   = lcase(helpers.pluralize(objectName)); 
+		var obj = helpers.getNameVariants(arguments.name);
 		var controllerContent 	= fileRead( helpers.getTemplate('/ControllerContent.txt') ); 
 		arguments.directory = fileSystemUtil.resolvePath( arguments.directory );
 
@@ -49,10 +47,10 @@ component extends="../base"  {
 		// Inject actions in controller content  
 		controllerContent 	 = replaceNoCase( controllerContent, '|actions|', actionContent, 'all' );
 		// Replace Object tokens
-		controllerContent 	 = replaceNoCase( controllerContent, '|ObjectNameSingular|', objectNameSingluar, 'all' ); 
-		controllerContent 	 = replaceNoCase( controllerContent, '|ObjectNamePlural|', objectNamePlural, 'all' );
+		controllerContent 	 = replaceNoCase( controllerContent, '|ObjectNameSingular|', obj.objectNameSingluar, 'all' ); 
+		controllerContent 	 = replaceNoCase( controllerContent, '|ObjectNamePlural|', obj.objectNamePlural, 'all' );
 
-		var controllerName = helpers.capitalize(helpers.pluralize(listLast( arguments.name, '/\' ))) & ".cfc";
+		var controllerName = obj.objectNamePlural & ".cfc";
 		var controllerPath = directory & "/" & controllerName;
  
 		if(fileExists(controllerPath)){
