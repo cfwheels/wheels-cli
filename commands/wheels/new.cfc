@@ -64,6 +64,36 @@ component extends="base"  {
  			}
 		print.line();
  		
+ 	    //---------------- Set default server.json engine
+  		print.greenBoldLine( "========= Default CFML Engine        =============" ) 			 
+			 .greenBoldLine( "= Please select your preferred CFML engine for   =" ) 
+			 .greenBoldLine( "= local development: you can always change it    =" ) 
+			 .greenBoldLine( "= later!                                         =" ) 
+			 .greenBoldLine( "=                                                =" ) 
+			 .greenBoldLine( "=  1) lucee 4.5 (Commandbox default)             =" ) 
+			 .greenBoldLine( "=  2) lucee 5.x                                  =" ) 
+			 .greenBoldLine( "=  3) Adobe ColdFusion 10                        =" ) 
+			 .greenBoldLine( "=  4) Adobe ColdFusion 11                        =" ) 
+			 .greenBoldLine( "=  5) Adobe ColdFusion 2016                      =" ) 
+			 .greenBoldLine( "==================================================" )
+			 .line().toConsole();
+ 		var defaultEngine= ask('Please enter your preferred engine: [1-5] ');
+ 		var setEngine="lucee@4";
+ 			switch(defaultEngine){ 
+ 				case 2:
+ 					setEngine="lucee@5";
+ 				break;
+ 				case 3:
+ 					setEngine="adobe@10";
+ 				break;
+ 				case 4:
+ 					setEngine="adobe@11";
+ 				break;
+ 				case 5:
+ 					setEngine="adobe@2016";
+ 				break; 
+ 			}
+		print.line();
  		//---------------- This is just an idea at the moment really.
   		print.greenBoldLine( "========= Twitter Bootstrap ======================" ).toConsole();
 		var useBootstrap3=false;
@@ -97,6 +127,7 @@ component extends="base"  {
 			// Make server.json server name unique to this app: assumes lucee by default
 	 		print.greenline( "========= Creating default server.json" ).toConsole();
 		 		serverJSON = replaceNoCase( serverJSON, "|appName|", trim(appName), 'all' );
+		 		serverJSON = replaceNoCase( serverJSON, "|setEngine|", setEngine, 'all' );
 		 		file action='write' file='#fileSystemUtil.resolvePath("/server.json")#' mode ='777' output='#trim(serverJSON)#';  
 
 	 		print.greenline( "========= Adding urlrewrite.xml" ).toConsole(); 
