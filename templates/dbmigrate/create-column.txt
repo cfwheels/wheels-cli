@@ -22,7 +22,7 @@
   	<cftransaction>
 	    <cfscript>
 	    	try{
-	    		addColumn(table='|tableName|', columnType='|columnType|', columnName='|columnName|', default='|default|', null=|null|);
+	    		addColumn(table='|tableName|', columnType='|columnType|', columnName='|columnName|' |arguments|);
 	    	}
 	    	catch (any ex){
 	    		hasError = true;

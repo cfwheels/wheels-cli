@@ -8,13 +8,19 @@
  * wheels generate property user firstname
  * {code} 
  * 
- * Create the a boolean/Checkbox property called isActive on the User model:
+ * Create a boolean/Checkbox property called isActive on the User model with a default of 0:
  * 
  * {code:bash}
  * wheels generate property user isActive boolean
  * {code} 
  * 
- * Create the a datetime/datetimepicker property called lastloggedin on the User model:
+ * Create a boolean/Checkbox property called hasActivated on the User model with a default of 1 (i.e, true):
+ * 
+ * {code:bash}
+ * wheels generate property user isActive boolean 1
+ * {code} 
+ * 
+ * Create a datetime/datetimepicker property called lastloggedin on the User model:
  * 
  * {code:bash}
  * wheels generate property user lastloggedin datetime
@@ -31,11 +37,15 @@ component extends="../base"  {
 	 * @columnName.hint Name of Column
 	 * @columnType.hint Type of Column
 	 * @columnType.options biginteger,binary,boolean,date,datetime,decimal,float,integer,string,limit,text,time,timestamp,uuid
+	 * @default.hint Default Value for column
+	 * @null.hint Whether to allow null values
 	 **/
 	function run(
 		required string name,
 		required string columnName,
-		string columnType="string" 
+		string columnType="string",
+		any default="",
+		boolean null=true,
 	){  
      
     	var obj = helpers.getNameVariants(arguments.name); 
@@ -48,10 +58,23 @@ component extends="../base"  {
     			print.line("Fair enough. Aborting!");
     			return;
     		}
+    	} 
+
+    	// Set booleans to have a default value of 0 if not specified
+    	if(arguments.columnType == "boolean" && len(arguments.default) == 0 ){
+    		arguments.default=0;
     	}
-    	// Create Column
 		command('wheels dbmigrate create column')
-			.params(name=obj.objectNamePlural,  columnName=columnName, columnType=columnType)
+			.params(
+				name=obj.objectNamePlural,  
+				columnName=arguments.columnName, 
+				columnType=arguments.columnType,
+				default=arguments.default,
+				null=arguments.null,
+				limit=arguments.limit,
+				precision=arguments.precision,
+				scale=arguments.scale
+				)
 			.run();
 		print.line("Attempting to migrate to latest DB schema");
 		command('wheels dbmigrate latest').run();  
