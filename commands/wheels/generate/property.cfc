@@ -39,6 +39,9 @@ component extends="../base"  {
 	 * @columnType.options biginteger,binary,boolean,date,datetime,decimal,float,integer,string,limit,text,time,timestamp,uuid
 	 * @default.hint Default Value for column
 	 * @null.hint Whether to allow null values
+	 * @limit.hint character or integer size limit for column
+	 * @precision.hint precision value for decimal columns, i.e. number of digits the column can hold
+	 * @scale.hint scale value for decimal columns, i.e. number of digits that can be placed to the right of the decimal point (must be less than or equal to precision)
 	 **/
 	function run(
 		required string name,
@@ -46,6 +49,9 @@ component extends="../base"  {
 		string columnType="string",
 		any default="",
 		boolean null=true,
+		number limit=0,
+		number precision=0,
+		number scale=0
 	){  
      
     	var obj = helpers.getNameVariants(arguments.name); 
