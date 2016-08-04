@@ -1,7 +1,27 @@
 /**
- * I generate a dbmigration to add a property to an object
+ * I generate a dbmigration to add a property to an object and scaffold into _form.cfm and show.cfm
  * i.e, wheels generate property table columnName columnType
  * 
+ * Create the a string/textField property called firstname on the User model:
+ * 
+ * {code:bash}
+ * wheels generate property user firstname
+ * {code} 
+ * 
+ * Create the a boolean/Checkbox property called isActive on the User model:
+ * 
+ * {code:bash}
+ * wheels generate property user isActive boolean
+ * {code} 
+ * 
+ * Create the a datetime/datetimepicker property called lastloggedin on the User model:
+ * 
+ * {code:bash}
+ * wheels generate property user lastloggedin datetime
+ * {code} 
+ * 
+ * All columnType options:
+ * biginteger,binary,boolean,date,datetime,decimal,float,integer,string,limit,text,time,timestamp,uuid
  *  
  **/
 component extends="../base"  {
@@ -9,7 +29,8 @@ component extends="../base"  {
 	/**
 	 * @name.hint Table Name 
 	 * @columnName.hint Name of Column
-	 * @columnType.hint Type of Column: string|text|date|time|datetime|timestamp|?boolean?
+	 * @columnType.hint Type of Column
+	 * @columnType.options biginteger,binary,boolean,date,datetime,decimal,float,integer,string,limit,text,time,timestamp,uuid
 	 **/
 	function run(
 		required string name,

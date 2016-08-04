@@ -9,6 +9,17 @@ component excludeFromHelp=true {
 //=====================================================================
 //= 	Scaffolding
 //=====================================================================
+	// Replace default objectNames 
+	function $replaceDefaultObjectNames(required string content,required struct obj){ 
+		var loc={
+			rv=arguments.content
+		};
+		loc.rv 	 = replaceNoCase( loc.rv, '|ObjectNameSingular|', obj.objectNameSingular, 'all' ); 
+		loc.rv 	 = replaceNoCase( loc.rv, '|ObjectNamePlural|',   obj.objectNamePlural, 'all' );
+		loc.rv 	 = replaceNoCase( loc.rv, '|ObjectNameSingularC|', obj.objectNameSingularC, 'all' ); 
+		loc.rv 	 = replaceNoCase( loc.rv, '|ObjectNamePluralC|',   obj.objectNamePluralC, 'all' );
+		return loc.rv;
+	}
 
     // Inject CLI content into template
     function $injectIntoView(required struct objectNames, required string property, required string type, string action="input"){

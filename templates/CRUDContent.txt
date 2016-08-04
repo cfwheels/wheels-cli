@@ -6,70 +6,70 @@ component extends="Controller" {
 	}
 
 	/**
-	*  @hint View all |ObjectNamePlural|
+	*  @hint View all |ObjectNamePluralC|
 	*/
 	function index() {
 		|ObjectNamePlural|=model("|ObjectNameSingular|").findAll();
 	}
 
 	/**
-	*  @hint View |ObjectNameSingular|
+	*  @hint View |ObjectNameSingularC|
 	*/
 	function show() {
 		|ObjectNameSingular|=model("|ObjectNameSingular|").findByKey(params.key); 
 	}
 
 	/**
-	*  @hint Add New |ObjectNameSingular|
+	*  @hint Add New |ObjectNameSingularC|
 	*/
 	function new() {
 		|ObjectNameSingular|=model("|ObjectNameSingular|").new();
 	}
 
 	/**
-	*  @hint Create |ObjectNameSingular|
+	*  @hint Create |ObjectNameSingularC|
 	*/
 	function create() {
 		|ObjectNameSingular|=model("|ObjectNameSingular|").create(params.|ObjectNameSingular|);
 		if(|ObjectNameSingular|.hasErrors()){
 			renderPage(action="new");
 		} else {
-			redirectTo(action="index", success="|ObjectNameSingular| successfully created"); 
+			redirectTo(action="index", success="|ObjectNameSingularC| successfully created"); 
 		}		
 	}
 
 	/**
-	*  @hint Edit |ObjectNameSingular|
+	*  @hint Edit |ObjectNameSingularC|
 	*/
 	function edit() {
 		|ObjectNameSingular|=model("|ObjectNameSingular|").findByKey(params.key); 
 	}
 
 	/**
-	*  @hint Update |ObjectNameSingular|
+	*  @hint Update |ObjectNameSingularC|
 	*/
 	function update() {
 		|ObjectNameSingular|=model("|ObjectNameSingular|").findByKey(params.key);
 		if(|ObjectNameSingular|.update(params.|ObjectNameSingular|)){
-			redirectTo(action="index", success="|ObjectNameSingular| successfully updated");
+			redirectTo(action="index", success="|ObjectNameSingularC| successfully updated");
 		} else {
 			renderPage(action="edit");
 		}
 	}	
 
 	/**
-	*  @hint Delete |ObjectNameSingular|
+	*  @hint Delete |ObjectNameSingularC|
 	*/
 	function delete() {
 		|ObjectNameSingular|=model("|ObjectNameSingular|").deleteByKey(params.key);		
-		redirectTo(action="index", success="|ObjectNameSingular| successfully deleted");
+		redirectTo(action="index", success="|ObjectNameSingularC| successfully deleted");
 	} 	
 
 	/**
 	*  @hint Redirect away if verifies fails, or if an object can't be found
 	*/
 	function objectNotFound() { 
-		redirectTo(action="index", error="That |ObjectNameSingular| wasn't found");
+		redirectTo(action="index", error="That |ObjectNameSingularC| wasn't found");
 	} 
 	
 }	

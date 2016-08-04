@@ -1,14 +1,24 @@
 /**
  * I generate a controller in /controllers/NAME.cfc
  * Actions are passed in as arguments:
- * i.e, wheels generate controller controllerName one,two,three
+ * 
+ * Create a user controller with full CRUD methods
+ * {code:bash}
+ * wheels generate controller user
+ * {code} 
+ * 
+ * Create a user object with just "index" and "customaction" methods
+ * 
+ * {code:bash}
+ * wheels generate controller user index,customaction
+ * {code}  
  **/
 component extends="../base"  { 
 
 	/**
-	 * @name Name of the controller to create without the .cfc
-	 * @actionList optional list of actions, comma delimited 
-	 * @directory if for some reason you don't have your controllers in /controllers/
+	 * @name.hint Name of the controller to create without the .cfc
+	 * @actionList.hint optional list of actions, comma delimited 
+	 * @directory.hint if for some reason you don't have your controllers in /controllers/
 	 **/
 	function run(
 		required string name,
@@ -47,10 +57,9 @@ component extends="../base"  {
 		// Inject actions in controller content  
 		controllerContent 	 = replaceNoCase( controllerContent, '|actions|', actionContent, 'all' );
 		// Replace Object tokens
-		controllerContent 	 = replaceNoCase( controllerContent, '|ObjectNameSingular|', obj.objectNameSingular, 'all' ); 
-		controllerContent 	 = replaceNoCase( controllerContent, '|ObjectNamePlural|', obj.objectNamePlural, 'all' );
+		controllerContent=$replaceDefaultObjectNames(controllerContent, obj); 
 
-		var controllerName = obj.objectNamePlural & ".cfc";
+		var controllerName = obj.objectNamePluralC & ".cfc";
 		var controllerPath = directory & "/" & controllerName;
  
 		if(fileExists(controllerPath)){

@@ -1,13 +1,25 @@
 /**
  * I generate a view file in /views/VIEWNAME/NAME.cfm 
- * i.e, wheels generate view user edit
+ * 
+ * Create a default file called show.cfm without a template
+ * 
+ * {code:bash}
+ * wheels generate view user show
+ * {code} 
+ * 
+ * Create a default file called show.cfm using the default CRUD template
+ * 
+ * {code:bash}
+ * wheels generate view user show crud/show
+ * {code} 
  **/
 component extends="../base"  {
 	 
 	/**
-	 * @folder View path folder, i.e user (singular)
-	 * @name Name of the file to create, i.e, edit
-	 * @template optional CRUD template (used in Scaffolding)
+	 * @objectname.hint View path folder, i.e user  
+	 * @name.hint Name of the file to create, i.e, edit
+	 * @template.hint optional template (used in Scaffolding)
+	 * @template.options crud/_form,crud/edit,crud/index,crud/new,crud/show
 	 **/
 	function run(
 		required string objectname,
@@ -38,11 +50,8 @@ component extends="../base"  {
 		} else {
 			viewContent 	= fileRead( helpers.getTemplate( arguments.template & '.txt')); 
 		}  
-		// Replace Object tokens
-		viewContent 	 = replaceNoCase( viewContent, '|ObjectNameSingular|', obj.objectNameSingular, 'all' ); 
-		viewContent 	 = replaceNoCase( viewContent, '|ObjectNamePlural|', obj.objectNamePlural, 'all' );
-		viewContent 	 = replaceNoCase( viewContent, '|ObjectNameSingularC|', obj.objectNameSingularC, 'all' ); 
-		viewContent 	 = replaceNoCase( viewContent, '|ObjectNamePluralC|', obj.objectNamePluralC, 'all' );
+		// Replace Object tokens  
+		viewContent=$replaceDefaultObjectNames(viewContent, obj); 
 		var viewName = lcase(arguments.name) & ".cfm";
 		var viewPath = directory & "/" & viewName;
 

@@ -1,8 +1,17 @@
 /**
- * I generate a model in /models/NAME.cfc 
- * i.e, wheels generate model user
+ * I generate a model in /models/NAME.cfc and create associated DB Table  
  * 
- * Experimental: wheels generate User fields="id:int,firstname:varchar,lastname:varchar,email:varchar"
+ * Create "users" table and "User.cfc" in models:
+ * 
+ * {code:bash}
+ * wheels generate model user
+ * {code} 
+ * 
+ * Create just "User.cfc" in models:
+ * 
+ * {code:bash}
+ * wheels generate model user false
+ * {code} 
  **/
 component extends="../base"  {
 	 
@@ -11,15 +20,20 @@ component extends="../base"  {
 	 * @fields.hint Comma Delimited list of fields with type after semicolon
 	 **/
 	function run(
-		required string name 
+		required string name,
+		boolean db=true 
 	){  
 
     	var obj = helpers.getNameVariants(arguments.name); 
 		var directory 			= fileSystemUtil.resolvePath("models");
 		var appName				= listLast( getCWD(), '/\' ); 
 
-		print.line( "Trying to Generate DB Tables").toConsole();  
-		command('wheels dbmigrate create table #obj.objectNamePlural#').run();  
+		if(db){
+			print.line( "Trying to Generate DB Tables").toConsole();  
+			command('wheels dbmigrate create table #obj.objectNamePlural#').run();  
+		} else {
+			print.line( "Skipping DB table generation").toConsole();  
+		}
 
 		print.line( "Creating Model File..." ).toConsole();
 		
@@ -30,11 +44,7 @@ component extends="../base"  {
  
  		// Read in Template
 		var modelContent 	= fileRead( helpers.getTemplate('/ModelContent.txt'));  
-		
-		// Basic replacements
-		modelContent 	 = replaceNoCase( modelContent, '|modelName|', obj.objectNameSingular, 'all' ); 
-
-		var modelName = helpers.capitalize(obj.objectNameSingular) & ".cfc";
+		var modelName = obj.objectNameSingularC & ".cfc";
 		var modelPath = directory & "/" & modelName;
 
 		if(fileExists(modelPath)){
