@@ -1,6 +1,6 @@
 {
     "name":"CFWheels CLI Commands",
-    "version":"0.0.1-Alpha2",
+    "version":"0.1.0",
     "author":"Tom King",
     "location":"https://github.com/neokoenig/cfwheels-cli/archive/0.0.1-alpha.zip",
     "directory":"",
@@ -20,5 +20,10 @@
     "changelog":"",
     "type":"commandbox-modules",
     "keywords":"cfwheels,cli,commands",
-    "private":false
+    "private":false,
+    "scripts":{
+        "postVersion":"package set location='neokoenig/cfwheels-cli#v`package version`'",
+        "postPublish":"!git push --follow-tags",
+        "minor-release":"bump --minor && publish"
+    }
 }
