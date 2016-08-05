@@ -59,7 +59,7 @@ component extends="../base"  {
     	// Quick Sanity Checks: are we actually adding a property to an existing model?
     	// Check for existence of model file: NB, DB columns can of course exist without a model file, 
     	// But we should confirm they've got it correct.
-    	if(!fileExists(fileSystemUtil.resolvePath("/models/#obj.objectNameSingularC#.cfc"))){
+    	if(!fileExists(fileSystemUtil.resolvePath("models/#obj.objectNameSingularC#.cfc"))){
     		if(!confirm("Hold On! We couldn't find a corresponding Model at /models/#obj.objectNameSingularC#.cfc: are you sure you wish to add the property '#arguments.columnName#' to #obj.objectNamePlural#? [y/n]")){
     			print.line("Fair enough. Aborting!");
     			return;

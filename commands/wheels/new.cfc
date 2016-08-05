@@ -117,22 +117,22 @@ component extends="base"  {
 	 
 	 		print.greenline( "========= Creating config/app.cfm" ).toConsole();
 		 		appContent = replaceNoCase( appContent, "|appName|", appName, 'all' );
-		 		file action='write' file='#fileSystemUtil.resolvePath("/config/app.cfm")#' mode ='777' output='#trim(appContent)#'; 
+		 		file action='write' file='#fileSystemUtil.resolvePath("config/app.cfm")#' mode ='777' output='#trim(appContent)#'; 
 
 	 		print.greenline( "========= Creating config/settings.cfm" ).toConsole();
 		 		settingsContent = replaceNoCase( settingsContent, "|reloadPassword|", trim(reloadPassword), 'all' );
 		 		settingsContent = replaceNoCase( settingsContent, "|datasourceName|", datasourceName, 'all' );
-		 		file action='write' file='#fileSystemUtil.resolvePath("/config/settings.cfm")#' mode ='777' output='#trim(settingsContent)#'; 
+		 		file action='write' file='#fileSystemUtil.resolvePath("config/settings.cfm")#' mode ='777' output='#trim(settingsContent)#'; 
 
 			// Make server.json server name unique to this app: assumes lucee by default
 	 		print.greenline( "========= Creating default server.json" ).toConsole();
 		 		serverJSON = replaceNoCase( serverJSON, "|appName|", trim(appName), 'all' );
 		 		serverJSON = replaceNoCase( serverJSON, "|setEngine|", setEngine, 'all' );
-		 		file action='write' file='#fileSystemUtil.resolvePath("/server.json")#' mode ='777' output='#trim(serverJSON)#';  
+		 		file action='write' file='#fileSystemUtil.resolvePath("server.json")#' mode ='777' output='#trim(serverJSON)#';  
 
 	 		print.greenline( "========= Adding urlrewrite.xml" ).toConsole(); 
 	 		// TODO: Add fileExists() as this will br provided in 2.x
-		 		file action='write' file='#fileSystemUtil.resolvePath("/urlrewrite.xml")#' mode ='777' output='#trim(urlRewriteContent)#';  
+		 		file action='write' file='#fileSystemUtil.resolvePath("urlrewrite.xml")#' mode ='777' output='#trim(urlRewriteContent)#';  
 
 	 		print.greenline( "========= Installing DBMigrate and DBMigratebridge Plugins").toConsole();
 	 			command( 'cp' )
@@ -146,11 +146,11 @@ component extends="base"  {
 	 		 	// Replace Default Template with something more sensible
 	 		 	var bsLayout=fileRead( helpers.getTemplate('/bootstrap3/layout.cfm' ) );
 	 		 		bsLayout = replaceNoCase( bsLayout, "|appName|", appName, 'all' );
-	 		 		file action='write' file='#fileSystemUtil.resolvePath("/views/layout.cfm")#' mode ='777' output='#trim(bsLayout)#';  
+	 		 		file action='write' file='#fileSystemUtil.resolvePath("views/layout.cfm")#' mode ='777' output='#trim(bsLayout)#';  
 	 		 	// Add Bootstrap 3 default form settings
 	 		 	var bsSettings=fileRead( helpers.getTemplate('/bootstrap3/settings.cfm' ) );
 				settingsContent = replaceNoCase( settingsContent, '// CLI-Appends-Here', bsSettings & cr & '// CLI-Appends-Here', 'one');
-				file action='write' file='#fileSystemUtil.resolvePath("/config/settings.cfm")#' mode ='777' output='#trim(settingsContent)#'; 
+				file action='write' file='#fileSystemUtil.resolvePath("config/settings.cfm")#' mode ='777' output='#trim(settingsContent)#'; 
 	 		 	// Flashwrapper Plugin needed 
 	 		 	command( 'cp' )
 				    .params( path=expandPath("../modules/cfwheels-cli/templates/bootstrap3/plugins/"), newPath='/plugins/', filter="*.zip" )

@@ -26,10 +26,10 @@ component excludeFromHelp=true {
         var loc = {}
         
         if(arguments.action EQ "input"){
-            loc.target=fileSystemUtil.resolvePath("/views/#objectNames.objectNamePlural#/_form.cfm");
+            loc.target=fileSystemUtil.resolvePath("views/#objectNames.objectNamePlural#/_form.cfm");
             loc.inject=$generateFormField(objectname=objectNames.objectNameSingular, property=arguments.property, type=arguments.type); 
         } else if(arguments.action EQ "output"){
-            loc.target=fileSystemUtil.resolvePath("/views/#objectNames.objectNamePlural#/show.cfm");
+            loc.target=fileSystemUtil.resolvePath("views/#objectNames.objectNamePlural#/show.cfm");
             loc.inject=$generateOutputField(objectname=objectNames.objectNameSingular, property=arguments.property, type=arguments.type);
         }
         loc.content=fileRead(loc.target);
@@ -135,20 +135,20 @@ component excludeFromHelp=true {
 	// Before we can even think about using DBmigrate, we've got to check a few things
 	function $preConnectionCheck(){
 		// Wheels folder in expected place? (just a good check to see if the user has actually installed wheels...)
- 		var wheelsFolder=fileSystemUtil.resolvePath("/wheels");
+ 		var wheelsFolder=fileSystemUtil.resolvePath("wheels");
  			if(!directoryExists(wheelsFolder)){
  				error("We can't find your wheels folder. Check you have installed CFWheels, and you're running this from the site root: If you've not started an app yet, try wheels new myApp");
  			}
 		// Plugins in place?
- 		var pluginsFolder=fileSystemUtil.resolvePath("/plugins");
+ 		var pluginsFolder=fileSystemUtil.resolvePath("plugins");
  			if(!directoryExists(wheelsFolder)){
  				error("We can't find your plugins folder. Check you have installed CFWheels, and you're running this from the site root.");
  			}
- 		var DBMigratePluginLocation=fileSystemUtil.resolvePath("/plugins/dbmigrate");
+ 		var DBMigratePluginLocation=fileSystemUtil.resolvePath("plugins/dbmigrate");
  			if(!directoryExists(DBMigratePluginLocation)){
  				error("We can't find your plugins/dbmigrate folder? Please check the plugin is successfully installed");
  			}
- 		var DBMigrateBridgePluginLocation=fileSystemUtil.resolvePath("/plugins/dbmigratebridge");
+ 		var DBMigrateBridgePluginLocation=fileSystemUtil.resolvePath("plugins/dbmigratebridge");
  			if(!directoryExists(DBMigrateBridgePluginLocation)){
  				error("We can't find your plugins/dbmigratebridge folder? Please check the plugin is successfully installed");
  			}
@@ -207,8 +207,8 @@ component excludeFromHelp=true {
   	
   	// Create the physical migration cfc in /db/migrate/
 	function $createMigrationFile(required string name, required string action, required string content){  
-			var directory1=fileSystemUtil.resolvePath("/db/"); 
-			var directory2=fileSystemUtil.resolvePath("/db/migrate/"); 
+			var directory1=fileSystemUtil.resolvePath("db/"); 
+			var directory2=fileSystemUtil.resolvePath("db/migrate/"); 
 			if(!directoryExists(directory1)){
 				directoryCreate(directory1);
 			}

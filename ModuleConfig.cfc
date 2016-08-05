@@ -8,7 +8,7 @@ component {
     function configure(){
         // Meta Data 
         settings={ 
-            version="0.0.1-Alpha", 
+            version="0.0.1-Alpha2", 
         }  
     }   
     // Runs when module is loaded

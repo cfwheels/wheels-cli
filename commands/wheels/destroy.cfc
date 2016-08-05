@@ -11,9 +11,9 @@ component extends="base"  {
 	function run(required string name) { 
 
 		var obj            = helpers.getNameVariants(arguments.name);
-		var modelFile      = fileSystemUtil.resolvePath("/models/#obj.objectNameSingularC#.cfc");
-		var controllerFile = fileSystemUtil.resolvePath("/controllers/#obj.objectNamePluralC#.cfc");
-		var viewFolder     = fileSystemUtil.resolvePath("/views/#obj.objectNamePlural#/");
+		var modelFile      = fileSystemUtil.resolvePath("models/#obj.objectNameSingularC#.cfc");
+		var controllerFile = fileSystemUtil.resolvePath("controllers/#obj.objectNamePluralC#.cfc");
+		var viewFolder     = fileSystemUtil.resolvePath("views/#obj.objectNamePlural#/");
 
 		print.redBoldLine("================================================")
 			 .redBoldLine("= Watch Out!                                   =")
