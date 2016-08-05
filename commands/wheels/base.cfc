@@ -146,11 +146,11 @@ component excludeFromHelp=true {
  			}
  		var DBMigratePluginLocation=fileSystemUtil.resolvePath("plugins/dbmigrate");
  			if(!directoryExists(DBMigratePluginLocation)){
- 				error("We can't find your plugins/dbmigrate folder? Please check the plugin is successfully installed");
+ 				error("We can't find your plugins/dbmigrate folder? Please check the plugin is successfully installed; if you've not started the server using server start for the first time, this folder may not be created yet.");
  			}
  		var DBMigrateBridgePluginLocation=fileSystemUtil.resolvePath("plugins/dbmigratebridge");
  			if(!directoryExists(DBMigrateBridgePluginLocation)){
- 				error("We can't find your plugins/dbmigratebridge folder? Please check the plugin is successfully installed");
+ 				error("We can't find your plugins/dbmigratebridge folder? Please check the plugin is successfully installed;  if you've not started the server using server start for the first time, this folder may not be created yet.");
  			}
 	}  
 
