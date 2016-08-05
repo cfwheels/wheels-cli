@@ -1,0 +1,24 @@
+{
+    "name":"CFWheels CLI Commands",
+    "version":"0.0.1-Alpha",
+    "author":"Tom King",
+    "location":"",
+    "directory":"",
+    "createPackageDirectory":true,
+    "packageDirectory":"cfwheels-cli",
+    "homepage":"https://github.com/neokoenig/cfwheels-cli",
+    "documentation":"",
+    "repository":{
+        "type":"GIT",
+        "URL":"https://github.com/neokoenig/cfwheels-cli"
+    },
+    "bugs":"",
+    "slug":"cfwheels-cli",
+    "shortDescription":"Highly Experimental CFWheels CLI Commands for CommandBox: use at your own risk",
+    "description":"",
+    "instructions":"Install via CommandBox by typing 'install cfwheels-cli'",
+    "changelog":"",
+    "type":"commandbox-modules",
+    "keywords":"cfwheels,cli,commands",
+    "private":false
+}
