@@ -24,6 +24,8 @@
     "scripts":{
         "postVersion":"package set location='neokoenig/cfwheels-cli#v`package version`'",
         "postPublish":"!git push --follow-tags",
-        "minor-release":"bump --minor && publish"
+        "patch-release":"bump --patch && publish",
+        "minor-release":"bump --minor && publish",
+        "major-release":"bump --major && publish",
     }
 }

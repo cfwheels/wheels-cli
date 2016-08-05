@@ -5,11 +5,7 @@ component {
     this.modelNamespace = "wheels";
     this.cfmapping      = "wheels"; 
 
-    function configure(){
-        // Meta Data 
-        settings={ 
-            version="0.0.1-Alpha2", 
-        }  
+    function configure(){ 
     }   
     // Runs when module is loaded
     function onLoad(){
