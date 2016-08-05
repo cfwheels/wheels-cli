@@ -136,7 +136,7 @@ component extends="base"  {
 
 	 		print.greenline( "========= Installing DBMigrate and DBMigratebridge Plugins").toConsole();
 	 			command( 'cp' )
-				    .params( path=expandPath("../modules/cfwheels-cli/plugins"), newPath='/plugins/', filter="*.zip" )
+				    .params( path=expandPath("../modules/cfwheels-cli/plugins"), newPath='plugins', filter="*.zip" )
 				    .run();
 	 		print.line();
 
@@ -153,7 +153,7 @@ component extends="base"  {
 				file action='write' file='#fileSystemUtil.resolvePath("config/settings.cfm")#' mode ='777' output='#trim(settingsContent)#'; 
 	 		 	// Flashwrapper Plugin needed 
 	 		 	command( 'cp' )
-				    .params( path=expandPath("../modules/cfwheels-cli/templates/bootstrap3/plugins/"), newPath='/plugins/', filter="*.zip" )
+				    .params( path=expandPath("../modules/cfwheels-cli/templates/bootstrap3/plugins/"), newPath='plugins', filter="*.zip" )
 				    .run();
 	 		print.line();
 		    }
