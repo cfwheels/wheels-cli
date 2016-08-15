@@ -103,14 +103,21 @@ component extends="base"  {
 
 		print.greenBoldLine( "==================================================" );
  		if(confirm("Great! Think we all good to go. We're going to install CFWheels in '/#appName#/', with a reload password of '#reloadPassword#', and a datasource of '#datasourceName#'. Sound good? [y/n]")){
+ 			var tempDir=createUUID();
 
  			print.greenline( "========= Installing CFWheels.........." ).toConsole();
+			
 			// Note: deliberately not using cache due to https://github.com/cfwheels/cfwheels/issues/652
-			command( 'artifacts remove cfwheels' ).run();
-			command( 'install cfwheels' ).run(); 
+			command( 'artifacts remove cfwheels --force' ).run();
 
-			print.greenline( "========= Renaming Directory .........." ).toConsole();  
-				command('mv cfwheels/ #appName#/').run();  
+			// Install into a temp directory to prevent overwriting other cfwheels named folders
+			command( 'install cfwheels #tempDir#' ).run(); 
+
+			print.greenline( "========= Moving Contents .........." ).toConsole();   
+			command('mv #tempDir#/CFWheels/ #appName#').run();  
+
+			print.greenline( "========= Removing Temp Dir........." ).toConsole();  
+			command('delete #tempDir# --recurse --force').run(); 
 
 			print.greenline( "========= Navigating to new application..." ).toConsole(); 
 				command('cd #appName#').run();   
