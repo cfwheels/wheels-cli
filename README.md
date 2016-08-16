@@ -5,7 +5,9 @@ Skips things like `rails server` which are provided by commandBox already.
 
 ## Install
 
-As this isn't on Forgebox yet, clone to `.CommandBox\cfml\modules\cfwheels-cli` and restart CommandBox;  
+Simply run `install cfwheels-cli` from CommandBox to install the the latest release.
+
+To install the master branch, clone to `.CommandBox\cfml\modules\cfwheels-cli` and restart CommandBox;  
 Ensure that the path has `cfwheels-cli` in it (not `cfwheelscli`) or anything else.
 
 ## Commands
