@@ -1,22 +1,22 @@
 /**
  * Base CFC: Everything extends from here.
  **/
-component excludeFromHelp=true { 
+component excludeFromHelp=true {
 	property name='serverService' inject='ServerService';
-	property name='Formatter'     inject='Formatter';  
-	property name='Helpers'       inject='helpers@wheels'; 
+	property name='Formatter'     inject='Formatter';
+	property name='Helpers'       inject='helpers@wheels';
 
 //=====================================================================
 //= 	Scaffolding
 //=====================================================================
-	// Replace default objectNames 
-	function $replaceDefaultObjectNames(required string content,required struct obj){ 
+	// Replace default objectNames
+	function $replaceDefaultObjectNames(required string content,required struct obj){
 		var loc={
 			rv=arguments.content
 		};
-		loc.rv 	 = replaceNoCase( loc.rv, '|ObjectNameSingular|', obj.objectNameSingular, 'all' ); 
+		loc.rv 	 = replaceNoCase( loc.rv, '|ObjectNameSingular|', obj.objectNameSingular, 'all' );
 		loc.rv 	 = replaceNoCase( loc.rv, '|ObjectNamePlural|',   obj.objectNamePlural, 'all' );
-		loc.rv 	 = replaceNoCase( loc.rv, '|ObjectNameSingularC|', obj.objectNameSingularC, 'all' ); 
+		loc.rv 	 = replaceNoCase( loc.rv, '|ObjectNameSingularC|', obj.objectNameSingularC, 'all' );
 		loc.rv 	 = replaceNoCase( loc.rv, '|ObjectNamePluralC|',   obj.objectNamePluralC, 'all' );
 		return loc.rv;
 	}
@@ -24,10 +24,10 @@ component excludeFromHelp=true {
     // Inject CLI content into template
     function $injectIntoView(required struct objectNames, required string property, required string type, string action="input"){
         var loc = {}
-        
+
         if(arguments.action EQ "input"){
             loc.target=fileSystemUtil.resolvePath("views/#objectNames.objectNamePlural#/_form.cfm");
-            loc.inject=$generateFormField(objectname=objectNames.objectNameSingular, property=arguments.property, type=arguments.type); 
+            loc.inject=$generateFormField(objectname=objectNames.objectNameSingular, property=arguments.property, type=arguments.type);
         } else if(arguments.action EQ "output"){
             loc.target=fileSystemUtil.resolvePath("views/#objectNames.objectNamePlural#/show.cfm");
             loc.inject=$generateOutputField(objectname=objectNames.objectNameSingular, property=arguments.property, type=arguments.type);
@@ -35,11 +35,11 @@ component excludeFromHelp=true {
         loc.content=fileRead(loc.target);
         // inject into position CLI-Appends-Here
         loc.content = replaceNoCase(loc.content, '<!--- CLI-Appends-Here --->', loc.inject & cr & '<!--- CLI-Appends-Here --->', 'all');
-        // Replace tokens with ## tags 
+        // Replace tokens with ## tags
         loc.content = Replace(loc.content, "~[~", "##", "all");
-        loc.content = Replace(loc.content, "~]~", "##", "all"); 
+        loc.content = Replace(loc.content, "~]~", "##", "all");
         // Finally write out the file
-        file action='write' file='#loc.target#' mode ='777' output='#trim(loc.content)#'; 
+        file action='write' file='#loc.target#' mode ='777' output='#trim(loc.content)#';
     }
 
     // Returns contents for a default (non crud) action
@@ -49,43 +49,43 @@ component excludeFromHelp=true {
     		name = trim(arguments.name),
     		hint = trim(arguments.hint),
     		rv=""
-    	} 
-    	loc.rv = fileRead( loc.templateDirectory & '/ActionContent.txt' ); 
-    	
+    	}
+    	loc.rv = fileRead( loc.templateDirectory & '/ActionContent.txt' );
+
     	if(len(loc.hint) == 0){
     		loc.hint = loc.name;
     	}
 
 		loc.rv = replaceNoCase( loc.rv, '|ActionHint|', loc.hint, 'all' );
-		loc.rv = replaceNoCase( loc.rv, '|Action|', loc.name, 'all' ) & cr & cr; 
-		
+		loc.rv = replaceNoCase( loc.rv, '|Action|', loc.name, 'all' ) & cr & cr;
+
         return loc.rv;
     }
 
 
-	// Default output for show.cfm: 
+	// Default output for show.cfm:
  	function $generateOutputField(required string objectName, required string property, required string type){
 		var loc = {
 			rv="<p><strong>#helpers.capitalize(property)#</strong><br />~[~"
-		}  
+		}
 		switch(type){
-			// Return a checkbox  
+			// Return a checkbox
 			case "boolean":
 				loc.rv&="yesNoFormat(#objectName#.#property#)";
-			break; 	
+			break;
 			// Return a calendar
 			case "date":
 				loc.rv&="dateFormat(#objectName#.#property#)";
-			break;	
-			// Return a time picker	
+			break;
+			// Return a time picker
 			case "time":
 				loc.rv&="timeFormat(#objectName#.#property#)";
-			break;		
+			break;
 			// Return a calendar and time picker
 			case "datetime":
 			case "timestamp":
 				loc.rv&="dateTimeFormat(#objectName#.#property#)";
-			break;  
+			break;
 			// Return a text field if everything fails, i.e assume string
 			// Let's escape the output to be safe
 			default:
@@ -94,32 +94,32 @@ component excludeFromHelp=true {
 		}
 		loc.rv&="~]~</p>";
 		return loc.rv;
- 	} 
- 
+ 	}
+
  	function $generateFormField(required string objectName, required string property, required string type){
 		var loc = {rv=""}
 		switch(type){
-			// Return a checkbox  
+			// Return a checkbox
 			case "boolean":
 				loc.rv="checkbox(objectName='#objectName#', property='#property#')";
 			break;
 			// Return a textarea
 			case "text":
 				loc.rv="textArea(objectName='#objectName#', property='#property#')";
-			break;		
+			break;
 			// Return a calendar
 			case "date":
 				loc.rv="dateSelect(objectName='#objectName#', property='#property#')";
-			break;	
-			// Return a time picker	
+			break;
+			// Return a time picker
 			case "time":
 				loc.rv="timeSelect(objectName='#objectName#', property='#property#')";
-			break;		
+			break;
 			// Return a calendar and time picker
 			case "datetime":
 			case "timestamp":
 				loc.rv="dateTimeSelect(objectName='#objectName#', property='#property#')";
-			break;  
+			break;
 			// Return a text field if everything fails, i.e assume string
 			default:
 				loc.rv="textField(objectName='#objectName#', property='#property#')";
@@ -128,9 +128,9 @@ component excludeFromHelp=true {
 		// We need to make these rather unique incase the view file has *any* pre-existing
 		loc.rv = "~[~" & loc.rv & "~]~";
 		return loc.rv;
- 	} 
+ 	}
 //=====================================================================
-//= 	DB Migrate 
+//= 	DB Migrate
 //=====================================================================
 	// Before we can even think about using DBmigrate, we've got to check a few things
 	function $preConnectionCheck(){
@@ -152,63 +152,63 @@ component excludeFromHelp=true {
  			if(!directoryExists(DBMigrateBridgePluginLocation)){
  				error("We can't find your plugins/dbmigratebridge folder? Please check the plugin is successfully installed;  if you've not started the server using server start for the first time, this folder may not be created yet.");
  			}
-	}  
+	}
 
 	// Get information about the currently running server so we can send commmands to dbmigrate
 	function $getServerInfo(){
 		$preConnectionCheck()
-		var serverDetails = serverService.resolveServerDetails( serverProps={ name=listLast( getCWD(), '/\' ) } ); 
-  		var loc ={  
+		var serverDetails = serverService.resolveServerDetails( serverProps={ name=listLast( getCWD(), '/\' ) } );
+  		var loc ={
   			host              = serverDetails.serverInfo.host,
   			port              = serverDetails.serverInfo.port,
-  		}; 
+  		};
   		loc.serverURL		  = "http://" & loc.host & ":" & loc.port
 	  	return loc;
 	}
 
 	// Get all info we know about dbmigrate
-	function $getDBMigrateInfo(){ 
+	function $getDBMigrateInfo(){
 		$preConnectionCheck()
   		var serverDetails = $getServerInfo();
   		var getURL = serverDetails.serverURL & "/index.cfm?controller=wheels&action=wheels&view=plugins&name=dbmigratebridge";
-  		var loc = new Http( url=getURL ).send().getPrefix(); 
+  		var loc = new Http( url=getURL ).send().getPrefix();
 		if(isJson(loc.filecontent)){
   			loc.result=deserializeJSON(loc.filecontent);
-  			if(loc.result.success){  
-					return loc.result;  
+  			if(loc.result.success){
+					return loc.result;
   			} else {
   				error(loc.result.messages);
   			}
   		} else {
   			print.line(helpers.stripTags(Formatter.unescapeHTML(loc.filecontent)));
-  			error("Error returned from DBMigrate Bridge"); 
-  		} 
-	}	 
+  			error("Error returned from DBMigrate Bridge");
+  		}
+	}
 
 	// Basically sends a command
-	function $sendToDBMigrateBridge(getURL){ 
-		loc = new Http( url=getURL ).send().getPrefix(); 
+	function $sendToDBMigrateBridge(getURL){
+		loc = new Http( url=getURL ).send().getPrefix();
 		if(isJson(loc.filecontent)){
   			loc.result=deserializeJSON(loc.filecontent);
   			if(loc.result.success){
   				if(structKeyExists(loc.result, "MESSAGE")){
-					return loc.result.message; 
+					return loc.result.message;
 				} else {
-					return loc.result; 
+					return loc.result;
 				}
   			} else {
   				error(loc.result.messages);
   			}
   		} else {
   			print.line(helpers.stripTags(Formatter.unescapeHTML(loc.filecontent)));
-  			error("Error returned from DBMigrate Bridge"); 
+  			error("Error returned from DBMigrate Bridge");
   		}
 	}
-  	
+
   	// Create the physical migration cfc in /db/migrate/
-	function $createMigrationFile(required string name, required string action, required string content){  
-			var directory1=fileSystemUtil.resolvePath("db/"); 
-			var directory2=fileSystemUtil.resolvePath("db/migrate/"); 
+	function $createMigrationFile(required string name, required string action, required string content){
+			var directory1=fileSystemUtil.resolvePath("db/");
+			var directory2=fileSystemUtil.resolvePath("db/migrate/");
 			if(!directoryExists(directory1)){
 				directoryCreate(directory1);
 			}
@@ -216,34 +216,34 @@ component excludeFromHelp=true {
 				directoryCreate(directory2);
 			}
 			content=replaceNoCase(content, "|DBMigrateExtends|", "plugins.dbmigrate.Migration", "all");
-			content=replaceNoCase(content, "|DBMigrateDescription|", "CLI #action#_#name#", "all"); 
+			content=replaceNoCase(content, "|DBMigrateDescription|", "CLI #action#_#name#", "all");
 			var fileName=dateformat(now(),'yyyymmdd') & timeformat(now(),'HHMMSS') & "_cli_#action#_" & name & ".cfc";
 			var filePath=directory2 & "/" & fileName;
-			file action='write' file='#filePath#' mode ='777' output='#trim( content )#';  
+			file action='write' file='#filePath#' mode ='777' output='#trim( content )#';
 			print.line( 'Created #fileName#' );
 	}
 
-	
+
 
 //=====================================================================
 //= 	Testing Suite
 //=====================================================================
-/* 
+/*
 	*	In order to run any test suite, we need to know
 		- Whether it's core/app/plugin: this is dictated by command; i.e wheels test core
-		We then need to know the target server IP, port, and the location/query string of the tests 
+		We then need to know the target server IP, port, and the location/query string of the tests
 		We're always going to want to return JSON.
-	  
+
 	  		wheels test core 	[serverName] [reload] [debug]
 	  		wheels test app 	[serverName] [reload] [debug]
 	  		wheels test plugin 	[pluginName] [serverName] [debug]
 	*/
 	  function $buildTestSuite(
-	  	required string type, 
-	  	string servername="", 
-	  	boolean reload=true, 
+	  	required string type,
+	  	string servername="",
+	  	boolean reload=true,
 	  	boolean debug=false
-	  ){ 
+	  ){
 	  		// Get Server Details from CB
 	  		var serverDetails = serverService.resolveServerDetails( serverProps={ name=arguments.servername } );
 	  		// Massage into something more managable
@@ -256,12 +256,12 @@ component excludeFromHelp=true {
 	  			port              = serverDetails.serverInfo.port,
 	  			debug             = arguments.debug,
 	  			reload            = arguments.reload
-	  		}; 
+	  		};
 
 	  		// TODO: Check for existance of actual tests: if not running master branch, /wheels/tests/ won't exist
 	  		// Also, /tests/ may well not exist for an app.
 	  		switch(loc.type){
-	  			case "app": 
+	  			case "app":
 	  			// Check /tests/
 	  			break;
 	  			case "core":
@@ -275,21 +275,21 @@ component excludeFromHelp=true {
 	  		// Construct Test URL
 	  		// Always force JSON as return format
 	  		// TODO: Plugins
-	  		loc.testurl = "http://" & loc.host & ":" & loc.port 
+	  		loc.testurl = "http://" & loc.host & ":" & loc.port
 	  					   & "/" & "index.cfm?controller=wheels&action=wheels&view=tests"
-	  					   & "&type=#loc.type#" 
-	  					   & "&format=json" 
+	  					   & "&type=#loc.type#"
+	  					   & "&format=json"
 	  					   & "&reload=#loc.reload#";
 	  		return loc;
 	  }
 
 	// Small Debug helper
 	function $outputSuiteVariables(suite){
-		print.line("Type:       #suite.type#"); 
+		print.line("Type:       #suite.type#");
 		print.line("Server:     #suite.servername#");
 		print.line("Name:       #suite.serverdefaultName#");
-		print.line("Config:     #suite.configFile#"); 
-		print.line("Host:       #suite.host#"); 
+		print.line("Config:     #suite.configFile#");
+		print.line("Host:       #suite.host#");
 		print.line("Port:       #suite.port#");
 		print.line("URL:        #suite.testurl#");
 		print.line("Debug:      #suite.debug#");
@@ -297,7 +297,7 @@ component excludeFromHelp=true {
 	}
 
 	// Run baby run
-	function $runTestSuite(struct suite){ 
+	function $runTestSuite(struct suite){
 
 	  	print.greenBoldLine( "================#ucase(suite.type)# Tests =======================" ).toConsole();
 
@@ -306,58 +306,58 @@ component excludeFromHelp=true {
 			.blinkingRed( "Please wait...")
 			.printLine()
 			.toConsole();
- 		
+
 		try{
 			var results = new Http( url=suite.testURL ).send().getPrefix();
-		} catch( any e ){ 
+		} catch( any e ){
 			return error( 'Error executing tests: #CR# #e.message##CR##e.detail#' );
 		}
 
 		// If the URL is wrong, or the server dies, this should trigger
 		if(!isJson(results.filecontent)){
 			error( 'Result from #suite.testURL# isnt JSON?');
-		} 
+		}
 		var result  = deserializeJSON(results.filecontent);
 
-		$outputTestResults(result, suite.debug); 
+		$outputTestResults(result, suite.debug);
 	}
 
 	// Output pls
 	function $outputTestResults(result, debug){
-	  	var hiddenCount = 0; 
+	  	var hiddenCount = 0;
 
 		if(result.ok){
 			print.greenBoldLine( "================ Tests Complete: All Good! =============" );
-		} else { 
+		} else {
 			print.redBoldLine( "================ Tests Complete: Failures! =============" );
 		}
 
-		print.boldLine( "================ Results: =======================" ); 
+		print.boldLine( "================ Results: =======================" );
 			 for(r in result.results){
 			 	if(r.status != "Success"){
-			 		print.boldLine("Test Case:") 
+			 		print.boldLine("Test Case:")
 			 			 .boldRedLine("       #r.cleantestcase#:")
 			 		 	 .boldLine("Test Name: :")
 			 			 .boldRedLine("       #r.testname#:")
 			 		 	 .boldLine("Message:")
 			 		 	 .boldRedLine("       #r.message#")
 			 		 	 .boldRedLine("----------------------------------------------------")
-			 		 	 .line(); 
+			 		 	 .line();
 		 		} else {
 		 			if(debug){
 		 				print.greenline("#r.cleantestcase#: #r.testname# :#r.time#");
 	 				} else {
-		 				hiddenCount++; 
-	 				} 
+		 				hiddenCount++;
+	 				}
 		 		}
 			 }
 		print.boldLine( "Output from #hiddenCount# tests hidden");
-		print.Line("================ Summary: =======================" ) 
+		print.Line("================ Summary: =======================" )
 			 .line("= Tests: #result.numtests#")
 			 .line("= Cases: #result.numcases#")
 			 .line("= Errors: #result.numerrors#")
 			 .line("= Failures: #result.numfailures#")
-			 .line("= Successes: #result.numsuccesses#")			  
+			 .line("= Successes: #result.numsuccesses#")
 			 .Line("==================================================" );
  	}
 }

@@ -1,7 +1,7 @@
-component extends="Controller" { 
+component extends="Controller" {
 
-	function init() { 
-	 
+	function init() {
+
 	}
 |Actions|
 }

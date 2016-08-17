@@ -1,18 +1,18 @@
 component accessors="true" singleton {
- 
+
     // Return commonly used model name variants
     public struct function getNameVariants(required string name){
         var loc={};
         loc.objectName          = lcase(trim(arguments.name));
         loc.objectNameSingular  = singularize(loc.objectName);
-        loc.objectNamePlural    = pluralize(loc.objectName);  
+        loc.objectNamePlural    = pluralize(loc.objectName);
         loc.objectNameSingularC = capitalize(loc.objectNameSingular);
-        loc.objectNamePluralC   = capitalize(loc.objectNamePlural); 
+        loc.objectNamePluralC   = capitalize(loc.objectNamePlural);
         return loc;
     }
 //=====================================================================
 //=     Templates
-//===================================================================== 
+//=====================================================================
 
     // Return .txt template location
     public string function getTemplate(required string template){
@@ -33,7 +33,7 @@ component accessors="true" singleton {
 //=====================================================================
 //=     String Functions stolen from cfwheels
 //=====================================================================
- 
+
     public string function stripTags(required string html){
         var loc = {};
         loc.rv = REReplaceNoCase(arguments.html, "<\ *[a-z].*?>", "", "all");
@@ -44,13 +44,13 @@ component accessors="true" singleton {
         var rv=UCase(Left(arguments.str, 1)) & Mid(arguments.str, 2, Len(arguments.str)-1);
         return rv;
     }
- 
+
     public string function pluralize(required string word, numeric count="-1", boolean returnCount="true"){
         return singularizeOrPluralize(text=arguments.word, which="pluralize", count=arguments.count, returnCount=arguments.returnCount);
-    } 
+    }
     public string function singularize(required string word){
         return singularizeOrPluralize(text=arguments.word, which="singularize");
-    } 
+    }
 
     public string function singularizeOrPluralize(required string text, required string which, numeric count="-1", boolean returnCount="true"){
         var loc = {};
@@ -144,5 +144,5 @@ component accessors="true" singleton {
             loc.rv = LSNumberFormat(arguments.count) & " " & loc.rv;
         }
         return loc.rv;
-    } 
+    }
 }

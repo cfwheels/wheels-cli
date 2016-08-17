@@ -1,6 +1,6 @@
-component extends="Controller" { 
+component extends="Controller" {
 
-	function init() { 
+	function init() {
 		// Verify Params
 		verifies(except="index,new,create", params="key", paramsTypes="integer", handler="objectNotFound");
 	}
@@ -16,7 +16,7 @@ component extends="Controller" {
 	*  @hint View |ObjectNameSingularC|
 	*/
 	function show() {
-		|ObjectNameSingular|=model("|ObjectNameSingular|").findByKey(params.key); 
+		|ObjectNameSingular|=model("|ObjectNameSingular|").findByKey(params.key);
 	}
 
 	/**
@@ -34,15 +34,15 @@ component extends="Controller" {
 		if(|ObjectNameSingular|.hasErrors()){
 			renderPage(action="new");
 		} else {
-			redirectTo(action="index", success="|ObjectNameSingularC| successfully created"); 
-		}		
+			redirectTo(action="index", success="|ObjectNameSingularC| successfully created");
+		}
 	}
 
 	/**
 	*  @hint Edit |ObjectNameSingularC|
 	*/
 	function edit() {
-		|ObjectNameSingular|=model("|ObjectNameSingular|").findByKey(params.key); 
+		|ObjectNameSingular|=model("|ObjectNameSingular|").findByKey(params.key);
 	}
 
 	/**
@@ -55,21 +55,21 @@ component extends="Controller" {
 		} else {
 			renderPage(action="edit");
 		}
-	}	
+	}
 
 	/**
 	*  @hint Delete |ObjectNameSingularC|
 	*/
 	function delete() {
-		|ObjectNameSingular|=model("|ObjectNameSingular|").deleteByKey(params.key);		
+		|ObjectNameSingular|=model("|ObjectNameSingular|").deleteByKey(params.key);
 		redirectTo(action="index", success="|ObjectNameSingularC| successfully deleted");
-	} 	
+	}
 
 	/**
 	*  @hint Redirect away if verifies fails, or if an object can't be found
 	*/
-	function objectNotFound() { 
+	function objectNotFound() {
 		redirectTo(action="index", error="That |ObjectNameSingularC| wasn't found");
-	} 
-	
-}	
+	}
+
+}

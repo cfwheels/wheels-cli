@@ -2,5 +2,5 @@
 	*  @hint |ActionHint|
 	*/
 	function |Action|() {
-		
+
 	}

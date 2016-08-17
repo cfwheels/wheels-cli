@@ -1,4 +1,4 @@
-<!--- |ObjectNameSingularC| Form Contents ---> 
+<!--- |ObjectNameSingularC| Form Contents --->
 <cfoutput>
 <!--- CLI-Appends-Here --->
 </cfoutput>

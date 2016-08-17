@@ -1,12 +1,12 @@
-component { 
+component {
 
-    // Module Properties 
+    // Module Properties
     this.autoMapModels  = true;
     this.modelNamespace = "wheels";
-    this.cfmapping      = "wheels"; 
+    this.cfmapping      = "wheels";
 
-    function configure(){ 
-    }   
+    function configure(){
+    }
     // Runs when module is loaded
     function onLoad(){
         log.info('CFWheels Module loaded successfully.' );
@@ -17,4 +17,4 @@ component {
         log.info('CFWheels Module unloaded successfully.' );
     }
 
-} 
+}

@@ -1,4 +1,4 @@
-// Bootstrap 3 form settings 
+// Bootstrap 3 form settings
 set(functionName="submitTag", class="btn btn-primary", value="Save Changes");
 set(functionName="checkBox,checkBoxTag", labelPlacement="aroundRight", prependToLabel="<div class=""checkbox"">", appendToLabel="</div>", uncheckedValue="0");
 set(functionName="radioButton,radioButtonTag", labelPlacement="aroundRight", prependToLabel="<div class=""radio"">", appendToLabel="</div>");

@@ -1,16 +1,16 @@
 /**
- * Create a new CFWheels application called {name} in current working directory. Rename to {name} and navigate to after 
+ * Create a new CFWheels application called {name} in current working directory. Rename to {name} and navigate to after
  * Adds various configuration defaults and does some basic checks to make URL rewriting work out of the box.
  **/
 component extends="base"  {
-	 
 
-	function run() { 	 
+
+	function run() {
  		var appContent	        = fileRead( helpers.getTemplate('/ConfigAppContent.txt' ) );
  		var settingsContent	    = fileRead( helpers.getTemplate('/ConfigSettingsContent.txt' ) );
  		var serverJSON	        = fileRead( helpers.getTemplate('/ServerJSON.txt' ) );
  		var urlRewriteContent	= fileRead( helpers.getTemplate('/urlRewriteContent.txt' ) );
-  
+
 
  		//---------------- Welcome
  		print.greenBoldLine( "========= Hello! =================================" )
@@ -21,20 +21,20 @@ component extends="base"  {
  			 .line().toConsole();
 
  	    //---------------- Set an app Name
- 		// TODO: Add conditions on what can in an application name 
- 		print.greenBoldLine( "========= We Need Some Information...=============" ) 			 
+ 		// TODO: Add conditions on what can in an application name
+ 		print.greenBoldLine( "========= We Need Some Information...=============" )
  			 .greenBoldLine( "= To get going, we're going to need to know a    =" )
  			 .greenBoldLine( "= NAME for your application. We recommend        =" )
  			 .greenBoldLine( "= something like myapp to start with             =" )
  			 .greenBoldLine( "==================================================" )
  			 .line().toConsole();
 		var appName = ask( 'Please enter a name for your application: ' );
-			appName=trim(appName);	
+			appName=trim(appName);
 			// TODO: Check appname is sane, and doesn't already exist.
 		print.line();
 
  	    //---------------- Set reload Password
-  		print.greenBoldLine( "========= And a 'Reload' Password    =============" ) 			 
+  		print.greenBoldLine( "========= And a 'Reload' Password    =============" )
 			 .greenBoldLine( "= We also need a 'reload' password. This can be  =" )
 			 .greenBoldLine( "= something simple, but unique and known only to =" )
 			 .greenBoldLine( "= you; Your reload password allows you to restart=" )
@@ -44,18 +44,18 @@ component extends="base"  {
 			 .line().toConsole();
  		var reloadPassword= ask('Please enter a "reload" password for your application: ');
  		print.line();
- 		
+
  	    //---------------- Set datasource Name
-  		print.greenBoldLine( "========= Data...data...data..       =============" ) 			 
-			 .greenBoldLine( "= All good apps need data. Unfortunately you're  =" ) 		 
-			 .greenBoldLine( "= going to have to be responsible for this bit.  =" ) 		 
-			 .greenBoldLine( "= We're expecting  a valid DataSource to be      =" ) 		 
-			 .greenBoldLine( "= setup; so you'll need mySQL or some other      =" ) 
-			 .greenBoldLine( "= supported DB server running locally. Once      =" ) 
-			 .greenBoldLine( "= you've setup a database, you'll need to add it =" ) 
-			 .greenBoldLine( "= to the local CommandBox Lucee server which     =" ) 
-			 .greenBoldLine( "= we'll start in a bit. For now, we just need to =" ) 
-			 .greenBoldLine( "= know what that datasource name will be.        =" ) 
+  		print.greenBoldLine( "========= Data...data...data..       =============" )
+			 .greenBoldLine( "= All good apps need data. Unfortunately you're  =" )
+			 .greenBoldLine( "= going to have to be responsible for this bit.  =" )
+			 .greenBoldLine( "= We're expecting  a valid DataSource to be      =" )
+			 .greenBoldLine( "= setup; so you'll need mySQL or some other      =" )
+			 .greenBoldLine( "= supported DB server running locally. Once      =" )
+			 .greenBoldLine( "= you've setup a database, you'll need to add it =" )
+			 .greenBoldLine( "= to the local CommandBox Lucee server which     =" )
+			 .greenBoldLine( "= we'll start in a bit. For now, we just need to =" )
+			 .greenBoldLine( "= know what that datasource name will be.        =" )
 			 .greenBoldLine( "==================================================" )
 			 .line().toConsole();
  		var datasourceName= ask('Please enter a datasource name if different from #appName#: ');
@@ -63,23 +63,23 @@ component extends="base"  {
  				datasourceName = appName;
  			}
 		print.line();
- 		
+
  	    //---------------- Set default server.json engine
-  		print.greenBoldLine( "========= Default CFML Engine        =============" ) 			 
-			 .greenBoldLine( "= Please select your preferred CFML engine for   =" ) 
-			 .greenBoldLine( "= local development: you can always change it    =" ) 
-			 .greenBoldLine( "= later!                                         =" ) 
-			 .greenBoldLine( "=                                                =" ) 
-			 .greenBoldLine( "=  1) lucee 4.5 (Commandbox default)             =" ) 
-			 .greenBoldLine( "=  2) lucee 5.x                                  =" ) 
-			 .greenBoldLine( "=  3) Adobe ColdFusion 10                        =" ) 
-			 .greenBoldLine( "=  4) Adobe ColdFusion 11                        =" ) 
-			 .greenBoldLine( "=  5) Adobe ColdFusion 2016                      =" ) 
+  		print.greenBoldLine( "========= Default CFML Engine        =============" )
+			 .greenBoldLine( "= Please select your preferred CFML engine for   =" )
+			 .greenBoldLine( "= local development: you can always change it    =" )
+			 .greenBoldLine( "= later!                                         =" )
+			 .greenBoldLine( "=                                                =" )
+			 .greenBoldLine( "=  1) lucee 4.5 (Commandbox default)             =" )
+			 .greenBoldLine( "=  2) lucee 5.x                                  =" )
+			 .greenBoldLine( "=  3) Adobe ColdFusion 10                        =" )
+			 .greenBoldLine( "=  4) Adobe ColdFusion 11                        =" )
+			 .greenBoldLine( "=  5) Adobe ColdFusion 2016                      =" )
 			 .greenBoldLine( "==================================================" )
 			 .line().toConsole();
  		var defaultEngine= ask('Please enter your preferred engine: [1-5] ');
  		var setEngine="lucee@4";
- 			switch(defaultEngine){ 
+ 			switch(defaultEngine){
  				case 2:
  					setEngine="lucee@5";
  				break;
@@ -91,7 +91,7 @@ component extends="base"  {
  				break;
  				case 5:
  					setEngine="adobe@2016";
- 				break; 
+ 				break;
  			}
 		print.line();
  		//---------------- This is just an idea at the moment really.
@@ -99,47 +99,47 @@ component extends="base"  {
 		var useBootstrap3=false;
 	    if(confirm("Would you like us to setup some default Bootstrap3 settings? [y/n]")){
 	    	useBootstrap3 = true;
-	    } 
+	    }
 
 		print.greenBoldLine( "==================================================" );
  		if(confirm("Great! Think we all good to go. We're going to install CFWheels in '/#appName#/', with a reload password of '#reloadPassword#', and a datasource of '#datasourceName#'. Sound good? [y/n]")){
  			var tempDir=createUUID();
 
  			print.greenline( "========= Installing CFWheels.........." ).toConsole();
-			
+
 			// Note: deliberately not using cache due to https://github.com/cfwheels/cfwheels/issues/652
 			command( 'artifacts remove cfwheels --force' ).run();
 
 			// Install into a temp directory to prevent overwriting other cfwheels named folders
-			command( 'install cfwheels #tempDir#' ).run(); 
+			command( 'install cfwheels #tempDir#' ).run();
 
-			print.greenline( "========= Moving Contents .........." ).toConsole();   
-			command('mv #tempDir#/CFWheels/ #appName#').run();  
+			print.greenline( "========= Moving Contents .........." ).toConsole();
+			command('mv #tempDir#/CFWheels/ #appName#').run();
 
-			print.greenline( "========= Removing Temp Dir........." ).toConsole();  
-			command('delete #tempDir# --recurse --force').run(); 
+			print.greenline( "========= Removing Temp Dir........." ).toConsole();
+			command('delete #tempDir# --recurse --force').run();
 
-			print.greenline( "========= Navigating to new application..." ).toConsole(); 
-				command('cd #appName#').run();   
-	 
+			print.greenline( "========= Navigating to new application..." ).toConsole();
+				command('cd #appName#').run();
+
 	 		print.greenline( "========= Creating config/app.cfm" ).toConsole();
 		 		appContent = replaceNoCase( appContent, "|appName|", appName, 'all' );
-		 		file action='write' file='#fileSystemUtil.resolvePath("config/app.cfm")#' mode ='777' output='#trim(appContent)#'; 
+		 		file action='write' file='#fileSystemUtil.resolvePath("config/app.cfm")#' mode ='777' output='#trim(appContent)#';
 
 	 		print.greenline( "========= Creating config/settings.cfm" ).toConsole();
 		 		settingsContent = replaceNoCase( settingsContent, "|reloadPassword|", trim(reloadPassword), 'all' );
 		 		settingsContent = replaceNoCase( settingsContent, "|datasourceName|", datasourceName, 'all' );
-		 		file action='write' file='#fileSystemUtil.resolvePath("config/settings.cfm")#' mode ='777' output='#trim(settingsContent)#'; 
+		 		file action='write' file='#fileSystemUtil.resolvePath("config/settings.cfm")#' mode ='777' output='#trim(settingsContent)#';
 
 			// Make server.json server name unique to this app: assumes lucee by default
 	 		print.greenline( "========= Creating default server.json" ).toConsole();
 		 		serverJSON = replaceNoCase( serverJSON, "|appName|", trim(appName), 'all' );
 		 		serverJSON = replaceNoCase( serverJSON, "|setEngine|", setEngine, 'all' );
-		 		file action='write' file='#fileSystemUtil.resolvePath("server.json")#' mode ='777' output='#trim(serverJSON)#';  
+		 		file action='write' file='#fileSystemUtil.resolvePath("server.json")#' mode ='777' output='#trim(serverJSON)#';
 
-	 		print.greenline( "========= Adding urlrewrite.xml" ).toConsole(); 
+	 		print.greenline( "========= Adding urlrewrite.xml" ).toConsole();
 	 		// TODO: Add fileExists() as this will br provided in 2.x
-		 		file action='write' file='#fileSystemUtil.resolvePath("urlrewrite.xml")#' mode ='777' output='#trim(urlRewriteContent)#';  
+		 		file action='write' file='#fileSystemUtil.resolvePath("urlrewrite.xml")#' mode ='777' output='#trim(urlRewriteContent)#';
 
 	 		print.greenline( "========= Installing DBMigrate and DBMigratebridge Plugins").toConsole();
 	 			command( 'cp' )
@@ -153,37 +153,37 @@ component extends="base"  {
 	 		 	// Replace Default Template with something more sensible
 	 		 	var bsLayout=fileRead( helpers.getTemplate('/bootstrap3/layout.cfm' ) );
 	 		 		bsLayout = replaceNoCase( bsLayout, "|appName|", appName, 'all' );
-	 		 		file action='write' file='#fileSystemUtil.resolvePath("views/layout.cfm")#' mode ='777' output='#trim(bsLayout)#';  
+	 		 		file action='write' file='#fileSystemUtil.resolvePath("views/layout.cfm")#' mode ='777' output='#trim(bsLayout)#';
 	 		 	// Add Bootstrap 3 default form settings
 	 		 	var bsSettings=fileRead( helpers.getTemplate('/bootstrap3/settings.cfm' ) );
 				settingsContent = replaceNoCase( settingsContent, '// CLI-Appends-Here', bsSettings & cr & '// CLI-Appends-Here', 'one');
-				file action='write' file='#fileSystemUtil.resolvePath("config/settings.cfm")#' mode ='777' output='#trim(settingsContent)#'; 
-	 		 	// Flashwrapper Plugin needed 
+				file action='write' file='#fileSystemUtil.resolvePath("config/settings.cfm")#' mode ='777' output='#trim(settingsContent)#';
+	 		 	// Flashwrapper Plugin needed
 	 		 	command( 'cp' )
 				    .params( path=expandPath("../modules/cfwheels-cli/templates/bootstrap3/plugins/"), newPath='plugins', filter="*.zip" )
 				    .run();
 	 		print.line();
 		    }
-	 		
-			command('ls').run();  
+
+			command('ls').run();
 			print.line()
-			print.greenBoldLine( "========= All Done! =============================" ) 			 
-				 .greenBoldLine( "= Your app has been successfully created. Type   =" ) 		 
-				 .greenBoldLine( "= 'server start' to start a server here.         =" ) 		 
-				 .greenBoldLine( "=                                                =" ) 	 
-				 .greenBoldLine( "= Don't forget to add your datasource to either  =" ) 	 
-				 .greenBoldLine( "= /lucee/admin/server.cfm OR                     =" ) 		 
-				 .greenBoldLine( "= /CFIDE/administrator/index.cfm                 =" ) 		 
-				 .greenBoldLine( "=                                                =" ) 		 
-				 .greenBoldLine( "= Once you've started a local server, we can get =" ) 
-				 .greenBoldLine( "= going with scaffolding and other awesome things=" )  
+			print.greenBoldLine( "========= All Done! =============================" )
+				 .greenBoldLine( "= Your app has been successfully created. Type   =" )
+				 .greenBoldLine( "= 'server start' to start a server here.         =" )
+				 .greenBoldLine( "=                                                =" )
+				 .greenBoldLine( "= Don't forget to add your datasource to either  =" )
+				 .greenBoldLine( "= /lucee/admin/server.cfm OR                     =" )
+				 .greenBoldLine( "= /CFIDE/administrator/index.cfm                 =" )
+				 .greenBoldLine( "=                                                =" )
+				 .greenBoldLine( "= Once you've started a local server, we can get =" )
+				 .greenBoldLine( "= going with scaffolding and other awesome things=" )
 				 .greenBoldLine( "==================================================" )
-				 .line(); 
+				 .line();
 		} else {
 			error("OK, another time then. *sobs*");
-		} 
+		}
 
-		
+
 	}
- 
+
 }

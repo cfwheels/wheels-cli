@@ -1,7 +1,7 @@
-component extends="Model" { 
+component extends="Model" {
 
 	function init() {
-	
+
 	}
 
 }
