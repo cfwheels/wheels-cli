@@ -2,13 +2,13 @@
  * Destroy: kill an object and it's associated DB transactions and view/controller/model files
  * wheels destroy user
  **/
-component extends="base"  {
-	 
+component aliases='wheels d'  extends="base"  {
+
 
 	/**
-	 * @name.hint Name of object to destroy 
+	 * @name.hint Name of object to destroy
 	 **/
-	function run(required string name) { 
+	function run(required string name) {
 
 		var obj            = helpers.getNameVariants(arguments.name);
 		var modelFile      = fileSystemUtil.resolvePath("models/#obj.objectNameSingularC#.cfc");
@@ -23,16 +23,16 @@ component extends="base"  {
 			 .line()
 			 .line("#modelFile#")
 			 .line("#controllerFile#")
-			 .line("#viewFolder#") 
+			 .line("#viewFolder#")
 			 .line();
 
-		if(confirm("Are you sure? [y/n]")){ 
-			command('delete').params(path=modelFile, force=true).run();  
-			command('delete').params(path=controllerFile, force=true).run();  
-			command('delete').params(path=viewFolder, force=true, recurse=true).run();  
+		if(confirm("Are you sure? [y/n]")){
+			command('delete').params(path=modelFile, force=true).run();
+			command('delete').params(path=controllerFile, force=true).run();
+			command('delete').params(path=viewFolder, force=true, recurse=true).run();
 
 			print.greenline( "Migrating DB" ).toConsole();
-			command('wheels dbmigrate remove table').params(name=obj.objectNamePlural).run(); 
+			command('wheels dbmigrate remove table').params(name=obj.objectNamePlural).run();
 			command('wheels dbmigrate latest').run();
 			print.line();
 		}

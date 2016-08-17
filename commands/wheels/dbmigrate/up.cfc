@@ -1,10 +1,10 @@
 /**
  * Migration one version UP
  **/
-component  extends="../base"  {
-	
+component aliases='wheels db up' extends="../base"  {
+
 	/**
-	 * 
+	 *
 	 **/
 	function run(  ) {
 		var DBMigrateInfo=$getDBMigrateInfo();
@@ -21,21 +21,21 @@ component  extends="../base"  {
 		// Get current version as an index of the migration array
 		var currentIndex = 0;
 		var newIndex     = 0;
-		migrations.each(function(migration,i,array){ 
+		migrations.each(function(migration,i,array){
 		    if(migration.version == DBMigrateInfo.currentVersion){
 		    	currentIndex = i;
 		    }
-		}); 
+		});
 
-		if(currentIndex < arrayLen(migrations)){ 
+		if(currentIndex < arrayLen(migrations)){
 			newIndex = ++currentIndex;
-			print.line("Migrating to #migrations[newIndex]['cfcfile']#"); 
+			print.line("Migrating to #migrations[newIndex]['cfcfile']#");
 			command('wheels dbmigrate exec')
 				.params(version=migrations[newIndex]["version"])
 				.run();
 		} else {
 			print.line("No more versions to go to?");
-		} 
+		}
 	}
 
 }

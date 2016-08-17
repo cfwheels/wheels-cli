@@ -1,0 +1,14 @@
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+0.1.1 (TBA)
+
+Enhancements
+=================
+
+* Adds command aliases for dbmigrate (db),generate(g),destroy(d) #15
+
+Bug Fixes
+=================
+
+* `wheels new` now downloads to a unique temp folder #11
+* scaffold command now prompts for migration #13

@@ -1,7 +1,7 @@
 /**
  * Create a migration CFC
- * 
- **/ 
+ *
+ **/
  <!---
     |----------------------------------------------------------------------------------------------|
 	| Parameter  | Required | Type    | Default | Description                                      |
@@ -13,21 +13,21 @@
     |----------------------------------------------------------------------------------------------|
 
     EXAMPLE:
-      t = createTable(name='employees',force=false,id=true,primaryKey='empId'); 
+      t = createTable(name='employees',force=false,id=true,primaryKey='empId');
 --->
-component extends="../../base"  { 
-	 
+component aliases='wheels db create table' extends="../../base"  {
+
 	/**
 	 * I create a migration file in /db/migrate
-	 * 
-	 * Usage: wheels dbmigrate create table [name] [force] [id] [primaryKey]  
+	 *
+	 * Usage: wheels dbmigrate create table [name] [force] [id] [primaryKey]
 	 * @name.hint The Object Name
 	 * @force.hint Force Creation
 	 * @id.hint Auto create ID column as autoincrement ID
 	 * @primaryKey.hint overrides default primary key name
 	 **/
 	function run(
-		required string name, 
+		required string name,
 		boolean force    = false,
 		boolean id 		 = true,
 		string primaryKey="id") {
@@ -35,13 +35,13 @@ component extends="../../base"  {
 		// Get Template
 		var content=fileRead(helpers.getTemplate("dbmigrate/create-table.txt"));
 
-		// Changes here 
-		content=replaceNoCase(content, "|tableName|", "#name#", "all"); 
-		content=replaceNoCase(content, "|force|", "#force#", "all");  
-		content=replaceNoCase(content, "|id|", "#id#", "all");  
-		content=replaceNoCase(content, "|primaryKey|", "#primaryKey#", "all");    
+		// Changes here
+		content=replaceNoCase(content, "|tableName|", "#name#", "all");
+		content=replaceNoCase(content, "|force|", "#force#", "all");
+		content=replaceNoCase(content, "|id|", "#id#", "all");
+		content=replaceNoCase(content, "|primaryKey|", "#primaryKey#", "all");
 
 		// Make File
-		 $createMigrationFile(name=lcase(trim(arguments.name)),	action="create_table",	content=content); 
-	} 
+		 $createMigrationFile(name=lcase(trim(arguments.name)),	action="create_table",	content=content);
+	}
 }

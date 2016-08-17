@@ -1,8 +1,8 @@
 /**
  * Create a migration CFC
- * 
- **/ 
- <!--- 
+ *
+ **/
+ <!---
      |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 	| Parameter     | Required | Type    | Default | Description                                                                                                                                           |
     |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -20,17 +20,17 @@
     EXAMPLE:
       addColumn(table='users', columnType='string', columnName='password', default='', null=true);
 --->
-component extends="../../base"  { 
-	 
+component aliases='wheels db create column' extends="../../base"  {
+
 	/**
 	 * I create a migration file in /db/migrate
-	 * 
-	 * Usage: wheels dbmigrate create column [tablename] [force] [id] [primaryKey]  
+	 *
+	 * Usage: wheels dbmigrate create column [tablename] [force] [id] [primaryKey]
 	 **/
 	function run(
 		required string name,
 		required string columnType,
-		string columnName="", 
+		string columnName="",
 		any default,
 		boolean null=true,
 		number limit,
@@ -42,17 +42,17 @@ component extends="../../base"  {
 		var argumentArr=[];
 		var argumentString="";
 
-		// Changes here 
-		content=replaceNoCase(content, "|tableName|", "#name#", "all");   
-		content=replaceNoCase(content, "|columnType|", "#columnType#", "all");   
-		content=replaceNoCase(content, "|columnName|", "#columnName#", "all");   
-		//content=replaceNoCase(content, "|referenceName|", "#referenceName#", "all"); 
+		// Changes here
+		content=replaceNoCase(content, "|tableName|", "#name#", "all");
+		content=replaceNoCase(content, "|columnType|", "#columnType#", "all");
+		content=replaceNoCase(content, "|columnName|", "#columnName#", "all");
+		//content=replaceNoCase(content, "|referenceName|", "#referenceName#", "all");
 
-		// Construct additional arguments(only add/replace if passed through)  
+		// Construct additional arguments(only add/replace if passed through)
 		if(structKeyExists(arguments,"default") && len(arguments.default)){
-			if(isnumeric(arguments.default)){ 
+			if(isnumeric(arguments.default)){
 			arrayAppend(argumentArr, "default = #arguments.default#");
-			} else { 
+			} else {
 			arrayAppend(argumentArr, "default = '#arguments.default#'");
 			}
 		}
@@ -72,17 +72,17 @@ component extends="../../base"  {
 			argumentString&=", ";
 			argumentString&=$constructArguments(argumentArr);
 		}
-		
+
 		// Finally, replace |arguments| with appropriate string
-		content=replaceNoCase(content, "|arguments|", "#argumentString#", "all");   
-		//content=replaceNoCase(content, "|null|", "#null#", "all");   
-		//content=replaceNoCase(content, "|limit|", "#limit#", "all");   
-		//content=replaceNoCase(content, "|precision|", "#precision#", "all");   
-		//content=replaceNoCase(content, "|scale|", "#scale#", "all");   
+		content=replaceNoCase(content, "|arguments|", "#argumentString#", "all");
+		//content=replaceNoCase(content, "|null|", "#null#", "all");
+		//content=replaceNoCase(content, "|limit|", "#limit#", "all");
+		//content=replaceNoCase(content, "|precision|", "#precision#", "all");
+		//content=replaceNoCase(content, "|scale|", "#scale#", "all");
 
 		// Make File
-		$createMigrationFile(name=lcase(trim(arguments.name)) & '_' & lcase(trim(arguments.columnName)),	action="create_column",	content=content); 
-	} 
+		$createMigrationFile(name=lcase(trim(arguments.name)) & '_' & lcase(trim(arguments.columnName)),	action="create_column",	content=content);
+	}
 
 	function $constructArguments(args, string operator=","){
 		var loc = {};
@@ -93,4 +93,4 @@ component extends="../../base"  {
 	    return ArrayToList(loc.array, " #arguments.operator# ");
 	}
 
-} 
+}

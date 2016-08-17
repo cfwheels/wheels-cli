@@ -1,14 +1,14 @@
 /**
  * Info
  **/
-component  extends="../base" { 
-	
+component aliases='wheels db info' extends="../base" {
+
 	/**
 	 *  Display DB Migrate info
 	 **/
-	function run(  ) { 
+	function run(  ) {
 		print.greenBoldLine( "================CFWheels DBMigrate =================" );
 		print.greenBoldLine(  Formatter.formatJson($getDBMigrateInfo()) 			)
 		print.greenBoldLine( "====================================================" );
-	} 
+	}
 }

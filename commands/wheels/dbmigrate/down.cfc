@@ -1,10 +1,10 @@
 /**
  * Migration one version DOWN
  **/
-component extends="../base"  {
-	
+component aliases='wheels db down' extends="../base"  {
+
 	/**
-	 * 
+	 *
 	 **/
 	function run(  ) {
 		var DBMigrateInfo=$getDBMigrateInfo();
@@ -22,20 +22,20 @@ component extends="../base"  {
 		var currentIndex = 0;
 		var newIndex     = 0;
 		var migrateTo    = 0;
-		migrations.each(function(migration,i,array){ 
+		migrations.each(function(migration,i,array){
 		    if(migration.version == DBMigrateInfo.currentVersion){
 		    	currentIndex = i;
 		    }
-		}); 
- 
+		});
+
 			newIndex = --currentIndex;
 			if(newIndex != 0 ){
 				migrateTo=migrations[newIndex]["version"];
 			}
-			print.line("Migrating to #migrateTo#"); 
+			print.line("Migrating to #migrateTo#");
 			command('wheels dbmigrate exec')
 				.params(version=migrateTo)
-				.run(); 
+				.run();
 			if(migrateTo == 0){
 				print.line("Database should now be empty.");
 			}
