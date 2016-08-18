@@ -10,6 +10,10 @@ component accessors="true" singleton {
         loc.objectNamePluralC   = capitalize(loc.objectNamePlural);
         return loc;
     }
+
+    public string function stripSpecialChars(required string str) {
+        return trim(reReplace(str,"[{}()^$&%##!@=<>:;,~`'*?/+|\[\]\-\\]",'','all'));
+    }
 //=====================================================================
 //=     Templates
 //=====================================================================

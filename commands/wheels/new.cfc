@@ -29,8 +29,7 @@ component extends="base"  {
  			 .greenBoldLine( "==================================================" )
  			 .line().toConsole();
 		var appName = ask( 'Please enter a name for your application: ' );
-			appName=trim(appName);
-			// TODO: Check appname is sane, and doesn't already exist.
+			appName=helpers.stripSpecialChars(appName);
 		print.line();
 
  	    //---------------- Set reload Password
