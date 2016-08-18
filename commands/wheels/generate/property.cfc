@@ -70,10 +70,11 @@ component aliases='wheels g property'  extends="../base"  {
     	if(arguments.columnType == "boolean" && len(arguments.default) == 0 ){
     		arguments.default=0;
     	}
+    	// NB wheels default is lowercase column names
 		command('wheels dbmigrate create column')
 			.params(
 				name=obj.objectNamePlural,
-				columnName=arguments.columnName,
+				columnName=lcase(arguments.columnName),
 				columnType=arguments.columnType,
 				default=arguments.default,
 				null=arguments.null,
