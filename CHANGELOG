@@ -6,9 +6,11 @@ Enhancements
 =================
 
 * Adds command aliases for dbmigrate (db),generate(g),destroy(d) #15
+* CLI can identify Wheels version from box.json #16
 
 Bug Fixes
 =================
 
 * `wheels new` now downloads to a unique temp folder #11
 * scaffold command now prompts for migration #13
+* generated columns are now lowercase #18
