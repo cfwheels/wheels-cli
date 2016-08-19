@@ -168,7 +168,7 @@ component extends="base"  {
 			print.line()
 			print.greenBoldLine( "========= All Done! =============================" )
 				 .greenBoldLine( "= Your app has been successfully created. Type   =" )
-				 .greenBoldLine( "= 'server start' to start a server here.         =" )
+				 .greenBoldLine( "= 'start' to start a server here.                =" )
 				 .greenBoldLine( "=                                                =" )
 				 .greenBoldLine( "= Don't forget to add your datasource to either  =" )
 				 .greenBoldLine( "= /lucee/admin/server.cfm OR                     =" )
