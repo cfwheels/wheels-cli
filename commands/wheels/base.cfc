@@ -43,123 +43,118 @@ component excludeFromHelp=true {
 
 	// Replace default objectNames
 	struct function $replaceDefaultObjectNames(required string content,required struct obj){
-		var loc={
-			rv=arguments.content
-		};
-		loc.rv 	 = replaceNoCase( loc.rv, '|ObjectNameSingular|', obj.objectNameSingular, 'all' );
-		loc.rv 	 = replaceNoCase( loc.rv, '|ObjectNamePlural|',   obj.objectNamePlural, 'all' );
-		loc.rv 	 = replaceNoCase( loc.rv, '|ObjectNameSingularC|', obj.objectNameSingularC, 'all' );
-		loc.rv 	 = replaceNoCase( loc.rv, '|ObjectNamePluralC|',   obj.objectNamePluralC, 'all' );
-		return loc.rv;
+		local.rv=arguments.content;
+		local.rv 	 = replaceNoCase( local.rv, '|ObjectNameSingular|', obj.objectNameSingular, 'all' );
+		local.rv 	 = replaceNoCase( local.rv, '|ObjectNamePlural|',   obj.objectNamePlural, 'all' );
+		local.rv 	 = replaceNoCase( local.rv, '|ObjectNameSingularC|', obj.objectNameSingularC, 'all' );
+		local.rv 	 = replaceNoCase( local.rv, '|ObjectNamePluralC|',   obj.objectNamePluralC, 'all' );
+		return local.rv;
 	}
 
     // Inject CLI content into template
-    function $injectIntoView(required struct objectNames, required string property, required string type, string action="input"){
-        var loc = {}
-
+    function $injectIntoView(required struct objectNames, required string property, required string type, string action="input"){  
         if(arguments.action EQ "input"){
-            loc.target=fileSystemUtil.resolvePath("views/#objectNames.objectNamePlural#/_form.cfm");
-            loc.inject=$generateFormField(objectname=objectNames.objectNameSingular, property=arguments.property, type=arguments.type);
+            local.target=fileSystemUtil.resolvePath("views/#objectNames.objectNamePlural#/_form.cfm");
+            local.inject=$generateFormField(objectname=objectNames.objectNameSingular, property=arguments.property, type=arguments.type);
         } else if(arguments.action EQ "output"){
-            loc.target=fileSystemUtil.resolvePath("views/#objectNames.objectNamePlural#/show.cfm");
-            loc.inject=$generateOutputField(objectname=objectNames.objectNameSingular, property=arguments.property, type=arguments.type);
+            local.target=fileSystemUtil.resolvePath("views/#objectNames.objectNamePlural#/show.cfm");
+            local.inject=$generateOutputField(objectname=objectNames.objectNameSingular, property=arguments.property, type=arguments.type);
         }
-        loc.content=fileRead(loc.target);
+        local.content=fileRead(local.target);
         // inject into position CLI-Appends-Here
-        loc.content = replaceNoCase(loc.content, '<!--- CLI-Appends-Here --->', loc.inject & cr & '<!--- CLI-Appends-Here --->', 'all');
+        local.content = replaceNoCase(local.content, '<!--- CLI-Appends-Here --->', local.inject & cr & '<!--- CLI-Appends-Here --->', 'all');
         // Replace tokens with ## tags
-        loc.content = Replace(loc.content, "~[~", "##", "all");
-        loc.content = Replace(loc.content, "~]~", "##", "all");
+        local.content = Replace(local.content, "~[~", "##", "all");
+        local.content = Replace(local.content, "~]~", "##", "all");
         // Finally write out the file
-        file action='write' file='#loc.target#' mode ='777' output='#trim(loc.content)#';
+        file action='write' file='#local.target#' mode ='777' output='#trim(local.content)#';
     }
 
     // Returns contents for a default (non crud) action
     function $returnAction(required string name, string hint=""){
-    	var loc={
+    	local={
     		templateDirectory = helpers.getTemplateDirectory(),
     		name = trim(arguments.name),
     		hint = trim(arguments.hint),
     		rv=""
     	}
-    	loc.rv = fileRead( loc.templateDirectory & '/ActionContent.txt' );
+    	local.rv = fileRead( local.templateDirectory & '/ActionContent.txt' );
 
-    	if(len(loc.hint) == 0){
-    		loc.hint = loc.name;
+    	if(len(local.hint) == 0){
+    		local.hint = local.name;
     	}
 
-		loc.rv = replaceNoCase( loc.rv, '|ActionHint|', loc.hint, 'all' );
-		loc.rv = replaceNoCase( loc.rv, '|Action|', loc.name, 'all' ) & cr & cr;
-
-        return loc.rv;
+		local.rv = replaceNoCase( local.rv, '|ActionHint|', local.hint, 'all' );
+		local.rv = replaceNoCase( local.rv, '|Action|', local.name, 'all' ) & cr & cr; 
+        return local.rv;
     }
 
 
 	// Default output for show.cfm:
  	function $generateOutputField(required string objectName, required string property, required string type){
-		var loc = {
-			rv="<p><strong>#helpers.capitalize(property)#</strong><br />~[~"
-		}
+		 
+		local.rv="<p><strong>#helpers.capitalize(property)#</strong><br />~[~";
+		 
 		switch(type){
 			// Return a checkbox
 			case "boolean":
-				loc.rv&="yesNoFormat(#objectName#.#property#)";
+				local.rv&="yesNoFormat(#objectName#.#property#)";
 			break;
 			// Return a calendar
 			case "date":
-				loc.rv&="dateFormat(#objectName#.#property#)";
+				local.rv&="dateFormat(#objectName#.#property#)";
 			break;
 			// Return a time picker
 			case "time":
-				loc.rv&="timeFormat(#objectName#.#property#)";
+				local.rv&="timeFormat(#objectName#.#property#)";
 			break;
 			// Return a calendar and time picker
 			case "datetime":
 			case "timestamp":
-				loc.rv&="dateTimeFormat(#objectName#.#property#)";
+				local.rv&="dateTimeFormat(#objectName#.#property#)";
 			break;
 			// Return a text field if everything fails, i.e assume string
 			// Let's escape the output to be safe
 			default:
-				loc.rv&="xmlFormat(#objectName#.#property#)";
+				local.rv&="xmlFormat(#objectName#.#property#)";
 			break;
 		}
-		loc.rv&="~]~</p>";
-		return loc.rv;
+		local.rv&="~]~</p>";
+		return local.rv;
  	}
 
  	function $generateFormField(required string objectName, required string property, required string type){
-		var loc = {rv=""}
+		local.rv="";
 		switch(type){
 			// Return a checkbox
 			case "boolean":
-				loc.rv="checkbox(objectName='#objectName#', property='#property#')";
+				local.rv="checkbox(objectName='#objectName#', property='#property#')";
 			break;
 			// Return a textarea
 			case "text":
-				loc.rv="textArea(objectName='#objectName#', property='#property#')";
+				local.rv="textArea(objectName='#objectName#', property='#property#')";
 			break;
 			// Return a calendar
 			case "date":
-				loc.rv="dateSelect(objectName='#objectName#', property='#property#')";
+				local.rv="dateSelect(objectName='#objectName#', property='#property#')";
 			break;
 			// Return a time picker
 			case "time":
-				loc.rv="timeSelect(objectName='#objectName#', property='#property#')";
+				local.rv="timeSelect(objectName='#objectName#', property='#property#')";
 			break;
 			// Return a calendar and time picker
 			case "datetime":
 			case "timestamp":
-				loc.rv="dateTimeSelect(objectName='#objectName#', property='#property#')";
+				local.rv="dateTimeSelect(objectName='#objectName#', property='#property#')";
 			break;
 			// Return a text field if everything fails, i.e assume string
 			default:
-				loc.rv="textField(objectName='#objectName#', property='#property#')";
+				local.rv="textField(objectName='#objectName#', property='#property#')";
 			break;
 		}
 		// We need to make these rather unique incase the view file has *any* pre-existing
-		loc.rv = "~[~" & loc.rv & "~]~";
-		return loc.rv;
+		local.rv = "~[~" & local.rv & "~]~";
+		return local.rv;
  	}
 //=====================================================================
 //= 	DB Migrate
