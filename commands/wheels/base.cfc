@@ -5,12 +5,44 @@ component excludeFromHelp=true {
 	property name='serverService' inject='ServerService';
 	property name='Formatter'     inject='Formatter';
 	property name='Helpers'       inject='helpers@wheels';
+	property name='packageService' inject='packageService';
 
 //=====================================================================
 //= 	Scaffolding
 //=====================================================================
+
+	// Try and get wheels version from box.json
+	string function $getWheelsVersion(){
+		var local.boxJSON = packageService.readPackageDescriptorRaw( getCWD() );
+		return local.boxJSON.version ?: "0.0.0";
+	}
+
+	// Compare against current wheels version
+	// scope can be one of major/minor/patch
+	boolean function $isWheelsVersion(required any version, string scope="major"){
+		// Assume a string like 2, or 2.0, or 2.0.1, or 1.x 
+		var currentversion=listToArray($getWheelsVersion(), ".");
+		var compareversion=listToArray(arguments.version, ".");
+		if(arguments.scope == "major"){
+			if(compareversion[1] == currentversion[1]){
+				return true;
+			}
+		}
+		if(arguments.scope == "minor"){
+			if(compareversion[2] == currentversion[2]){
+				return true;
+			}
+		}
+		if(arguments.scope == "patch"){
+			if(compareversion[3] == currentversion[3]){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	// Replace default objectNames
-	function $replaceDefaultObjectNames(required string content,required struct obj){
+	struct function $replaceDefaultObjectNames(required string content,required struct obj){
 		var loc={
 			rv=arguments.content
 		};
