@@ -7,6 +7,7 @@ Enhancements
 
 * Adds command aliases for dbmigrate (db),generate(g),destroy(d) #15
 * CLI can identify Wheels version from box.json #16
+* `wheels reload` (alias `r`) command added #20
 
 Bug Fixes
 =================

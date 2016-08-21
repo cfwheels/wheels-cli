@@ -20,7 +20,7 @@ component excludeFromHelp=true {
 	// Compare against current wheels version
 	// scope can be one of major/minor/patch
 	boolean function $isWheelsVersion(required any version, string scope="major"){
-		// Assume a string like 2, or 2.0, or 2.0.1, or 1.x 
+		// Assume a string like 2, or 2.0, or 2.0.1, or 1.x
 		var currentversion=listToArray($getWheelsVersion(), ".");
 		var compareversion=listToArray(arguments.version, ".");
 		if(arguments.scope == "major"){
@@ -52,7 +52,7 @@ component excludeFromHelp=true {
 	}
 
     // Inject CLI content into template
-    function $injectIntoView(required struct objectNames, required string property, required string type, string action="input"){  
+    function $injectIntoView(required struct objectNames, required string property, required string type, string action="input"){
         if(arguments.action EQ "input"){
             local.target=fileSystemUtil.resolvePath("views/#objectNames.objectNamePlural#/_form.cfm");
             local.inject=$generateFormField(objectname=objectNames.objectNameSingular, property=arguments.property, type=arguments.type);
@@ -85,16 +85,16 @@ component excludeFromHelp=true {
     	}
 
 		local.rv = replaceNoCase( local.rv, '|ActionHint|', local.hint, 'all' );
-		local.rv = replaceNoCase( local.rv, '|Action|', local.name, 'all' ) & cr & cr; 
+		local.rv = replaceNoCase( local.rv, '|Action|', local.name, 'all' ) & cr & cr;
         return local.rv;
     }
 
 
 	// Default output for show.cfm:
  	function $generateOutputField(required string objectName, required string property, required string type){
-		 
+
 		local.rv="<p><strong>#helpers.capitalize(property)#</strong><br />~[~";
-		 
+
 		switch(type){
 			// Return a checkbox
 			case "boolean":
@@ -156,6 +156,7 @@ component excludeFromHelp=true {
 		local.rv = "~[~" & local.rv & "~]~";
 		return local.rv;
  	}
+
 //=====================================================================
 //= 	DB Migrate
 //=====================================================================
@@ -183,7 +184,6 @@ component excludeFromHelp=true {
 
 	// Get information about the currently running server so we can send commmands to dbmigrate
 	function $getServerInfo(){
-		$preConnectionCheck()
 		var serverDetails = serverService.resolveServerDetails( serverProps={ name=listLast( getCWD(), '/\' ) } );
   		var loc ={
   			host              = serverDetails.serverInfo.host,
@@ -214,6 +214,7 @@ component excludeFromHelp=true {
 
 	// Basically sends a command
 	function $sendToDBMigrateBridge(getURL){
+		$preConnectionCheck()
 		loc = new Http( url=getURL ).send().getPrefix();
 		if(isJson(loc.filecontent)){
   			loc.result=deserializeJSON(loc.filecontent);
