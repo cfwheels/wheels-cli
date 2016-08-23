@@ -26,7 +26,6 @@ component aliases='wheels g controller' extends="../base"  {
 		directory='controllers'
 	){
 		var obj = helpers.getNameVariants(arguments.name);
-		var controllerContent 	= fileRead( helpers.getTemplate('/ControllerContent.txt') );
 		arguments.directory = fileSystemUtil.resolvePath( arguments.directory );
 
 		print.line( "Creating Controller..." ).toConsole();
@@ -41,6 +40,7 @@ component aliases='wheels g controller' extends="../base"  {
 
  		if( len( arguments.actionList ) && arguments.actionList != "CRUD" ){
 			var allactions = "";
+			var controllerContent 	= fileRead( helpers.getTemplate('/ControllerContent.txt') );
 			// Loop Over actions to generate them
 			for( var thisAction in listToArray( arguments.actionList ) ) {
 				if( thisAction == 'init' ) { continue; }

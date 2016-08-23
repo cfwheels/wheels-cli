@@ -42,7 +42,7 @@ component excludeFromHelp=true {
 	}
 
 	// Replace default objectNames
-	struct function $replaceDefaultObjectNames(required string content,required struct obj){
+	string function $replaceDefaultObjectNames(required string content,required struct obj){
 		local.rv=arguments.content;
 		local.rv 	 = replaceNoCase( local.rv, '|ObjectNameSingular|', obj.objectNameSingular, 'all' );
 		local.rv 	 = replaceNoCase( local.rv, '|ObjectNamePlural|',   obj.objectNamePlural, 'all' );
@@ -162,6 +162,10 @@ component excludeFromHelp=true {
 //=====================================================================
 	// Before we can even think about using DBmigrate, we've got to check a few things
 	function $preConnectionCheck(){
+		var serverJSON=fileSystemUtil.resolvePath("server.json");
+ 			if(!fileExists(serverJSON)){
+ 				error("We really need a server.json with a port number and a servername. We can't seem to find it.");
+ 			}
 		// Wheels folder in expected place? (just a good check to see if the user has actually installed wheels...)
  		var wheelsFolder=fileSystemUtil.resolvePath("wheels");
  			if(!directoryExists(wheelsFolder)){
@@ -172,17 +176,22 @@ component excludeFromHelp=true {
  			if(!directoryExists(wheelsFolder)){
  				error("We can't find your plugins folder. Check you have installed CFWheels, and you're running this from the site root.");
  			}
- 		var DBMigratePluginLocation=fileSystemUtil.resolvePath("plugins/dbmigrate");
+ 		// Wheels 1.x requires dbmigrate plugin
+ 		// Wheels 2.x has dbmigrate + dbmigratebridge equivalents in core
+ 		if($isWheelsVersion(1, "major")){
+ 			var DBMigratePluginLocation=fileSystemUtil.resolvePath("plugins/dbmigrate");
  			if(!directoryExists(DBMigratePluginLocation)){
  				error("We can't find your plugins/dbmigrate folder? Please check the plugin is successfully installed; if you've not started the server using server start for the first time, this folder may not be created yet.");
  			}
- 		var DBMigrateBridgePluginLocation=fileSystemUtil.resolvePath("plugins/dbmigratebridge");
+			var DBMigrateBridgePluginLocation=fileSystemUtil.resolvePath("plugins/dbmigratebridge");
  			if(!directoryExists(DBMigrateBridgePluginLocation)){
  				error("We can't find your plugins/dbmigratebridge folder? Please check the plugin is successfully installed;  if you've not started the server using server start for the first time, this folder may not be created yet.");
  			}
+ 		}
+
 	}
 
-	// Get information about the currently running server so we can send commmands to dbmigrate
+	// Get information about the currently running server so we can send commmands
 	function $getServerInfo(){
 		var serverDetails = serverService.resolveServerDetails( serverProps={ name=listLast( getCWD(), '/\' ) } );
   		var loc ={
@@ -193,29 +202,30 @@ component excludeFromHelp=true {
 	  	return loc;
 	}
 
-	// Get all info we know about dbmigrate
-	function $getDBMigrateInfo(){
-		$preConnectionCheck()
-  		var serverDetails = $getServerInfo();
-  		var getURL = serverDetails.serverURL & "/index.cfm?controller=wheels&action=wheels&view=plugins&name=dbmigratebridge";
-  		var loc = new Http( url=getURL ).send().getPrefix();
-		if(isJson(loc.filecontent)){
-  			loc.result=deserializeJSON(loc.filecontent);
-  			if(loc.result.success){
-					return loc.result;
-  			} else {
-  				error(loc.result.messages);
-  			}
+	// Construct remote URL depending on wheels version
+	string function $getBridgeURL() {
+		var serverInfo=$getServerInfo();
+		var geturl=serverInfo.serverUrl;
+		// Wheels 1.x requires dbmigratebridge plugin
+  		if($isWheelsVersion(1, "major")){
+  			getURL &= "/index.cfm?controller=wheels&action=wheels&view=plugins&name=dbmigratebridge";
+  		} else if($isWheelsVersion(2, "major")){
+  			// Wheels 2.x has dbmigrate + dbmigratebridge equivalents in core
+  			getURL &= "/index.cfm?controller=wheels&action=wheels&view=cli";
   		} else {
-  			print.line(helpers.stripTags(Formatter.unescapeHTML(loc.filecontent)));
-  			error("Error returned from DBMigrate Bridge");
+  			error("We're not sure which major version of wheels you're on... You need to create a box.json file in the site root with a version number");
   		}
+  		return geturl;
 	}
 
 	// Basically sends a command
-	function $sendToDBMigrateBridge(getURL){
-		$preConnectionCheck()
-		loc = new Http( url=getURL ).send().getPrefix();
+	function $sendToCliCommand(string urlstring=""){
+
+		targetURL=$getBridgeURL() & arguments.urlstring;
+
+		$preConnectionCheck();
+
+		loc = new Http( url=targetURL ).send().getPrefix();
 		if(isJson(loc.filecontent)){
   			loc.result=deserializeJSON(loc.filecontent);
   			if(loc.result.success){

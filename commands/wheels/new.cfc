@@ -138,8 +138,12 @@ component extends="base"  {
 
 	 		print.greenline( "========= Adding urlrewrite.xml" ).toConsole();
 	 		// TODO: Add fileExists() as this will br provided in 2.x
-		 		file action='write' file='#fileSystemUtil.resolvePath("urlrewrite.xml")#' mode ='777' output='#trim(urlRewriteContent)#';
-
+	 			if(!fileExists(fileSystemUtil.resolvePath("urlrewrite.xml"))){
+		 			file action='write' file='#fileSystemUtil.resolvePath("urlrewrite.xml")#' mode ='777' output='#trim(urlRewriteContent)#';
+	 			} else {
+	 				print.greenline( "========= Skipped Adding urlrewrite.xml as already exists" ).toConsole();
+	 			}
+	 		// Only needed for 1.x
 	 		print.greenline( "========= Installing DBMigrate and DBMigratebridge Plugins").toConsole();
 	 			command( 'cp' )
 				    .params( path=expandPath("../modules/cfwheels-cli/plugins"), newPath='plugins', filter="*.zip" )

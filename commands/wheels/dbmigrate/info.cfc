@@ -8,7 +8,7 @@ component aliases='wheels db info' extends="../base" {
 	 **/
 	function run(  ) {
 		print.greenBoldLine( "================CFWheels DBMigrate =================" );
-		print.greenBoldLine(  Formatter.formatJson($getDBMigrateInfo()) 			)
+		print.greenBoldLine(  Formatter.formatJson($sendToCliCommand()) 			)
 		print.greenBoldLine( "====================================================" );
 	}
 }
