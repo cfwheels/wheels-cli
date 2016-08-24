@@ -9,7 +9,7 @@ component extends="base"  {
 	 **/
 	function run(required string name) {
 		// Captialisation etc handled by sub components;
-		var objectname=trim(lcase(arguments.name));
+		var objectname=trim(lcase(helpers.stripSpecialChars(arguments.name)));
 
 		print.yellowline( "Creating Model" ).toConsole();
 			command('wheels generate model #objectname#').run();
