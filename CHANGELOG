@@ -15,3 +15,5 @@ Bug Fixes
 * `wheels new` now downloads to a unique temp folder #11
 * scaffold command now prompts for migration #13
 * generated columns are now lowercase #18
+* CLI now only installs dbmigrate + dbmigratebridge plugins for wheels 1.x #22
+* Special Chars now stripped for generate and new commands #17
