@@ -194,11 +194,9 @@ component excludeFromHelp=true {
 	// Get information about the currently running server so we can send commmands
 	function $getServerInfo(){
 		var serverDetails = serverService.resolveServerDetails( serverProps={ name=listLast( getCWD(), '/\' ) } );
-  		var loc ={
-  			host              = serverDetails.serverInfo.host,
-  			port              = serverDetails.serverInfo.port,
-  		};
-  		loc.serverURL		  = "http://" & loc.host & ":" & loc.port
+  		local.host              = serverDetails.serverInfo.host;
+  		local.port              = serverDetails.serverInfo.port;
+  		local.serverURL		  = "http://" & local.host & ":" & local.port;
 	  	return loc;
 	}
 
@@ -235,10 +233,12 @@ component excludeFromHelp=true {
 					return loc.result;
 				}
   			} else {
+
   				error(loc.result.messages);
   			}
   		} else {
   			print.line(helpers.stripTags(Formatter.unescapeHTML(loc.filecontent)));
+  			print.line("Tried #targetURL#");
   			error("Error returned from DBMigrate Bridge");
   		}
 	}
@@ -247,13 +247,17 @@ component excludeFromHelp=true {
 	function $createMigrationFile(required string name, required string action, required string content){
 			var directory1=fileSystemUtil.resolvePath("db/");
 			var directory2=fileSystemUtil.resolvePath("db/migrate/");
+			var extendsPath="plugins.dbmigrate.Migration";
 			if(!directoryExists(directory1)){
 				directoryCreate(directory1);
 			}
 			if(!directoryExists(directory2)){
 				directoryCreate(directory2);
 			}
-			content=replaceNoCase(content, "|DBMigrateExtends|", "plugins.dbmigrate.Migration", "all");
+			if($isWheelsVersion(2, "major")){
+	  			extendsPath="wheels.dbmigrate.Migration";
+	  		}
+			content=replaceNoCase(content, "|DBMigrateExtends|", extendsPath, "all");
 			content=replaceNoCase(content, "|DBMigrateDescription|", "CLI #action#_#name#", "all");
 			var fileName=dateformat(now(),'yyyymmdd') & timeformat(now(),'HHMMSS') & "_cli_#action#_" & name & ".cfc";
 			var filePath=directory2 & "/" & fileName;
