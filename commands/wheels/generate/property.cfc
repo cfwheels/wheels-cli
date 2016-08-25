@@ -84,7 +84,6 @@ component aliases='wheels g property'  extends="../base"  {
 				)
 			.run();
 		print.line("Attempting to migrate to latest DB schema");
-		command('wheels dbmigrate latest').run();
 
 		// Insert form field
 		print.line("Inserting field into view form");
@@ -94,6 +93,11 @@ component aliases='wheels g property'  extends="../base"  {
 		print.line("Inserting output into views");
 		$injectIntoView(objectnames=obj, property=arguments.columnName, type=arguments.columnType, action="output");
 
+		print.yellowline( "Migrating DB" ).toConsole();
+		if(confirm("Would you like to migrate the database now? [y/n]")){
+			command('wheels dbmigrate latest').run();
+	    }
+		print.line();
 	}
 
 }
