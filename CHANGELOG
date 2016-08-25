@@ -5,15 +5,16 @@
 Enhancements
 =================
 
-* Adds command aliases for dbmigrate (db),generate(g),destroy(d) #15
+* Adds command aliases for dbmigrate (db), generate(g), destroy(d) #15
 * CLI can identify Wheels version from box.json #16
 * `wheels reload` (alias `r`) command added #20
+* `wheels new` now offers and configures a H2 database for development when on lucee #19
 
 Bug Fixes
 =================
 
 * `wheels new` now downloads to a unique temp folder #11
-* scaffold command now prompts for migration #13
+* `wheels scaffold` and `wheels g property` command now prompt for migration #13
 * generated columns are now lowercase #18
 * CLI now only installs dbmigrate + dbmigratebridge plugins for wheels 1.x #22
-* Special Chars now stripped for generate and new commands #17
+* Special Chars now stripped for `generate` and `new` commands #17
