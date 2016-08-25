@@ -224,15 +224,16 @@ component excludeFromHelp=true {
 		$preConnectionCheck();
 
 		loc = new Http( url=targetURL ).send().getPrefix();
-		print.line("Sending" & targetURL);
+		print.line("Sending: " & targetURL);
 		if(isJson(loc.filecontent)){
   			loc.result=deserializeJSON(loc.filecontent);
   			if(structKeyexists(loc.result, "success") && loc.result.success){
-  				if(structKeyExists(loc.result, "MESSAGE")){
-					return loc.result.message;
-				} else {
-					return loc.result;
-				}
+  				return loc.result;
+  				//if(structKeyExists(loc.result, "MESSAGE")){
+				//	return loc.result.message;
+				//} else {
+				//	return loc.result;
+				//}
   			}
   		} else {
   			print.line(helpers.stripTags(Formatter.unescapeHTML(loc.filecontent)));

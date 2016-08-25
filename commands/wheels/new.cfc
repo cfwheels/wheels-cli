@@ -180,7 +180,7 @@ component extends="base"  {
 		 			print.greenline( "========= Adding Datasource to onApplicationStart").toConsole();
 		 			var datasourceConfig="this.datasources['#datasourceName#'] = {
 					  class: 'org.h2.Driver'
-					, connectionString: 'jdbc:h2:mem:#datasourceName#;MODE=MySQL'
+					, connectionString: 'jdbc:h2:file:##expandPath('/db/h2/')###datasourceName#;MODE=MySQL'
 					,  username = 'sa'
 					};";
 			 		//var datasourceConfig="this.datasources['#datasourceName#'] = {
