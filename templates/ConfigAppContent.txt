@@ -9,5 +9,5 @@
 
 	// Added via CFWheels CLI
 	this.name = "|appName|";
-
+	// CLI-Appends-Here
 </cfscript>

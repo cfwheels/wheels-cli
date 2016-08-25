@@ -11,7 +11,6 @@ component extends="base"  {
  		var serverJSON	        = fileRead( helpers.getTemplate('/ServerJSON.txt' ) );
  		var urlRewriteContent	= fileRead( helpers.getTemplate('/urlRewriteContent.txt' ) );
 
-
  		//---------------- Welcome
  		print.greenBoldLine( "========= Hello! =================================" )
  			 .greenBoldLine( "= Welcome to the CFWheels app wizard. We're here =" )
@@ -22,7 +21,7 @@ component extends="base"  {
 
  	    //---------------- Set an app Name
  		// TODO: Add conditions on what can in an application name
- 		print.greenBoldLine( "========= We Need Some Information...=============" )
+ 		print.greenBoldLine( "========= We Need Some Information... ============" )
  			 .greenBoldLine( "= To get going, we're going to need to know a    =" )
  			 .greenBoldLine( "= NAME for your application. We recommend        =" )
  			 .greenBoldLine( "= something like myapp to start with             =" )
@@ -32,8 +31,32 @@ component extends="base"  {
 			appName=helpers.stripSpecialChars(appName);
 		print.line();
 
+		//---------------- Version
+ 		print.greenBoldLine( "========= Version?... ============================" )
+ 			 .greenBoldLine( "=   1) Stable (1.4.5) via Forgebox               =" )
+ 			 .greenBoldLine( "=   2) Master Branch (2.x) via Git               =" )
+ 			 .greenBoldLine( "=   3) DBMigrate Master Branch (2.x) via Git     =" )
+ 			 .greenBoldLine( "==================================================" )
+ 			 .line().toConsole();
+		var version = ask( 'Please enter your preferred version [1-3]: ' );
+			switch(version){
+ 				case 1:
+ 					setVersion="cfwheels";
+ 				break;
+ 				case 2:
+ 					setVersion="cfwheels/cfwheels";
+ 				break;
+ 				case 3:
+ 					setVersion="cfwheels/cfwheels##dbmigrate";
+ 				break;
+ 				default:
+ 					setVersion="cfwheels";
+ 				break;
+ 			}
+		print.line();
+
  	    //---------------- Set reload Password
-  		print.greenBoldLine( "========= And a 'Reload' Password    =============" )
+  		print.greenBoldLine( "========= And a 'Reload' Password ================" )
 			 .greenBoldLine( "= We also need a 'reload' password. This can be  =" )
 			 .greenBoldLine( "= something simple, but unique and known only to =" )
 			 .greenBoldLine( "= you; Your reload password allows you to restart=" )
@@ -63,6 +86,8 @@ component extends="base"  {
  			}
 		print.line();
 
+
+
  	    //---------------- Set default server.json engine
   		print.greenBoldLine( "========= Default CFML Engine        =============" )
 			 .greenBoldLine( "= Please select your preferred CFML engine for   =" )
@@ -77,10 +102,16 @@ component extends="base"  {
 			 .greenBoldLine( "==================================================" )
 			 .line().toConsole();
  		var defaultEngine= ask('Please enter your preferred engine: [1-5] ');
- 		var setEngine="lucee@4";
+ 		var setEngine="lucee@5";
+ 		var allowH2Creation=false;
  			switch(defaultEngine){
+ 				case 1:
+ 					setEngine="lucee@4";
+ 					allowH2Creation=true;
+ 				break;
  				case 2:
  					setEngine="lucee@5";
+ 					allowH2Creation=true;
  				break;
  				case 3:
  					setEngine="adobe@10";
@@ -93,6 +124,14 @@ component extends="base"  {
  				break;
  			}
 		print.line();
+
+		//---------------- Test H2 Database?
+		if(allowH2Creation){
+			var createH2Embedded= confirm('As you are using Lucee, would you like to use an embedded H2 database for development? [y/n]');
+			print.line();
+		}
+
+
  		//---------------- This is just an idea at the moment really.
   		print.greenBoldLine( "========= Twitter Bootstrap ======================" ).toConsole();
 		var useBootstrap3=false;
@@ -100,8 +139,12 @@ component extends="base"  {
 	    	useBootstrap3 = true;
 	    }
 
-		print.greenBoldLine( "==================================================" );
- 		if(confirm("Great! Think we all good to go. We're going to install CFWheels in '/#appName#/', with a reload password of '#reloadPassword#', and a datasource of '#datasourceName#'. Sound good? [y/n]")){
+		print.greenBoldLine( "==================================================" ).toConsole();
+		print.greenBoldLine( "Great! Think we all good to go. We're going to install CFWheels in '/#appName#/', with a reload password of '#reloadPassword#', and a datasource of '#datasourceName#'.").toConsole();
+		if(allowH2Creation && createH2Embedded){
+			print.greenBoldLine( "We're also going to try and setup an embedded H2 database for development mode." );
+		}
+ 		if(confirm("Sound good? [y/n]")){
  			var tempDir=createUUID();
 
  			print.greenline( "========= Installing CFWheels.........." ).toConsole();
@@ -110,20 +153,58 @@ component extends="base"  {
 			command( 'artifacts remove cfwheels --force' ).run();
 
 			// Install into a temp directory to prevent overwriting other cfwheels named folders
-			command( 'install cfwheels #tempDir#' ).run();
+			command( 'install #setVersion# #tempDir#' ).run();
 
 			print.greenline( "========= Moving Contents .........." ).toConsole();
-			command('mv #tempDir#/CFWheels/ #appName#').run();
+				command('mv #tempDir#/CFWheels/ #appName#').run();
 
 			print.greenline( "========= Removing Temp Dir........." ).toConsole();
-			command('delete #tempDir# --recurse --force').run();
+				command('delete #tempDir# --recurse --force').run();
 
 			print.greenline( "========= Navigating to new application..." ).toConsole();
 				command('cd #appName#').run();
 
 	 		print.greenline( "========= Creating config/app.cfm" ).toConsole();
 		 		appContent = replaceNoCase( appContent, "|appName|", appName, 'all' );
-		 		file action='write' file='#fileSystemUtil.resolvePath("config/app.cfm")#' mode ='777' output='#trim(appContent)#';
+
+		 		 // Create h2 embedded db by adding an application.cfc level datasource
+			    if(allowH2Creation && createH2Embedded){
+		 			print.greenline( "========= Creating Development Database").toConsole();
+			 		var datadirectory=fileSystemUtil.resolvePath("/db/h2/");
+
+		 			if(!directoryExists(datadirectory)){
+		 				print.greenline( "========= Creating /db/h2/ path ").toConsole();
+		 				directoryCreate(datadirectory);
+		 			}
+
+		 			print.greenline( "========= Adding Datasource to onApplicationStart").toConsole();
+		 			var datasourceConfig="this.datasources['#datasourceName#'] = {
+					  class: 'org.h2.Driver'
+					, connectionString: 'jdbc:h2:mem:#datasourceName#;MODE=MySQL'
+					,  username = 'sa'
+					};";
+			 		//var datasourceConfig="this.datasources['#datasourceName#'] = {
+					//  class: 'org.h2.Driver'
+					//, connectionString: 'jdbc:h2:#datadirectory#\#datasourceName#;MODE=MySQL'
+					//};";
+					/*
+					// Added via CFWheels CLI
+	this.name = "testapp";
+	this.datasources.testapp = {
+      class: 'org.hsqldb.jdbcDriver',
+      bundleName:'org.h2',
+      bundleVersion:'1.3.172',
+      connectionString: 'jdbc:hsqldb:file:#getDirectoryFromPath(getCurrentTemplatePath())#/db/h2/'
+    };*/
+				/*	 this.datasources[datasourceName] = {
+				        class: 'org.h2.Driver',
+				        connectionString: 'jdbc:h2:mem:#datasourceName#;MODE=MySQL',
+				        username = "sa"
+				    };*/
+			 		appContent = replaceNoCase( appContent, '// CLI-Appends-Here', datasourceConfig & cr & '// CLI-Appends-Here', 'one');
+
+			 	}
+			 	file action='write' file='#fileSystemUtil.resolvePath("config/app.cfm")#' mode ='777' output='#trim(appContent)#';
 
 	 		print.greenline( "========= Creating config/settings.cfm" ).toConsole();
 		 		settingsContent = replaceNoCase( settingsContent, "|reloadPassword|", trim(reloadPassword), 'all' );
@@ -136,19 +217,19 @@ component extends="base"  {
 		 		serverJSON = replaceNoCase( serverJSON, "|setEngine|", setEngine, 'all' );
 		 		file action='write' file='#fileSystemUtil.resolvePath("server.json")#' mode ='777' output='#trim(serverJSON)#';
 
-	 		print.greenline( "========= Adding urlrewrite.xml" ).toConsole();
-	 		// TODO: Add fileExists() as this will br provided in 2.x
-	 			if(!fileExists(fileSystemUtil.resolvePath("urlrewrite.xml"))){
-		 			file action='write' file='#fileSystemUtil.resolvePath("urlrewrite.xml")#' mode ='777' output='#trim(urlRewriteContent)#';
-	 			} else {
-	 				print.greenline( "========= Skipped Adding urlrewrite.xml as already exists" ).toConsole();
-	 			}
-	 		// Only needed for 1.x
-	 		print.greenline( "========= Installing DBMigrate and DBMigratebridge Plugins").toConsole();
-	 			command( 'cp' )
-				    .params( path=expandPath("../modules/cfwheels-cli/plugins"), newPath='plugins', filter="*.zip" )
-				    .run();
-	 		print.line();
+		 	// Version Specific changes
+		 	if($isWheelsVersion(1, 'major')){
+
+		 		print.greenline( "========= Adding urlrewrite.xml" ).toConsole();
+	 				file action='write' file='#fileSystemUtil.resolvePath("urlrewrite.xml")#' mode ='777' output='#trim(urlRewriteContent)#';
+
+		 		print.greenline( "========= Installing DBMigrate and DBMigratebridge Plugins").toConsole();
+		 			command( 'cp' )
+					    .params( path=expandPath("../modules/cfwheels-cli/plugins"), newPath='plugins', filter="*.zip" )
+					    .run();
+		 		print.line();
+
+	 		}
 
 	 		// Definitely refactor this into some sort of templating system?
 	 		if(useBootstrap3){
@@ -168,17 +249,21 @@ component extends="base"  {
 	 		print.line();
 		    }
 
+
+
 			command('ls').run();
 			print.line()
 			print.greenBoldLine( "========= All Done! =============================" )
 				 .greenBoldLine( "= Your app has been successfully created. Type   =" )
 				 .greenBoldLine( "= 'start' to start a server here.                =" )
-				 .greenBoldLine( "=                                                =" )
-				 .greenBoldLine( "= Don't forget to add your datasource to either  =" )
+				 .greenBoldLine( "=                                                =" );
+			if(!createH2Embedded){
+			print.greenBoldLine( "= Don't forget to add your datasource to either  =" )
 				 .greenBoldLine( "= /lucee/admin/server.cfm OR                     =" )
 				 .greenBoldLine( "= /CFIDE/administrator/index.cfm                 =" )
-				 .greenBoldLine( "=                                                =" )
-				 .greenBoldLine( "= Once you've started a local server, we can get =" )
+				 .greenBoldLine( "=                                                =" );
+			}
+			print.greenBoldLine( "= Once you've started a local server, we can get =" )
 				 .greenBoldLine( "= going with scaffolding and other awesome things=" )
 				 .greenBoldLine( "==================================================" )
 				 .line();

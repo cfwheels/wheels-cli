@@ -7,6 +7,7 @@ component excludeFromHelp=true {
 	property name='Helpers'       inject='helpers@wheels';
 	property name='packageService' inject='packageService';
 
+
 //=====================================================================
 //= 	Scaffolding
 //=====================================================================
@@ -156,7 +157,6 @@ component excludeFromHelp=true {
 		local.rv = "~[~" & local.rv & "~]~";
 		return local.rv;
  	}
-
 //=====================================================================
 //= 	DB Migrate
 //=====================================================================
@@ -197,7 +197,7 @@ component excludeFromHelp=true {
   		local.host              = serverDetails.serverInfo.host;
   		local.port              = serverDetails.serverInfo.port;
   		local.serverURL		  = "http://" & local.host & ":" & local.port;
-	  	return loc;
+	  	return local;
 	}
 
 	// Construct remote URL depending on wheels version
@@ -217,24 +217,22 @@ component excludeFromHelp=true {
 	}
 
 	// Basically sends a command
-	function $sendToCliCommand(string urlstring=""){
+	function $sendToCliCommand(string urlstring="&command=info"){
 
 		targetURL=$getBridgeURL() & arguments.urlstring;
 
 		$preConnectionCheck();
 
 		loc = new Http( url=targetURL ).send().getPrefix();
+		print.line("Sending" & targetURL);
 		if(isJson(loc.filecontent)){
   			loc.result=deserializeJSON(loc.filecontent);
-  			if(loc.result.success){
+  			if(structKeyexists(loc.result, "success") && loc.result.success){
   				if(structKeyExists(loc.result, "MESSAGE")){
 					return loc.result.message;
 				} else {
 					return loc.result;
 				}
-  			} else {
-
-  				error(loc.result.messages);
   			}
   		} else {
   			print.line(helpers.stripTags(Formatter.unescapeHTML(loc.filecontent)));
@@ -264,8 +262,6 @@ component excludeFromHelp=true {
 			file action='write' file='#filePath#' mode ='777' output='#trim( content )#';
 			print.line( 'Created #fileName#' );
 	}
-
-
 
 //=====================================================================
 //= 	Testing Suite
