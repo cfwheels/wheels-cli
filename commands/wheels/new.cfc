@@ -170,7 +170,7 @@ component extends="base"  {
 		 		 // Create h2 embedded db by adding an application.cfc level datasource
 			    if(allowH2Creation && createH2Embedded){
 		 			print.greenline( "========= Creating Development Database").toConsole();
-			 		var datadirectory=fileSystemUtil.resolvePath("/db/h2/");
+			 		var datadirectory=fileSystemUtil.resolvePath("db/h2/");
 
 		 			if(!directoryExists(datadirectory)){
 		 				print.greenline( "========= Creating /db/h2/ path ").toConsole();
@@ -183,24 +183,7 @@ component extends="base"  {
 					, connectionString: 'jdbc:h2:file:##expandPath('/db/h2/')###datasourceName#;MODE=MySQL'
 					,  username = 'sa'
 					};";
-			 		//var datasourceConfig="this.datasources['#datasourceName#'] = {
-					//  class: 'org.h2.Driver'
-					//, connectionString: 'jdbc:h2:#datadirectory#\#datasourceName#;MODE=MySQL'
-					//};";
-					/*
-					// Added via CFWheels CLI
-	this.name = "testapp";
-	this.datasources.testapp = {
-      class: 'org.hsqldb.jdbcDriver',
-      bundleName:'org.h2',
-      bundleVersion:'1.3.172',
-      connectionString: 'jdbc:hsqldb:file:#getDirectoryFromPath(getCurrentTemplatePath())#/db/h2/'
-    };*/
-				/*	 this.datasources[datasourceName] = {
-				        class: 'org.h2.Driver',
-				        connectionString: 'jdbc:h2:mem:#datasourceName#;MODE=MySQL',
-				        username = "sa"
-				    };*/
+
 			 		appContent = replaceNoCase( appContent, '// CLI-Appends-Here', datasourceConfig & cr & '// CLI-Appends-Here', 'one');
 
 			 	}
