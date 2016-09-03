@@ -8,8 +8,6 @@ component extends="base"  {
 	function run() {
  		var appContent	        = fileRead( helpers.getTemplate('/ConfigAppContent.txt' ) );
  		var settingsContent	    = fileRead( helpers.getTemplate('/ConfigSettingsContent.txt' ) );
- 		var serverJSON	        = fileRead( helpers.getTemplate('/ServerJSON.txt' ) );
- 		var urlRewriteContent	= fileRead( helpers.getTemplate('/urlRewriteContent.txt' ) );
 
  		//---------------- Welcome
  		print.greenBoldLine( "========= Hello! =================================" )
@@ -196,22 +194,14 @@ component extends="base"  {
 
 			// Make server.json server name unique to this app: assumes lucee by default
 	 		print.greenline( "========= Creating default server.json" ).toConsole();
+ 			var serverJSON	        = fileRead( helpers.getTemplate('/ServerJSON.txt' ) );
 		 		serverJSON = replaceNoCase( serverJSON, "|appName|", trim(appName), 'all' );
 		 		serverJSON = replaceNoCase( serverJSON, "|setEngine|", setEngine, 'all' );
 		 		file action='write' file='#fileSystemUtil.resolvePath("server.json")#' mode ='777' output='#trim(serverJSON)#';
 
 		 	// Version Specific changes
 		 	if($isWheelsVersion(1, 'major')){
-
-		 		print.greenline( "========= Adding urlrewrite.xml" ).toConsole();
-	 				file action='write' file='#fileSystemUtil.resolvePath("urlrewrite.xml")#' mode ='777' output='#trim(urlRewriteContent)#';
-
-		 		print.greenline( "========= Installing DBMigrate and DBMigratebridge Plugins").toConsole();
-		 			command( 'cp' )
-					    .params( path=expandPath("../modules/cfwheels-cli/plugins"), newPath='plugins', filter="*.zip" )
-					    .run();
-		 		print.line();
-
+				$backPortVersion1();
 	 		}
 
 	 		// Definitely refactor this into some sort of templating system?

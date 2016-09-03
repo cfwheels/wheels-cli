@@ -6,16 +6,26 @@ component excludeFromHelp=true {
 	property name='Formatter'     inject='Formatter';
 	property name='Helpers'       inject='helpers@wheels';
 	property name='packageService' inject='packageService';
-
+	property name="ConfigService" inject="ConfigService";
+	property name="JSONService" inject="JSONService";
 
 //=====================================================================
 //= 	Scaffolding
 //=====================================================================
 
-	// Try and get wheels version from box.json
+	// Try and get wheels version from box.json: otherwise, go ask.
+	// alternative is to get via /wheels/events/onapplicationstart.cfm but that feels a bit hacky.
+	// we could also test for the existence of /wheels/dbmigrate, but that only gives us the major version.
 	string function $getWheelsVersion(){
-		var local.boxJSON = packageService.readPackageDescriptorRaw( getCWD() );
-		return local.boxJSON.version ?: "0.0.0";
+		if(fileExists(fileSystemUtil.resolvePath("box.json"))){
+			local.boxJSON = packageService.readPackageDescriptorRaw( getCWD() );
+			return local.boxJSON.version;
+		} else {
+			print.line("You've not got a box.json, so we don't know which version of wheels this is.");
+			local.version=ask("Which Version is it? Please enter your response in semVar format, i.e '1.4.5'");
+			command('init').params(name="CFWHEELS", version=local.version, slugname="cfwheels").run();
+			return local.version;
+		}
 	}
 
 	// Compare against current wheels version
@@ -40,6 +50,20 @@ component excludeFromHelp=true {
 			}
 		}
 		return false;
+	}
+
+	// Adds urlrewrite.xml and plugins for v.1.x compatibility
+	function $backPortVersion1(){
+ 		var urlRewriteContent	= fileRead( helpers.getTemplate('/urlRewriteContent.txt' ) );
+		print.greenline( "========= Adding urlrewrite.xml" ).toConsole();
+		file action='write' file='#fileSystemUtil.resolvePath("urlrewrite.xml")#' mode ='777'
+			 output='#trim(urlRewriteContent)#';
+
+ 		print.greenline( "========= Installing DBMigrate and DBMigratebridge Plugins").toConsole();
+ 			command( 'cp' )
+			    .params( path=expandPath("../modules/cfwheels-cli/plugins"), newPath='plugins', filter="*.zip" )
+			    .run();
+ 		print.line();
 	}
 
 	// Replace default objectNames
