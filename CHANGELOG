@@ -9,6 +9,7 @@ Enhancements
 * CLI can identify Wheels version from box.json #16
 * `wheels reload` (alias `r`) command added #20
 * `wheels new` now offers and configures a H2 database for development when on lucee #19
+* `wheels init` allows for existing CFWheels apps to be prepped for CLI usage #21
 
 Bug Fixes
 =================

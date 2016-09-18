@@ -22,9 +22,14 @@ component excludeFromHelp=true {
 			return local.boxJSON.version;
 		} else {
 			print.line("You've not got a box.json, so we don't know which version of wheels this is.");
-			local.version=ask("Which Version is it? Please enter your response in semVar format, i.e '1.4.5'");
-			command('init').params(name="CFWHEELS", version=local.version, slugname="cfwheels").run();
-			return local.version;
+			print.line("We're currently looking in #getCWD()#");
+			if(confirm("Would you like to try and create one? [y/n]")){
+				local.version=ask("Which Version is it? Please enter your response in semVar format, i.e '1.4.5'");
+				command('init').params(name="CFWHEELS", version=local.version, slugname="cfwheels").run();
+				return local.version;
+			} else {
+				error("Ok, aborting");
+			}
 		}
 	}
 

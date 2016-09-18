@@ -33,7 +33,6 @@ component extends="base"  {
  		print.greenBoldLine( "========= Version?... ============================" )
  			 .greenBoldLine( "=   1) Stable (1.4.5) via Forgebox               =" )
  			 .greenBoldLine( "=   2) Master Branch (2.x) via Git               =" )
- 			 .greenBoldLine( "=   3) DBMigrate Master Branch (2.x) via Git     =" )
  			 .greenBoldLine( "==================================================" )
  			 .line().toConsole();
 		var version = ask( 'Please enter your preferred version [1-3]: ' );
@@ -43,9 +42,6 @@ component extends="base"  {
  				break;
  				case 2:
  					setVersion="cfwheels/cfwheels";
- 				break;
- 				case 3:
- 					setVersion="cfwheels/cfwheels##dbmigrate";
  				break;
  				default:
  					setVersion="cfwheels";
