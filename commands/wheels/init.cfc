@@ -5,6 +5,10 @@
  * If there's no box.json, create it, and ask for the version number
  * If there's no server.json, create it, and ask for cfengine preference
  * We'll ignore the bootstrap3 templating, as this will probably be in place too.
+ *
+ * {code:bash}
+ * wheels init
+ * {code}
  **/
 component  extends="base"  {
 

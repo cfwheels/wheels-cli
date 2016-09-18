@@ -1,13 +1,13 @@
 /**
- * Add Route
+ * Adds a Route.
+ *
+ * In wheels 1.x we ignore this and assume default routing
+ * In wheels 2.x we'll try and add some coldRoute defaults, as this should be in the core.
  **/
 component  extends="base"  {
 
-	/**
-	 * Add a route: requires knowing wheels version due to routing change between 1.x + 2.x
-	 **/
 	function run() {
-		print.line("Command not written yet."); 
+		print.line("Command not written yet.");
 	}
 
 }

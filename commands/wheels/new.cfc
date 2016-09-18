@@ -1,6 +1,19 @@
 /**
- * Create a new CFWheels application called {name} in current working directory. Rename to {name} and navigate to after
- * Adds various configuration defaults and does some basic checks to make URL rewriting work out of the box.
+ * Creates a new CFWheels application in current working directory.
+ * This is the recommended route to start a new application
+ *
+ * This command will ask for:
+ *
+ *  - An Application Name
+ *  - A reload Password
+ *  - A datasource name
+ *  - What wheels version you want to install
+ *  - Whether you want to setup a local h2 dev database
+ *  - What local cfengine you want to run
+ *
+ * {code:bash}
+ * wheels new
+ * {code}
  **/
 component extends="base"  {
 
@@ -72,6 +85,9 @@ component extends="base"  {
 			 .greenBoldLine( "= to the local CommandBox Lucee server which     =" )
 			 .greenBoldLine( "= we'll start in a bit. For now, we just need to =" )
 			 .greenBoldLine( "= know what that datasource name will be.        =" )
+			 .greenBoldLine( "=                                                =" )
+			 .greenBoldLine( "= if you're going to run lucee, we can autocreate =" )
+			 .greenBoldLine( "= a development database for you later           =" )
 			 .greenBoldLine( "==================================================" )
 			 .line().toConsole();
  		var datasourceName= ask('Please enter a datasource name if different from #appName#: ');
