@@ -17,6 +17,10 @@ component excludeFromHelp=true {
 	// alternative is to get via /wheels/events/onapplicationstart.cfm but that feels a bit hacky.
 	// we could also test for the existence of /wheels/dbmigrate, but that only gives us the major version.
 	string function $getWheelsVersion(){
+		// First, look for a wheels folder..
+		if(!directoryExists( fileSystemUtil.resolvePath("wheels") ) ){
+			error("We're currently looking in #getCWD()#, but can't find a /wheels/ folder?");
+		}
 		if(fileExists(fileSystemUtil.resolvePath("box.json"))){
 			local.boxJSON = packageService.readPackageDescriptorRaw( getCWD() );
 			return local.boxJSON.version;
