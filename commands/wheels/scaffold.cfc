@@ -1,6 +1,14 @@
 /**
- * Scaffold: create full CRUD for an object
+ * This will completely scaffold a new object. It will:
+ *  - Create a model file
+ *  - A Default CRUD Controller complete with create/edit/update/delete code
+ *  - View files for all those actions
+ *  - Associated test stubs
+ *  - DB migration file
+ *
+ * {code:bash}
  * wheels scaffold user
+ * {code}
  **/
 component extends="base"  {
 
@@ -12,24 +20,25 @@ component extends="base"  {
 		var objectname=trim(lcase(helpers.stripSpecialChars(arguments.name)));
 
 		print.yellowline( "Creating Model" ).toConsole();
-			command('wheels generate model #objectname#').run();
+			command('wheels g model').params(objectname=objectname).run();
+			command('wheels g test').params(type="model", objectname=objectname).run();
 		print.line();
 
 		print.yellowline( "Creating Controller" ).toConsole();
-			command('wheels generate controller #objectname# crud').run();
+			command('wheels g controller').params(objectname=objectname, actionlist="crud").run();
+			command('wheels g test').params(type="controller", objectname=objectname).run();
 		print.line();
 
 		print.yellowline( "Creating View Files" ).toConsole();
-			command('wheels generate view #objectname# index crud/index').run();
-			command('wheels generate view #objectname# show crud/show').run();
-			command('wheels generate view #objectname# new crud/new').run();
-			command('wheels generate view #objectname# edit crud/edit').run();
-			command('wheels generate view #objectname# _form crud/_form').run();
+			for(action in ["index,show,new,edit,_form"]){
+				command('wheels g view').params(objectname=objectname, name=action, template="crud/#action#").run();
+				command('wheels g test').params(type="view", objectname=objectname, name=action).run();
+			}
 		print.line();
 
 		print.yellowline( "Migrating DB" ).toConsole();
 		if(confirm("Would you like to migrate the database now? [y/n]")){
-			command('wheels dbmigrate latest').run();
+			command('wheels db latest').run();
 	    }
 		print.line();
 	}

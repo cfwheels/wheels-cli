@@ -106,89 +106,84 @@ component excludeFromHelp=true {
 
     // Returns contents for a default (non crud) action
     function $returnAction(required string name, string hint=""){
-    	local={
-    		templateDirectory = helpers.getTemplateDirectory(),
-    		name = trim(arguments.name),
-    		hint = trim(arguments.hint),
-    		rv=""
-    	}
-    	local.rv = fileRead( local.templateDirectory & '/ActionContent.txt' );
+    	var rv="";
+    	var name = trim(arguments.name);
+    	var hint = trim(arguments.hint);
 
-    	if(len(local.hint) == 0){
-    		local.hint = local.name;
+    	rv = fileRead( helpers.getTemplateDirectory() & '/ActionContent.txt' );
+
+    	if(len(hint) == 0){
+    		hint = name;
     	}
 
-		local.rv = replaceNoCase( local.rv, '|ActionHint|', local.hint, 'all' );
-		local.rv = replaceNoCase( local.rv, '|Action|', local.name, 'all' ) & cr & cr;
-        return local.rv;
+		rv = replaceNoCase( rv, '|ActionHint|', hint, 'all' );
+		rv = replaceNoCase( rv, '|Action|', name, 'all' ) & cr & cr;
+        return rv;
     }
-
 
 	// Default output for show.cfm:
  	function $generateOutputField(required string objectName, required string property, required string type){
-
-		local.rv="<p><strong>#helpers.capitalize(property)#</strong><br />~[~";
-
+		var rv="<p><strong>#helpers.capitalize(property)#</strong><br />~[~";
 		switch(type){
 			// Return a checkbox
 			case "boolean":
-				local.rv&="yesNoFormat(#objectName#.#property#)";
+				rv&="yesNoFormat(#objectName#.#property#)";
 			break;
 			// Return a calendar
 			case "date":
-				local.rv&="dateFormat(#objectName#.#property#)";
+				rv&="dateFormat(#objectName#.#property#)";
 			break;
 			// Return a time picker
 			case "time":
-				local.rv&="timeFormat(#objectName#.#property#)";
+				rv&="timeFormat(#objectName#.#property#)";
 			break;
 			// Return a calendar and time picker
 			case "datetime":
 			case "timestamp":
-				local.rv&="dateTimeFormat(#objectName#.#property#)";
+				rv&="dateTimeFormat(#objectName#.#property#)";
 			break;
 			// Return a text field if everything fails, i.e assume string
 			// Let's escape the output to be safe
 			default:
-				local.rv&="xmlFormat(#objectName#.#property#)";
+				rv&="xmlFormat(#objectName#.#property#)";
 			break;
 		}
-		local.rv&="~]~</p>";
-		return local.rv;
+		rv&="~]~</p>";
+		return rv;
  	}
 
  	function $generateFormField(required string objectName, required string property, required string type){
-		local.rv="";
+		var rv="";
 		switch(type){
 			// Return a checkbox
 			case "boolean":
-				local.rv="checkbox(objectName='#objectName#', property='#property#')";
+				rv="checkbox(objectName='#objectName#', property='#property#')";
 			break;
 			// Return a textarea
 			case "text":
-				local.rv="textArea(objectName='#objectName#', property='#property#')";
+				rv="textArea(objectName='#objectName#', property='#property#')";
 			break;
 			// Return a calendar
 			case "date":
-				local.rv="dateSelect(objectName='#objectName#', property='#property#')";
+				rv="dateSelect(objectName='#objectName#', property='#property#')";
 			break;
 			// Return a time picker
 			case "time":
-				local.rv="timeSelect(objectName='#objectName#', property='#property#')";
+				rv="timeSelect(objectName='#objectName#', property='#property#')";
 			break;
 			// Return a calendar and time picker
 			case "datetime":
 			case "timestamp":
-				local.rv="dateTimeSelect(objectName='#objectName#', property='#property#')";
+				rv="dateTimeSelect(objectName='#objectName#', property='#property#')";
 			break;
 			// Return a text field if everything fails, i.e assume string
 			default:
-				local.rv="textField(objectName='#objectName#', property='#property#')";
+				rv="textField(objectName='#objectName#', property='#property#')";
 			break;
 		}
 		// We need to make these rather unique incase the view file has *any* pre-existing
-		local.rv = "~[~" & local.rv & "~]~";
-		return local.rv;
+		rv = "~[~" & rv & "~]~";
+		return rv;
  	}
 //=====================================================================
 //= 	DB Migrate
@@ -387,7 +382,9 @@ component excludeFromHelp=true {
 
 		// If the URL is wrong, or the server dies, this should trigger
 		if(!isJson(results.filecontent)){
+			print.whiteLine( results.filecontent );
 			error( 'Result from #suite.testURL# isnt JSON?');
+
 		}
 		var result  = deserializeJSON(results.filecontent);
 
