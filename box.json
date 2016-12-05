@@ -26,6 +26,6 @@
         "postPublish":"!git push --follow-tags",
         "patch-release":"bump --patch && publish",
         "minor-release":"bump --minor && publish",
-        "major-release":"bump --major && publish",
+        "major-release":"bump --major && publish"
     }
 }
