@@ -24,7 +24,7 @@ component aliases='wheels g test' extends="../base"  {
 	function run(
 		required string type,
 		required string objectname,
-		string name
+		string name=""
 	){
 		var obj = helpers.getNameVariants(listLast( arguments.objectname, '/\' ));
 		var testsdirectory     = fileSystemUtil.resolvePath( "tests" );
@@ -48,8 +48,12 @@ component aliases='wheels g test' extends="../base"  {
  				var testPath=fileSystemUtil.resolvePath("tests/controllers/#testName#");
  			break;
  			case "view":
+ 				var testObjPath=fileSystemUtil.resolvePath("tests/views/#obj.objectNamePlural#");
  				var testName=obj.objectNamePlural & '/' &  lcase(arguments.name) & ".cfc";
  				var testPath=fileSystemUtil.resolvePath("tests/views/#testName#");
+ 				if( !directoryExists(fileSystemUtil.resolvePath("tests/views/#obj.objectNamePlural#"))){
+ 					directoryCreate(testObjPath);
+ 				}
  			break;
  			default:
  				error("Unknown type: should be one of model/controller/view");

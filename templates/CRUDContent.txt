@@ -1,34 +1,26 @@
 component extends="Controller" {
 
 	function init() {
-		// Verify Params
 		verifies(except="index,new,create", params="key", paramsTypes="integer", handler="objectNotFound");
+		verifies(post=true, only="create,update,delete");
 	}
 
-	/**
-	*  @hint View all |ObjectNamePluralC|
-	*/
+	// View all |ObjectNamePluralC|
 	function index() {
 		|ObjectNamePlural|=model("|ObjectNameSingular|").findAll();
 	}
 
-	/**
-	*  @hint View |ObjectNameSingularC|
-	*/
+	// View |ObjectNameSingularC|
 	function show() {
 		|ObjectNameSingular|=model("|ObjectNameSingular|").findByKey(params.key);
 	}
 
-	/**
-	*  @hint Add New |ObjectNameSingularC|
-	*/
+	// Add New |ObjectNameSingularC|
 	function new() {
 		|ObjectNameSingular|=model("|ObjectNameSingular|").new();
 	}
 
-	/**
-	*  @hint Create |ObjectNameSingularC|
-	*/
+	// Create |ObjectNameSingularC|
 	function create() {
 		|ObjectNameSingular|=model("|ObjectNameSingular|").create(params.|ObjectNameSingular|);
 		if(|ObjectNameSingular|.hasErrors()){
@@ -38,16 +30,12 @@ component extends="Controller" {
 		}
 	}
 
-	/**
-	*  @hint Edit |ObjectNameSingularC|
-	*/
+	// Edit |ObjectNameSingularC|
 	function edit() {
 		|ObjectNameSingular|=model("|ObjectNameSingular|").findByKey(params.key);
 	}
 
-	/**
-	*  @hint Update |ObjectNameSingularC|
-	*/
+	// Update |ObjectNameSingularC|
 	function update() {
 		|ObjectNameSingular|=model("|ObjectNameSingular|").findByKey(params.key);
 		if(|ObjectNameSingular|.update(params.|ObjectNameSingular|)){
@@ -57,17 +45,13 @@ component extends="Controller" {
 		}
 	}
 
-	/**
-	*  @hint Delete |ObjectNameSingularC|
-	*/
+	// Delete |ObjectNameSingularC|
 	function delete() {
 		|ObjectNameSingular|=model("|ObjectNameSingular|").deleteByKey(params.key);
 		redirectTo(action="index", success="|ObjectNameSingularC| successfully deleted");
 	}
 
-	/**
-	*  @hint Redirect away if verifies fails, or if an object can't be found
-	*/
+	// Redirect away if verifies fails, or if an object can't be found
 	function objectNotFound() {
 		redirectTo(action="index", error="That |ObjectNameSingularC| wasn't found");
 	}

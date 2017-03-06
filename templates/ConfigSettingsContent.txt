@@ -17,12 +17,7 @@
 	// Added via CFWheels CLI
 	set(dataSourceName="|datasourceName|");
 	set(URLRewriting="On");
-	// Commandbox requires index.cfm as rewrite base; you may need to change or remove this when serving under Apache etc.
-	set(rewriteFile="index.cfm");
 	// Reload your application with ?reload=true&password=|reloadPassword|
 	set(reloadPassword="|reloadPassword|");
-	// Set to false for plugin development
-	set(deletePluginDirectories=false);
-	set(overwritePlugins=false);
 	// CLI-Appends-Here
 </cfscript>

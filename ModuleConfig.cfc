@@ -6,7 +6,11 @@ component {
     this.cfmapping      = "wheels";
 
     function configure(){
+        interceptors = [
+            { class='#moduleMapping#.interceptors.onInstall' }
+        ];
     }
+
     // Runs when module is loaded
     function onLoad(){
         log.info('CFWheels Module loaded successfully.' );

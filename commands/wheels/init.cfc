@@ -29,8 +29,6 @@ component  extends="base"  {
 			 .greenBoldLine( "= We're going to try and do the following:" )
 			 .greenBoldLine( "=  - create a box.json to help keep track of the wheels version" )
 			 .greenBoldLine( "=  - create a server.json" )
-			 .greenBoldLine( "=  - if wheels 1.x - add urlrewrite.xml" )
-			 .greenBoldLine( "=  - if wheels 1.x - add a couple of plugins, such as dbmigrate" )
 			 .greenBoldLine( "==================================================" )
 			 .line().toConsole();
 		if(!confirm("Sound ok? [y/n] ")){
@@ -60,10 +58,6 @@ component  extends="base"  {
  			print.greenline( "========= server.json exists, skipping" ).toConsole();
 		}
 
-		// Copy over required plugins and adds urlrewrite.xml if version 1;
-	 	if($isWheelsVersion(1, 'major')){
-			$backPortVersion1();
- 		}
 
 	}
 

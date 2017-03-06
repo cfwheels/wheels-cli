@@ -1,6 +1,4 @@
-	/**
-	*  @hint |ActionHint|
-	*/
+	// |ActionHint|
 	function |Action|() {
 
 	}

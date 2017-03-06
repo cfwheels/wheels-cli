@@ -1,6 +1,15 @@
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+0.1.4
 
-0.1.1 (TBA)
+Enhancements
+=================
+
+* Drops wheels 1.x support
+* Core, App and plugin tests via `wheels test core servername` etc added
+* Restructures Test.cf into single command vs three
+* Removes old plugins
+
+0.1.1
 
 Enhancements
 =================

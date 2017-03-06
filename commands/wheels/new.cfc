@@ -44,20 +44,17 @@ component extends="base"  {
 
 		//---------------- Version
  		print.greenBoldLine( "========= Version?... ============================" )
- 			 .greenBoldLine( "=   1) Stable (1.4.5) via Forgebox               =" )
- 			 .greenBoldLine( "=   2) Master Branch (2.x) via Git               =" )
+ 			 .greenBoldLine( "=   1) 1.4.5 via Forgebox                        =" )
+ 			 .greenBoldLine( "=   2) Master Branch via Git                     =" )
  			 .greenBoldLine( "==================================================" )
  			 .line().toConsole();
-		var version = ask( 'Please enter your preferred version [1-3]: ' );
+		var version = ask( 'Please enter your preferred version [1-2]: ' );
 			switch(version){
  				case 1:
  					setVersion="cfwheels";
  				break;
  				case 2:
  					setVersion="cfwheels/cfwheels";
- 				break;
- 				default:
- 					setVersion="cfwheels";
  				break;
  			}
 		print.line();
@@ -210,11 +207,6 @@ component extends="base"  {
 		 		serverJSON = replaceNoCase( serverJSON, "|appName|", trim(appName), 'all' );
 		 		serverJSON = replaceNoCase( serverJSON, "|setEngine|", setEngine, 'all' );
 		 		file action='write' file='#fileSystemUtil.resolvePath("server.json")#' mode ='777' output='#trim(serverJSON)#';
-
-		 	// Version Specific changes
-		 	if($isWheelsVersion(1, 'major')){
-				$backPortVersion1();
-	 		}
 
 	 		// Definitely refactor this into some sort of templating system?
 	 		if(useBootstrap3){

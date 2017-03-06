@@ -30,7 +30,7 @@ component extends="base"  {
 		print.line();
 
 		print.yellowline( "Creating View Files" ).toConsole();
-			for(action in ["index,show,new,edit,_form"]){
+			for(action in ["index","show","new","edit","_form"]){
 				command('wheels g view').params(objectname=objectname, name=action, template="crud/#action#").run();
 				command('wheels g test').params(type="view", objectname=objectname, name=action).run();
 			}
