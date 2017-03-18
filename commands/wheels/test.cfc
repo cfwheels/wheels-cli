@@ -14,13 +14,15 @@ component extends="base" {
 	* @reload.hint Force Reload
 	* @debug.hint Output passing tests as well as failing ones
 	* @format.hint Force a specific return format for debug
+	* @adapter.hint Attempt to override what dbadapter wheels uses
 	*/
 	function run(
 		string type="app",
 		string servername,
 		boolean reload=true,
 		boolean debug=false,
-		string format="json"
+		string format="json",
+		string adapter=""
 	) {
 	 	var suite=$buildTestSuite(argumentCollection=arguments);
 				  $outputSuiteVariables(suite);
@@ -44,7 +46,8 @@ component extends="base" {
 	  	string servername="",
 	  	boolean reload=true,
 	  	boolean debug=false,
-	  	string format="json"
+	  	string format="json",
+		string adapter=""
 	  ){
 	  		// Get Server Details from CB
 	  		var serverDetails = serverService.resolveServerDetails( serverProps={ name=arguments.servername } );
@@ -58,7 +61,8 @@ component extends="base" {
 	  			port              = serverDetails.serverInfo.port,
 	  			format 			  = arguments.format,
 	  			debug             = arguments.debug,
-	  			reload            = arguments.reload
+	  			reload            = arguments.reload,
+	  			adapter 		  = arguments.adapter
 	  		};
 
 	  		// Construct Test URL
@@ -68,6 +72,10 @@ component extends="base" {
 	  					   & "&type=#loc.type#"
 	  					   & "&format=#loc.format#"
 	  					   & "&reload=#loc.reload#";
+	  		// Optional Adapter Override
+	  		if(len(loc.adapter)){
+	  			loc.testurl&="&adapter=#loc.adapter#"
+	  		}
 	  		return loc;
 	  }
 
@@ -83,6 +91,7 @@ component extends="base" {
 		print.line("Debug:      #suite.debug#");
 		print.line("Reload:     #suite.reload#");
 		print.line("Format:     #suite.format#");
+		print.line("Adapter:    #suite.adapter#");
 	}
 
 	// Run baby run
