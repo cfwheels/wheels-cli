@@ -19,7 +19,7 @@ component  extends="base"  {
 
 
 		print.greenBoldLine( "================CFWheels CLI =======================" )
-			.greenBoldLine( "Version 0.1.4" )
+			.greenBoldLine( "Version 0.1.6" )
 			.greenBoldLine( "This is highly experimental, and will probably fry your brain" )
 			.greenBoldLine( "====================================================" )
 			.greenBoldLine( "= Current Working Directory: #current.directory#")
