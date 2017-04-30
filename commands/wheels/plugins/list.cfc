@@ -12,7 +12,7 @@ component aliases="wheels plugin list" extends="base"  {
 	 **/
 	function run(  ) {
 		print.greenBoldLine("================ CFWheels Plugins From Forgebox ======================")
-		command('forgebox show cfwheels-plugins').run();
+		command('forgebox show').params(type="cfwheels-plugins").run();
 		print.greenBoldLine("======================================================================");
 	}
 
