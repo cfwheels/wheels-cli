@@ -7,7 +7,7 @@ component {
 
     function configure(){
         interceptors = [
-            { class='#moduleMapping#.interceptors.onInstall' }
+            { class='#moduleMapping#.interceptors.postInstall' }
         ];
     }
 
