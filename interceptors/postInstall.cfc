@@ -28,23 +28,27 @@ component {
           var pluginList=DirectoryList( pluginFolder, false, "query" );
           systemOutput(pluginList, true);
           for(plugin in pluginList){
-            if(plugin.type == 'Dir'){
+            if(plugin.type == 'Dir' && fileExists(plugin.name & "/box.json")){
               var pluginDirectory   = pluginFolder & '/' & plugin.name;
               systemOutput(pluginDirectory , true);
 
               var pluginBoxJson     = packageService.readPackageDescriptorRaw( pluginDirectory );
               systemOutput(pluginBoxJson, true);
 
-              var pluginVersion     = pluginBoxJson.version;
-              var packageDirectory  = pluginBoxJson.packageDirectory;
-              var sourceFolder      = pluginFolder & '/' & packageDirectory;
-              var zipString         = pluginFolder & '/' & packageDirectory & '-' & pluginVersion & ".zip";
-              zip
-                    action="zip"
-                    recurse="yes"
-                    showDirectory="yes"
-                    source="#sourceFolder#"
-                    file="#zipString#";
+              if(structKeyExists(pluginBoxJson, "VERSION")){
+                var pluginVersion     = pluginBoxJson.version;
+                var packageDirectory  = pluginBoxJson.packageDirectory;
+                var sourceFolder      = pluginFolder & '/' & packageDirectory;
+                var zipString         = pluginFolder & '/' & packageDirectory & '-' & pluginVersion & ".zip";
+                zip
+                      action="zip"
+                      recurse="yes"
+                      showDirectory="yes"
+                      source="#sourceFolder#"
+                      file="#zipString#";
+
+              }
+
             }
           }
        }
