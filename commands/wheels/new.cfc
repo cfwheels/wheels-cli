@@ -152,7 +152,7 @@ component extends="base"  {
 			print.greenBoldLine( "We're also going to try and setup an embedded H2 database for development mode." );
 		}
  		if(confirm("Sound good? [y/n]")){
- 			var tempDir=createUUID();
+ 			//var tempDir=createUUID();
 
  			print.greenline( "========= Installing CFWheels.........." ).toConsole();
 
@@ -160,18 +160,12 @@ component extends="base"  {
 			command( 'artifacts remove cfwheels --force' ).run();
 
 			// Install into a temp directory to prevent overwriting other cfwheels named folders
-			command( 'install #setVersion# #tempDir#' ).run();
-
-			print.greenline( "========= Moving Contents .........." ).toConsole();
-				command('mv #tempDir#/CFWheels/ #appName#').run();
-
-			print.greenline( "========= Removing Temp Dir........." ).toConsole();
-				command('delete #tempDir# --recurse --force').run();
+			command( 'install ').params(id=setVersion, directory=appName).run();
 
 			print.greenline( "========= Navigating to new application..." ).toConsole();
 				command('cd #appName#').run();
 
-	 		print.greenline( "========= Creating config/app.cfm" ).toConsole();
+		 		print.greenline( "========= Creating config/app.cfm" ).toConsole();
 		 		appContent = replaceNoCase( appContent, "|appName|", appName, 'all' );
 
 		 		 // Create h2 embedded db by adding an application.cfc level datasource
