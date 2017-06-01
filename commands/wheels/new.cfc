@@ -44,17 +44,17 @@ component extends="base"  {
 
 		//---------------- Version
  		print.greenBoldLine( "========= Version?... ============================" )
- 			 .greenBoldLine( "=   1) 1.4.5 via Forgebox                        =" )
- 			 .greenBoldLine( "=   2) Master Branch via Git                     =" )
+ 			 .greenBoldLine( "=   1) Master Branch via Git                     =" )
+ 			 .greenBoldLine( "=   2) 2.0.0-beta.1                              =" )
  			 .greenBoldLine( "==================================================" )
  			 .line().toConsole();
 		var version = ask( 'Please enter your preferred version [1-2]: ' );
 			switch(version){
  				case 1:
- 					setVersion="cfwheels";
+ 					setVersion="cfwheels/cfwheels";
  				break;
  				case 2:
- 					setVersion="cfwheels/cfwheels";
+ 					setVersion="cfwheels@2.0.0-beta.1";
  				break;
  			}
 		print.line();
@@ -136,6 +136,8 @@ component extends="base"  {
 		if(allowH2Creation){
 			var createH2Embedded= confirm('As you are using Lucee, would you like to use an embedded H2 database for development? [y/n]');
 			print.line();
+		} else {
+			createH2Embedded=false;
 		}
 
 
@@ -201,7 +203,10 @@ component extends="base"  {
 		 		serverJSON = replaceNoCase( serverJSON, "|appName|", trim(appName), 'all' );
 		 		serverJSON = replaceNoCase( serverJSON, "|setEngine|", setEngine, 'all' );
 		 		file action='write' file='#fileSystemUtil.resolvePath("server.json")#' mode ='777' output='#trim(serverJSON)#';
-
+		 	// Copy urlrewrite.xml
+		 	command( 'cp' )
+				    .params( path=expandPath("../modules/cfwheels-cli/templates/urlrewrite.xml"), newPath=fileSystemUtil.resolvePath("urlrewrite.xml"))
+				    .run();
 	 		// Definitely refactor this into some sort of templating system?
 	 		if(useBootstrap3){
 	 		print.greenline( "========= Installing Bootstrap3 Settings").toConsole();
