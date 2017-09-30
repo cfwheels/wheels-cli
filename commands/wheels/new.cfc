@@ -45,8 +45,7 @@ component extends="base"  {
 		//---------------- Version
  		print.greenBoldLine( "========= Version?... ============================" )
  			 .greenBoldLine( "=   1) Master Branch via Git                     =" )
- 			 .greenBoldLine( "=   2) 2.0.0-beta.1                              =" )
- 			 .greenBoldLine( "=   3) 2.0.0-rc.1                              =" )
+ 			 .greenBoldLine( "=   2) 2.0.0                              =" )
  			 .greenBoldLine( "==================================================" )
  			 .line().toConsole();
 		var version = ask( 'Please enter your preferred version [1-2]: ' );
@@ -55,10 +54,7 @@ component extends="base"  {
  					setVersion="cfwheels/cfwheels";
  				break;
  				case 2:
- 					setVersion="cfwheels@2.0.0-beta.1";
- 				break;
- 				case 3:
- 					setVersion="cfwheels@2.0.0-rc.1";
+ 					setVersion="cfwheels@2.0.0";
  				break;
  			}
 		print.line();
