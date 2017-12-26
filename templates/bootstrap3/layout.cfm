@@ -40,7 +40,7 @@
 <!--=============== Header ==========-->
 <header>
     <div class="container">
-	   <h1 class="site-title">#linkTo(route="root", text="|appName|")#</h1>
+	   <h1 class="site-title">#linkTo(route="home", text="|appName|")#</h1>
     </div>
 </header>
 <!--=============== Content ==============-->
