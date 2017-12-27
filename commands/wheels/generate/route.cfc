@@ -1,13 +1,18 @@
 /**
- * Adds a Route.
+ * Adds a default resources Route.
  *
- * In wheels 1.x we ignore this and assume default routing
- * In wheels 2.x we'll try and add some coldRoute defaults, as this should be in the core.
  **/
-component  extends="base"  {
+component  aliases='wheels g route' extends="../base"  {
 
-	function run() {
-		print.line("Command not written yet.");
+	function run(required string objectname) {
+		var obj = helpers.getNameVariants(listLast( arguments.objectname, '/\' ));
+		var target	= fileSystemUtil.resolvePath("config/routes.cfm");
+		var content = fileRead(target);
+
+		var inject = '.resources("' & obj.objectNamePlural & '")';
+
+		content = replaceNoCase(content, '// CLI-Appends-Here', inject & cr & '// CLI-Appends-Here', 'all');
+        file action='write' file='#target#' mode ='777' output='#trim(content)#';
 	}
 
 }

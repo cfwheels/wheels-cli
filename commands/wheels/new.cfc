@@ -21,21 +21,22 @@ component extends="base"  {
 	function run() {
  		var appContent	        = fileRead( helpers.getTemplate('/ConfigAppContent.txt' ) );
  		var settingsContent	    = fileRead( helpers.getTemplate('/ConfigSettingsContent.txt' ) );
+ 		var routesContent	    = fileRead( helpers.getTemplate('/ConfigRoutes.txt' ) );
 
  		//---------------- Welcome
  		print.greenBoldLine( "========= Hello! =================================" )
- 			 .greenBoldLine( "= Welcome to the CFWheels app wizard. We're here =" )
- 			 .greenBoldLine( "= to try and give you a helping start for your   =" )
- 			 .greenBoldLine( "= first app.                                     =" )
+ 			 .greenBoldLine( "Welcome to the CFWheels app wizard. We're here" )
+ 			 .greenBoldLine( "to try and give you a helping start for your  " )
+ 			 .greenBoldLine( "first app.                                    " )
  			 .greenBoldLine( "==================================================" )
  			 .line().toConsole();
 
  	    //---------------- Set an app Name
  		// TODO: Add conditions on what can in an application name
  		print.greenBoldLine( "========= We Need Some Information... ============" )
- 			 .greenBoldLine( "= To get going, we're going to need to know a    =" )
- 			 .greenBoldLine( "= NAME for your application. We recommend        =" )
- 			 .greenBoldLine( "= something like myapp to start with             =" )
+ 			 .greenBoldLine( "To get going, we're going to need to know a    " )
+ 			 .greenBoldLine( "NAME for your application. We recommend        " )
+ 			 .greenBoldLine( "something like myapp to start with             " )
  			 .greenBoldLine( "==================================================" )
  			 .line().toConsole();
 		var appName = ask( 'Please enter a name for your application: ' );
@@ -44,9 +45,9 @@ component extends="base"  {
 
 		//---------------- Version
  		print.greenBoldLine( "========= Version?... ============================" )
- 			 .greenBoldLine( "=   1) Master Branch via Git                     =" )
- 			 .greenBoldLine( "=   2) 2.0.x Branch Stable Release               =" )
- 			 .greenBoldLine( "=   3) 1.4.x Branch Stable Release               =" )
+ 			 .greenBoldLine( "1) Master Branch via Git                     " )
+ 			 .greenBoldLine( "2) 2.0.x Branch Stable Release               " )
+ 			 .greenBoldLine( "3) 1.4.x Branch Stable Release               " )
  			 .greenBoldLine( "==================================================" )
  			 .line().toConsole();
 		var version = ask( 'Please enter your preferred version [1-3]: ' );
@@ -57,7 +58,7 @@ component extends="base"  {
  				case 2:
  					setVersion="cfwheels@2.0.x";
  				break;
- 				case 2:
+ 				case 3:
  					setVersion="cfwheels@1.4.x";
  				break;
  			}
@@ -65,11 +66,11 @@ component extends="base"  {
 
  	    //---------------- Set reload Password
   		print.greenBoldLine( "========= And a 'Reload' Password ================" )
-			 .greenBoldLine( "= We also need a 'reload' password. This can be  =" )
-			 .greenBoldLine( "= something simple, but unique and known only to =" )
-			 .greenBoldLine( "= you; Your reload password allows you to restart=" )
-			 .greenBoldLine( "= your app via the URL. You can change it later  =" )
-			 .greenBoldLine( "= if you need! 								   =" )
+			 .greenBoldLine( "We also need a 'reload' password. This can be  " )
+			 .greenBoldLine( "something simple, but unique and known only to " )
+			 .greenBoldLine( "you; Your reload password allows you to restart" )
+			 .greenBoldLine( "your app via the URL. You can change it later  " )
+			 .greenBoldLine( "if you need! 								     " )
 			 .greenBoldLine( "==================================================" )
 			 .line().toConsole();
  		var reloadPassword= ask('Please enter a "reload" password for your application: ');
@@ -77,18 +78,18 @@ component extends="base"  {
 
  	    //---------------- Set datasource Name
   		print.greenBoldLine( "========= Data...data...data..       =============" )
-			 .greenBoldLine( "= All good apps need data. Unfortunately you're  =" )
-			 .greenBoldLine( "= going to have to be responsible for this bit.  =" )
-			 .greenBoldLine( "= We're expecting  a valid DataSource to be      =" )
-			 .greenBoldLine( "= setup; so you'll need mySQL or some other      =" )
-			 .greenBoldLine( "= supported DB server running locally. Once      =" )
-			 .greenBoldLine( "= you've setup a database, you'll need to add it =" )
-			 .greenBoldLine( "= to the local CommandBox Lucee server which     =" )
-			 .greenBoldLine( "= we'll start in a bit. For now, we just need to =" )
-			 .greenBoldLine( "= know what that datasource name will be.        =" )
-			 .greenBoldLine( "=                                                =" )
-			 .greenBoldLine( "= if you're going to run lucee, we can autocreate =" )
-			 .greenBoldLine( "= a development database for you later           =" )
+			 .greenBoldLine( "All good apps need data. Unfortunately you're   " )
+			 .greenBoldLine( "going to have to be responsible for this bit.   " )
+			 .greenBoldLine( "We're expecting  a valid DataSource to be       " )
+			 .greenBoldLine( "setup; so you'll need mySQL or some other       " )
+			 .greenBoldLine( "supported DB server running locally. Once       " )
+			 .greenBoldLine( "you've setup a database, you'll need to add it  " )
+			 .greenBoldLine( "to the local CommandBox Lucee server which      " )
+			 .greenBoldLine( "we'll start in a bit. For now, we just need to  " )
+			 .greenBoldLine( "know what that datasource name will be.         " )
+			 .greenBoldLine( "                                                " )
+			 .greenBoldLine( "if you're going to run lucee, we can autocreate " )
+			 .greenBoldLine( "a development database for you later            " )
 			 .greenBoldLine( "==================================================" )
 			 .line().toConsole();
  		var datasourceName= ask('Please enter a datasource name if different from #appName#: ');
@@ -101,15 +102,15 @@ component extends="base"  {
 
  	    //---------------- Set default server.json engine
   		print.greenBoldLine( "========= Default CFML Engine        =============" )
-			 .greenBoldLine( "= Please select your preferred CFML engine for   =" )
-			 .greenBoldLine( "= local development: you can always change it    =" )
-			 .greenBoldLine( "= later!                                         =" )
-			 .greenBoldLine( "=                                                =" )
-			 .greenBoldLine( "=  1) lucee 4.5 (Commandbox default)             =" )
-			 .greenBoldLine( "=  2) lucee 5.x                                  =" )
-			 .greenBoldLine( "=  3) Adobe ColdFusion 10                        =" )
-			 .greenBoldLine( "=  4) Adobe ColdFusion 11                        =" )
-			 .greenBoldLine( "=  5) Adobe ColdFusion 2016                      =" )
+			 .greenBoldLine( "Please select your preferred CFML engine for   " )
+			 .greenBoldLine( "local development: you can always change it    " )
+			 .greenBoldLine( "later!                                         " )
+			 .greenBoldLine( "                                               " )
+			 .greenBoldLine( " 1) lucee 4.5 (Commandbox default)             " )
+			 .greenBoldLine( " 2) lucee 5.x                                  " )
+			 .greenBoldLine( " 3) Adobe ColdFusion 10                        " )
+			 .greenBoldLine( " 4) Adobe ColdFusion 11                        " )
+			 .greenBoldLine( " 5) Adobe ColdFusion 2016                      " )
 			 .greenBoldLine( "==================================================" )
 			 .line().toConsole();
  		var defaultEngine= ask('Please enter your preferred engine: [1-5] ');
@@ -163,7 +164,7 @@ component extends="base"  {
  			print.greenline( "========= Installing CFWheels.........." ).toConsole();
 
 			// Note: deliberately not using cache due to https://github.com/cfwheels/cfwheels/issues/652
-			command( 'artifacts remove cfwheels --force' ).run();
+			//command( 'artifacts remove cfwheels --force' ).run();
 
 			// Install into a temp directory to prevent overwriting other cfwheels named folders
 			command( 'install ').params(id=setVersion, directory=appName).run();
@@ -201,6 +202,9 @@ component extends="base"  {
 		 		settingsContent = replaceNoCase( settingsContent, "|datasourceName|", datasourceName, 'all' );
 		 		file action='write' file='#fileSystemUtil.resolvePath("config/settings.cfm")#' mode ='777' output='#trim(settingsContent)#';
 
+	 		print.greenline( "========= Adding altered config/routes.cfm" ).toConsole();
+	 			file action='write' file='#fileSystemUtil.resolvePath("config/routes.cfm")#' mode ='777' output='#trim(routesContent)#';
+
 			// Make server.json server name unique to this app: assumes lucee by default
 	 		print.greenline( "========= Creating default server.json" ).toConsole();
  			var serverJSON	        = fileRead( helpers.getTemplate('/ServerJSON.txt' ) );
@@ -234,17 +238,17 @@ component extends="base"  {
 			command('ls').run();
 			print.line()
 			print.greenBoldLine( "========= All Done! =============================" )
-				 .greenBoldLine( "= Your app has been successfully created. Type   =" )
-				 .greenBoldLine( "= 'start' to start a server here.                =" )
-				 .greenBoldLine( "=                                                =" );
+				 .greenBoldLine( "Your app has been successfully created. Type   " )
+				 .greenBoldLine( "'start' to start a server here.                " )
+				 .greenBoldLine( "                                               " );
 			if(!createH2Embedded){
-			print.greenBoldLine( "= Don't forget to add your datasource to either  =" )
-				 .greenBoldLine( "= /lucee/admin/server.cfm OR                     =" )
-				 .greenBoldLine( "= /CFIDE/administrator/index.cfm                 =" )
-				 .greenBoldLine( "=                                                =" );
+			print.greenBoldLine( "Don't forget to add your datasource to either  " )
+				 .greenBoldLine( "/lucee/admin/server.cfm OR                     " )
+				 .greenBoldLine( "/CFIDE/administrator/index.cfm                 " )
+				 .greenBoldLine( "                                               " );
 			}
-			print.greenBoldLine( "= Once you've started a local server, we can get =" )
-				 .greenBoldLine( "= going with scaffolding and other awesome things=" )
+			print.greenBoldLine( "Once you've started a local server, we can get " )
+				 .greenBoldLine( "going with scaffolding and other awesome things" )
 				 .greenBoldLine( "==================================================" )
 				 .line();
 		} else {

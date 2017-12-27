@@ -21,19 +21,23 @@ component extends="base"  {
 
 		print.yellowline( "Creating Model" ).toConsole();
 			command('wheels g model').params(objectname=objectname).run();
-			command('wheels g test').params(type="model", objectname=objectname).run();
+			//command('wheels g test').params(type="model", objectname=objectname).run();
 		print.line();
 
 		print.yellowline( "Creating Controller" ).toConsole();
 			command('wheels g controller').params(objectname=objectname, actionlist="crud").run();
-			command('wheels g test').params(type="controller", objectname=objectname).run();
+			//command('wheels g test').params(type="controller", objectname=objectname).run();
 		print.line();
 
 		print.yellowline( "Creating View Files" ).toConsole();
 			for(action in ["index","show","new","edit","_form"]){
 				command('wheels g view').params(objectname=objectname, name=action, template="crud/#action#").run();
-				command('wheels g test').params(type="view", objectname=objectname, name=action).run();
+				//command('wheels g test').params(type="view", objectname=objectname, name=action).run();
 			}
+		print.line();
+
+		print.yellowline( "Creating Default Resources Route" ).toConsole();
+			command('wheels g route').params(objectname=objectname).run();
 		print.line();
 
 		print.yellowline( "Migrating DB" ).toConsole();
