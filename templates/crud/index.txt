@@ -21,13 +21,13 @@
 					<td>
 						#linkTo(action="show", key=id, text="View")# |
 						#linkTo(action="edit", key=id, text="Edit")# |
-						#linkTo(action="delete", key=id, text="Delete", confirm="Are you Sure?")#
+						#linkTo(action="delete", key=id, text="Delete")#
 					</td>
 				</tr>
 				</cfloop>
 			</tbody>
 		</table>
-	<cfelse> 
+	<cfelse>
 		<p>Sorry, there are no |ObjectNamePluralC| yet</p>
 	</cfif>
 </cfoutput>
