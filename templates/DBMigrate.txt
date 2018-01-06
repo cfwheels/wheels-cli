@@ -1,51 +1,37 @@
-<cfcomponent extends="plugins.dbmigrate.Migration" hint="|DBMigrateHINT|">
-  <cffunction name="up">
-  	<cfset hasError = false />
-  	<cftransaction>
-	    <cfscript>
-	    	try{
-	    		|DBMigrateUP|
-	    	}
-	    	catch (any ex){
-	    		hasError = true;
-		      	catchObject = ex;
-	    	}
+component extends="wheels.migrator.Migration" hint="|DBMigrateHINT|" {
 
-	    </cfscript>
-	    <cfif hasError>
-	    	<cftransaction action="rollback" />
-	    	<cfthrow
-			    detail = "#catchObject.detail#"
-			    errorCode = "1"
-			    message = "#catchObject.message#"
-			    type = "Any">
-	    <cfelse>
-	    	<cftransaction action="commit" />
-	    </cfif>
- 	 </cftransaction>
-  </cffunction>
-  <cffunction name="down">
-  	<cfset hasError = false />
-  	<cftransaction>
-	    <cfscript>
-	      try{
-	    		|DBMigrateDOWN|
-	    	}
-	    	catch (any ex){
-	    		hasError = true;
-		      	catchObject = ex;
-	    	}
-	    </cfscript>
-		<cfif hasError>
-	    	<cftransaction action="rollback" />
-	    	<cfthrow
-			    detail = "#catchObject.detail#"
-			    errorCode = "1"
-			    message = "#catchObject.message#"
-			    type = "Any">
-	    <cfelse>
-	    	<cftransaction action="commit" />
-	    </cfif>
- 	 </cftransaction>
-  </cffunction>
-</cfcomponent>
+	function up() {
+		transaction {
+			try {
+				|DBMigrateUP|
+			} catch (any e) {
+				local.exception = e;
+			}
+
+			if (StructKeyExists(local, "exception")) {
+				transaction action="rollback";
+				throw(errorCode="1", detail=local.exception.detail, message=local.exception.message, type="any");
+			} else {
+				transaction action="commit";
+			}
+		}
+	}
+
+	function down() {
+		transaction {
+		  try {
+				|DBMigrateDOWN|
+			} catch (any e) {
+				local.exception = e;
+			}
+
+			if (StructKeyExists(local, "exception")) {
+				transaction action="rollback";
+				throw(errorCode="1", detail=local.exception.detail, message=local.exception.message, type="any");
+			} else {
+				transaction action="commit";
+			}
+		}
+	}
+
+}

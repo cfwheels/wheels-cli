@@ -218,7 +218,7 @@ component excludeFromHelp=true {
 	string function $getBridgeURL() {
 		var serverInfo=$getServerInfo();
 		var geturl=serverInfo.serverUrl;
-  			getURL &= "/index.cfm?controller=wheels&action=wheels&view=cli";
+  			getURL &= "/rewrite.cfm?controller=wheels&action=wheels&view=cli";
   		return geturl;
 	}
 
@@ -249,25 +249,18 @@ component excludeFromHelp=true {
 	}
 
   	// Create the physical migration cfc in /db/migrate/
-	function $createMigrationFile(required string name, required string action, required string content){
-			var directory1=fileSystemUtil.resolvePath("db/");
-			var directory2=fileSystemUtil.resolvePath("db/migrate/");
-			var extendsPath="plugins.dbmigrate.Migration";
-			if(!directoryExists(directory1)){
-				directoryCreate(directory1);
-			}
-			if(!directoryExists(directory2)){
-				directoryCreate(directory2);
-			}
-			if($isWheelsVersion(2, "major")){
-	  			extendsPath="wheels.dbmigrate.Migration";
-	  		}
-			content=replaceNoCase(content, "|DBMigrateExtends|", extendsPath, "all");
-			content=replaceNoCase(content, "|DBMigrateDescription|", "CLI #action#_#name#", "all");
-			var fileName=dateformat(now(),'yyyymmdd') & timeformat(now(),'HHMMSS') & "_cli_#action#_" & name & ".cfc";
-			var filePath=directory2 & "/" & fileName;
-			file action='write' file='#filePath#' mode ='777' output='#trim( content )#';
-			print.line( 'Created #fileName#' );
-	}
+	//function $createMigrationFile(required string name, required string action, required string content){
+	//		var directory=fileSystemUtil.resolvePath("migrator/migrations");
+	//		if(!directoryExists(directory)){
+	//			directoryCreate(directory);
+	//		}
+	//  		extendsPath="wheels.migrator.Migration";
+	//  		content=replaceNoCase(content, "|DBMigrateExtends|", extendsPath, "all");
+	//		content=replaceNoCase(content, "|DBMigrateDescription|", "CLI #action#_#name#", "all");
+	//		var fileName=dateformat(now(),'yyyymmdd') & timeformat(now(),'HHMMSS') & "_cli_#action#_" & name & ".cfc";
+	//		var filePath=directory & "/" & fileName;
+	//		file action='write' file='#filePath#' mode ='777' output='#trim( content )#';
+	//		print.line( 'Created #fileName#' );
+	//}
 
 }
