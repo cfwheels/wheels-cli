@@ -249,18 +249,18 @@ component excludeFromHelp=true {
 	}
 
   	// Create the physical migration cfc in /db/migrate/
-	//function $createMigrationFile(required string name, required string action, required string content){
-	//		var directory=fileSystemUtil.resolvePath("migrator/migrations");
-	//		if(!directoryExists(directory)){
-	//			directoryCreate(directory);
-	//		}
-	//  		extendsPath="wheels.migrator.Migration";
-	//  		content=replaceNoCase(content, "|DBMigrateExtends|", extendsPath, "all");
-	//		content=replaceNoCase(content, "|DBMigrateDescription|", "CLI #action#_#name#", "all");
-	//		var fileName=dateformat(now(),'yyyymmdd') & timeformat(now(),'HHMMSS') & "_cli_#action#_" & name & ".cfc";
-	//		var filePath=directory & "/" & fileName;
-	//		file action='write' file='#filePath#' mode ='777' output='#trim( content )#';
-	//		print.line( 'Created #fileName#' );
-	//}
+	function $createMigrationFile(required string name, required string action, required string content){
+			var directory=fileSystemUtil.resolvePath("migrator/migrations");
+			if(!directoryExists(directory)){
+				directoryCreate(directory);
+			}
+	  		extendsPath="wheels.migrator.Migration";
+	  		content=replaceNoCase(content, "|DBMigrateExtends|", extendsPath, "all");
+			content=replaceNoCase(content, "|DBMigrateDescription|", "CLI #action#_#name#", "all");
+			var fileName=dateformat(now(),'yyyymmdd') & timeformat(now(),'HHMMSS') & "_cli_#action#_" & name & ".cfc";
+			var filePath=directory & "/" & fileName;
+			file action='write' file='#filePath#' mode ='777' output='#trim( content )#';
+			print.line( 'Created #fileName#' );
+	}
 
 }
