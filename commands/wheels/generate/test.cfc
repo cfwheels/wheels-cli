@@ -42,10 +42,16 @@ component aliases='wheels g test' extends="../base"  {
  			case "model":
  				var testName=obj.objectNameSingularC & ".cfc";
  				var testPath=fileSystemUtil.resolvePath("tests/models/#testName#");
+ 				if( !directoryExists(fileSystemUtil.resolvePath("tests/models"))){
+ 					directoryCreate(fileSystemUtil.resolvePath("tests/models"));
+ 				}
  			break;
  			case "controller":
  				var testName=obj.objectNamePluralC & ".cfc";
  				var testPath=fileSystemUtil.resolvePath("tests/controllers/#testName#");
+ 				if( !directoryExists(fileSystemUtil.resolvePath("tests/controllers"))){
+ 					directoryCreate(fileSystemUtil.resolvePath("tests/controllers"));
+ 				}
  			break;
  			case "view":
  				var testObjPath=fileSystemUtil.resolvePath("tests/views/#obj.objectNamePlural#");

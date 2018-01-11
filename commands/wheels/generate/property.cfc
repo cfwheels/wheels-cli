@@ -89,6 +89,10 @@ component aliases='wheels g property'  extends="../base"  {
 		print.line("Inserting field into view form");
 		$injectIntoView(objectnames=obj, property=arguments.columnName, type=arguments.columnType, action="input");
 
+		// Insert field into index listing
+		print.line("Inserting field into into index listing");
+		$injectIntoIndex(objectnames=obj, property=arguments.columnName, type=arguments.columnType);
+
 		// Insert default output
 		print.line("Inserting output into views");
 		$injectIntoView(objectnames=obj, property=arguments.columnName, type=arguments.columnType, action="output");

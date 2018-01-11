@@ -90,6 +90,23 @@ component excludeFromHelp=true {
         file action='write' file='#local.target#' mode ='777' output='#trim(local.content)#';
     }
 
+    // Inject CLI content into index template
+    function $injectIntoIndex(required struct objectNames, required string property, required string type){
+        local.target=fileSystemUtil.resolvePath("views/#objectNames.objectNamePlural#/index.cfm");
+        local.thead="					<th>#helpers.capitalize(arguments.property)#</th>";
+        local.tbody="					<td>" & cr & "						~[~#arguments.property#~]~" & cr & "					</td>";
+
+        local.content=fileRead(local.target);
+        // inject into position CLI-Appends-Here
+        local.content = replaceNoCase(local.content, '                    <!--- CLI-Appends-thead-Here --->', local.thead & cr & '                    <!--- CLI-Appends-thead-Here --->', 'all');
+        local.content = replaceNoCase(local.content, '                    <!--- CLI-Appends-tbody-Here --->', local.tbody & cr & '                    <!--- CLI-Appends-tbody-Here --->', 'all');
+        // Replace tokens with ## tags
+        local.content = Replace(local.content, "~[~", "##", "all");
+        local.content = Replace(local.content, "~]~", "##", "all");
+        // Finally write out the file
+        file action='write' file='#local.target#' mode ='777' output='#trim(local.content)#';
+    }
+
     // Returns contents for a default (non crud) action
     function $returnAction(required string name, string hint=""){
     	var rv="";
@@ -249,18 +266,18 @@ component excludeFromHelp=true {
 	}
 
   	// Create the physical migration cfc in /db/migrate/
-	//function $createMigrationFile(required string name, required string action, required string content){
-	//		var directory=fileSystemUtil.resolvePath("migrator/migrations");
-	//		if(!directoryExists(directory)){
-	//			directoryCreate(directory);
-	//		}
-	//  		extendsPath="wheels.migrator.Migration";
-	//  		content=replaceNoCase(content, "|DBMigrateExtends|", extendsPath, "all");
-	//		content=replaceNoCase(content, "|DBMigrateDescription|", "CLI #action#_#name#", "all");
-	//		var fileName=dateformat(now(),'yyyymmdd') & timeformat(now(),'HHMMSS') & "_cli_#action#_" & name & ".cfc";
-	//		var filePath=directory & "/" & fileName;
-	//		file action='write' file='#filePath#' mode ='777' output='#trim( content )#';
-	//		print.line( 'Created #fileName#' );
-	//}
+	function $createMigrationFile(required string name, required string action, required string content){
+			var directory=fileSystemUtil.resolvePath("migrator/migrations");
+			if(!directoryExists(directory)){
+				directoryCreate(directory);
+			}
+	  		extendsPath="wheels.migrator.Migration";
+	  		content=replaceNoCase(content, "|DBMigrateExtends|", extendsPath, "all");
+			content=replaceNoCase(content, "|DBMigrateDescription|", "CLI #action#_#name#", "all");
+			var fileName=dateformat(now(),'yyyymmdd') & timeformat(now(),'HHMMSS') & "_cli_#action#_" & name & ".cfc";
+			var filePath=directory & "/" & fileName;
+			file action='write' file='#filePath#' mode ='777' output='#trim( content )#';
+			print.line( 'Created #fileName#' );
+	}
 
 }
