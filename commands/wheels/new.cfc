@@ -226,6 +226,7 @@ component extends="base"  {
 	 		 	var bsSettings=fileRead( helpers.getTemplate('/bootstrap3/settings.cfm' ) );
 				settingsContent = replaceNoCase( settingsContent, '// CLI-Appends-Here', bsSettings & cr & '// CLI-Appends-Here', 'one');
 				file action='write' file='#fileSystemUtil.resolvePath("config/settings.cfm")#' mode ='777' output='#trim(settingsContent)#';
+
 	 		 	// New Flashwrapper Plugin needed - install it via Forgebox
 	 		 	command( 'install cfwheels-flashmessages-bootstrap' ).run();
 	 		print.line();
