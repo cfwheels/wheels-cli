@@ -21,9 +21,11 @@
 					</td>
                     <!--- CLI-Appends-tbody-Here --->
 					<td>
-						#linkTo(action="show", key=id, text="View")# |
-						#linkTo(action="edit", key=id, text="Edit")# |
-						#linkTo(action="delete", key=id, text="Delete")#
+						<div class="btn-group">
+							#linkTo(action="show", key=id, text="View", class="btn btn-xs btn-info")#
+							#linkTo(action="edit", key=id, text="Edit", class="btn btn-xs btn-primary")#
+						</div>
+						#buttonTo(action="delete", key=id, text="Delete", class="visible-sm-inline-block", inputClass="btn btn-danger btn-xs")#
 					</td>
 				</tr>
 				</cfloop>
