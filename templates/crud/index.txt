@@ -22,10 +22,10 @@
                     <!--- CLI-Appends-tbody-Here --->
 					<td>
 						<div class="btn-group">
-							#linkTo(route="|ObjectNameSingularC|", key=id, text="View", class="btn btn-xs btn-info")#
-							#linkTo(route="edit|ObjectNameSingularC|", key=id, text="Edit", class="btn btn-xs btn-primary")#
+							#linkTo(route="|ObjectNameSingularC|", key=id, text="View", class="btn btn-xs btn-info", encode=false)#
+							#linkTo(route="edit|ObjectNameSingularC|", key=id, text="Edit", class="btn btn-xs btn-primary", encode=false)#
 						</div>
-						#buttonTo(route="|ObjectNameSingularC|", method="delete", key=id, text="Delete", class="visible-sm-inline-block", inputClass="btn btn-danger btn-xs")#
+						#buttonTo(route="|ObjectNameSingularC|", method="delete", key=id, text="Delete", class="pull-right", inputClass="btn btn-danger btn-xs", encode=false)#
 					</td>
 				</tr>
 				</cfloop>
