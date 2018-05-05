@@ -1,4 +1,3 @@
-<cfprocessingdirective pageEncoding="utf-8">
 <cfoutput>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,4 +66,3 @@
 </body>
 </html>
 </cfoutput>
-</cfprocessingdirective>
