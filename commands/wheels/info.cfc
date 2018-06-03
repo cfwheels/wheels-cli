@@ -7,24 +7,28 @@
  **/
 component  extends="base"  {
 
+	property name='fileSystem' inject='fileSystem';
 	/**
 	 *
 	 **/
 	function run(  ) {
 		var current={
-			directory		=getCWD(),
-			moduleRoot		=expandPath("../modules/cfwheels-cli/"),
-			wheelsVersion	=$getWheelsVersion()
+			directory		= getCWD(),
+			moduleRoot		= expandPath("/cfwheels-cli/"),
+			wheelsVersion	= $getWheelsVersion()
 		};
-
-
-		print.greenBoldLine( "================CFWheels CLI =======================" )
-			.greenBoldLine( "This is highly experimental, and will probably fry your brain" )
-			.greenBoldLine( "====================================================" )
-			.greenBoldLine( "= Current Working Directory: #current.directory#")
-			.greenBoldLine( "= CommandBox Module Root: #current.moduleRoot#")
-			.greenBoldLine( "= Current CFWheels Version in this directory: #current.wheelsVersion#")
-			.greenBoldLine( "====================================================" );
+		print.redLine(" ,-----.,------.,--.   ,--.,--.                   ,--.            ,-----.,--.   ,--. ")
+			.redLine("'  .--./|  .---'|  |   |  ||  ,---.  ,---.  ,---. |  | ,---.     '  .--./|  |   |  | ")
+			.redLine("|  |    |  `--, |  |.'.|  ||  .-.  || .-. :| .-. :|  |(  .-'     |  |    |  |   |  | ")
+			.redLine("'  '--'\|  |`   |   ,'.   ||  | |  |\   --.\   --.|  |.-'  `)    '  '--'\|  '--.|  | ")
+			.redLine(" `-----'`--'    '--'   '--'`--' `--' `----' `----'`--'`----'      `-----'`-----'`--' ")
+			.yellowBoldLine( "================CFWheels CLI =======================" )
+			.yellowBoldLine( "This is highly experimental, and will probably fry your brain" )
+			.yellowBoldLine( "====================================================" )
+			.yellowBoldLine( "= Current Working Directory: #current.directory#")
+			.yellowBoldLine( "= CommandBox Module Root: #current.moduleRoot#")
+			.yellowBoldLine( "= Current CFWheels Version in this directory: #current.wheelsVersion#")
+			.yellowBoldLine( "====================================================" );
 	}
 
 }

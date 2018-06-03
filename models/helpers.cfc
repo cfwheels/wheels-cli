@@ -27,7 +27,7 @@ component accessors="true" singleton {
 
     // NB, this path is the only place with the module folder name in it: would be good to find a way around that
     public string function getTemplateDirectory(){
-        var templateDirectory=expandPath("../modules/cfwheels-cli/templates");
+        var templateDirectory=expandPath("/cfwheels-cli/templates");
         // Validate Template
         if( !directoryExists(templateDirectory) ) {
             error( "#templateDirectory# Template Directory can't be found." );
