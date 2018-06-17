@@ -213,7 +213,7 @@ component extends="base"  {
 		 		file action='write' file='#fileSystemUtil.resolvePath("server.json")#' mode ='777' output='#trim(serverJSON)#';
 		 	// Copy urlrewrite.xml
 		 	command( 'cp' )
-				    .params( path=expandPath("../modules/cfwheels-cli/templates/urlrewrite.xml"), newPath=fileSystemUtil.resolvePath("urlrewrite.xml"))
+				    .params( path=expandPath("/cfwheels-cli/templates/urlrewrite.xml"), newPath=fileSystemUtil.resolvePath("urlrewrite.xml"))
 				    .run();
 	 		// Definitely refactor this into some sort of templating system?
 	 		if(useBootstrap3){
