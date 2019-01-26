@@ -111,6 +111,7 @@ component extends="base"  {
 			 .greenBoldLine( " 3) Adobe ColdFusion 10                        " )
 			 .greenBoldLine( " 4) Adobe ColdFusion 11                        " )
 			 .greenBoldLine( " 5) Adobe ColdFusion 2016                      " )
+			 .greenBoldLine( " 6) Adobe ColdFusion 2018                      " )
 			 .greenBoldLine( "==================================================" )
 			 .line().toConsole();
  		var defaultEngine= ask('Please enter your preferred engine: [1-5] ');
@@ -133,6 +134,9 @@ component extends="base"  {
  				break;
  				case 5:
  					setEngine="adobe@2016";
+ 				break;
+ 				case 6:
+ 					setEngine="adobe@2018";
  				break;
  			}
 		print.line();
