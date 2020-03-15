@@ -1,8 +1,8 @@
 {
     "name":"CFWheels CLI Commands",
-    "version":"0.3.4",
+    "version":"0.3.5",
     "author":"Tom King",
-    "location":"neokoenig/cfwheels-cli#v0.3.4",
+    "location":"neokoenig/cfwheels-cli#v0.3.5",
     "directory":"",
     "createPackageDirectory":true,
     "packageDirectory":"cfwheels-cli",
