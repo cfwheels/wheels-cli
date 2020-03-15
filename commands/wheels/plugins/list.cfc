@@ -5,7 +5,7 @@
  * wheels plugins list
  * {code}
  **/
-component aliases="wheels plugin list" extends="base"  {
+component aliases="wheels plugin list" extends="../base"  {
 
 	/**
 	 *
