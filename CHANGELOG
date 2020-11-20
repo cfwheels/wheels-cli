@@ -1,7 +1,18 @@
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-0.2.5 (TBA)
+0.2.10
+*
+
+0.2.9
+* Removes cfprocessdirective from default bootstrap layout
+
+0.2.8
+* Fixes Scaffolding edit routing
+
+0.2.5
 * Updates new installation bootstrap flash messages plugin #25 [Peter Amiri, Tom King]
 * New Properties added via scaffold now appear in the default index #24 [Peter Amiri]
+* Fixes Index templates to use routes and buttonTo Delete Links [Tom King]
+* Fixes Encode Attributes as bootstrap template default to form helpers [Tom King]
 
 0.2.4
 * Various scaffolding syntax updates for CFWheels 2.0

@@ -148,7 +148,7 @@ component excludeFromHelp=true {
 			// Return a text field if everything fails, i.e assume string
 			// Let's escape the output to be safe
 			default:
-				rv&="xmlFormat(#objectName#.#property#)";
+				rv&="encodeForHTML(#objectName#.#property#)";
 			break;
 		}
 		rv&="~]~</p>";

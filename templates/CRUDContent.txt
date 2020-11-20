@@ -31,7 +31,7 @@ component extends="Controller" {
 	function create() {
 		|ObjectNameSingular|=model("|ObjectNameSingular|").create(params.|ObjectNameSingular|);
 		if(|ObjectNameSingular|.hasErrors()){
-			renderPage(action="new");
+			renderView(action="new");
 		} else {
 			redirectTo(action="index", success="|ObjectNameSingularC| successfully created");
 		}
@@ -52,7 +52,7 @@ component extends="Controller" {
 		if(|ObjectNameSingular|.update(params.|ObjectNameSingular|)){
 			redirectTo(action="index", success="|ObjectNameSingularC| successfully updated");
 		} else {
-			renderPage(action="edit");
+			renderView(action="edit");
 		}
 	}
 

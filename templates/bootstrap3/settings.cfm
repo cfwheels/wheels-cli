@@ -8,7 +8,8 @@ set(functionName="textField,textFieldTag,select,selectTag,passwordField,password
 	labelPlacement="before",
 	prependToLabel="<div class=""form-group"">",
 	prepend="<div class="""">",
-	append="</div></div>"  );
+	append="</div></div>",
+	encode="attributes"  );
 
 set(functionName="dateTimeSelect,dateSelect", prepend="<div class=""form-group"">", append="</div>", timeSeparator="", minuteStep="5", secondStep="10", dateOrder="day,month,year", dateSeparator="", separator="");
 

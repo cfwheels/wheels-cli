@@ -3,12 +3,14 @@ component {
     // Module Properties
     this.autoMapModels  = true;
     this.modelNamespace = "wheels";
-    this.cfmapping      = "wheels";
 
     function configure(){
         interceptors = [
             { class='#moduleMapping#.interceptors.postInstall' }
         ];
+        settings = {
+            "modulePath": modulePath
+        }
     }
 
     // Runs when module is loaded
