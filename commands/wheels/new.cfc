@@ -110,12 +110,13 @@ component extends="base"  {
 			 .greenBoldLine( "local development: you can always change it    " )
 			 .greenBoldLine( "later!                                         " )
 			 .greenBoldLine( "                                               " )
-			 .greenBoldLine( " 1) lucee 4.5 (Commandbox default)             " )
+			 .greenBoldLine( " 1) lucee 4.5						             " )
 			 .greenBoldLine( " 2) lucee 5.x                                  " )
 			 .greenBoldLine( " 3) Adobe ColdFusion 10                        " )
 			 .greenBoldLine( " 4) Adobe ColdFusion 11                        " )
 			 .greenBoldLine( " 5) Adobe ColdFusion 2016                      " )
 			 .greenBoldLine( " 6) Adobe ColdFusion 2018                      " )
+			 .greenBoldLine( " 7) Adobe ColdFusion 2021                      " )
 			 .greenBoldLine( "==================================================" )
 			 .line().toConsole();
  		var defaultEngine= ask('Please enter your preferred engine: [1-5] ');
@@ -141,6 +142,9 @@ component extends="base"  {
  				break;
  				case 6:
  					setEngine="adobe@2018";
+ 				break;
+ 				case 7:
+ 					setEngine="adobe@2021";
  				break;
  			}
 		print.line();
