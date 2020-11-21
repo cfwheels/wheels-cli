@@ -26,8 +26,8 @@ component extends="base"  {
  		//---------------- Welcome
  		print.greenBoldLine( "========= Hello! =================================" )
  			 .greenBoldLine( "Welcome to the CFWheels app wizard. We're here" )
- 			 .greenBoldLine( "to try and give you a helping start for your  " )
- 			 .greenBoldLine( "first app.                                    " )
+ 			 .greenBoldLine( "to try and give you a helping hand with your  " )
+ 			 .greenBoldLine( "app.                                          " )
  			 .greenBoldLine( "==================================================" )
  			 .line().toConsole();
 
@@ -46,8 +46,9 @@ component extends="base"  {
 		//---------------- Version
  		print.greenBoldLine( "========= Version?... ============================" )
  			 .greenBoldLine( "1) Master Branch via Git                     " )
- 			 .greenBoldLine( "2) 2.0.x Branch Stable Release               " )
- 			 .greenBoldLine( "3) 1.4.x Branch Stable Release               " )
+ 			 .greenBoldLine( "2) 2.1.x Branch Stable Release               " )
+ 			 .greenBoldLine( "3) 2.0.x Branch Stable Release               " )
+ 			 .greenBoldLine( "4) 1.4.x Branch Stable Release               " )
  			 .greenBoldLine( "==================================================" )
  			 .line().toConsole();
 		var version = ask( 'Please enter your preferred version [1-3]: ' );
@@ -56,9 +57,12 @@ component extends="base"  {
  					setVersion="cfwheels/cfwheels";
  				break;
  				case 2:
- 					setVersion="cfwheels@2.0.x";
+ 					setVersion="cfwheels@2.1.x";
  				break;
  				case 3:
+ 					setVersion="cfwheels@2.0.x";
+ 				break;
+ 				case 4:
  					setVersion="cfwheels@1.4.x";
  				break;
  			}
