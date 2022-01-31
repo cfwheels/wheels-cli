@@ -1,15 +1,16 @@
 /**
- * Creates a new CFWheels application in current working directory.
- * This is the recommended route to start a new application
+ * Creates a new CFWheels application. This is the recommended route 
+ * to start a new application.
  *
  * This command will ask for:
  *
- *  - An Application Name
+ *  - An Application Name (a new directoery will be created with this name)
+ *  - What wheels version you want to install
  *  - A reload Password
  *  - A datasource name
- *  - What wheels version you want to install
- *  - Whether you want to setup a local h2 dev database
  *  - What local cfengine you want to run
+ *  - If using Lucee, do you want to setup a local h2 dev database
+ *  - Do you want to setup some basic Bootstrap templating
  *
  * {code:bash}
  * wheels new
