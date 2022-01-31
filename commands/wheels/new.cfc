@@ -46,7 +46,7 @@ component extends="base"  {
 		print.line();
 
 		//---------------- Version
- 		print.greenBoldLine( "========= Version?... ============================" )
+ 		print.greenBoldLine( "========= CF Wheels Version?... ==================" )
  			 .yellowBoldLine("1) Latest Stable Release                     " )
  			 .greenBoldLine( "2) Bleeding Edge (Current Master Branch)     " )
  			 .greenBoldLine( "==================================================" )
@@ -154,12 +154,27 @@ component extends="base"  {
 
 		//---------------- Test H2 Database?
 		if(allowH2Creation){
-			var createH2Embedded= confirm('As you are using Lucee, would you like to use an embedded H2 database for development? [y/n]');
+			print.greenBoldLine( "========= Setup H2 Database ======================" )
+			.greenBoldLine( "As you are using Lucee, would you like to setup        " )
+			.greenBoldLine( "and use the H2 Java embedded SQL database:             " )
+			.line()
+		  .yellowBoldLine("1) Yes, setup the H2 database for me                   " )
+		  .greenBoldLine( "2) No, I'll setup my own database for development      " )
+		  .greenBoldLine( "==================================================" )
+		  .line().toConsole();
+			var version = ask( message='Please enter your selection [1-2]: ' , defaultResponse='1');
+			switch(version){
+				case 1:
+					createH2Embedded=true;
+					break;
+				case 2:
+					createH2Embedded=false;
+					break;
+			}
 			print.line();
 		} else {
 			createH2Embedded=false;
 		}
-
 
  		//---------------- This is just an idea at the moment really.
   		print.greenBoldLine( "========= Twitter Bootstrap ======================" ).toConsole();
@@ -168,12 +183,22 @@ component extends="base"  {
 	    	useBootstrap3 = true;
 	    }
 
-		print.greenBoldLine( "==================================================" ).toConsole();
-		print.greenBoldLine( "Great! Think we all good to go. We're going to install CFWheels in '#getCWD()#/#appName#', with a reload password of '#reloadPassword#', and a datasource of '#datasourceName#'.").toConsole();
+		print.line();
+		print.line();
+		print.greenBoldLine( "==================================================" )
+		.greenBoldLine( "Great! Think we're all good to go. We're going to ")
+		.greenBoldLine( "install CFWheels in '#getCWD()##appName#', ") 
+		.greenBoldLine( "with a reload password of '#reloadPassword#',")
+		.greenBoldLine( "and a datasource of '#datasourceName#'.").toConsole();
+		print.line();
 		if(allowH2Creation && createH2Embedded){
-			print.greenBoldLine( "We're also going to try and setup an embedded H2 database for development mode." );
-			print.greenBoldLine( "Pleae log into the Lucee Server admin and make sure the H2 Lucee Extension " );
-			print.greenBoldLine( "is installed under Extension > Applications > Installed > H2 " );
+			print.greenBoldLine( "We're also going to try and setup an embedded H2 " )
+			.greenBoldLine( "database for development mode. Pleae log into the     " )
+			.greenBoldLine( "Lucee Server admin and make sure the H2 Lucee " )
+			.greenBoldLine( "Extension is installed under  " )
+			.greenBoldLine( "Extension > Applications > Installed > H2 " )
+		  .greenBoldLine( "==================================================" )
+		  .line().toConsole();
 		}
  		if(confirm("Sound good? [y/n]")){
  			//var tempDir=createUUID();
