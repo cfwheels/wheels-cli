@@ -1,15 +1,16 @@
 /**
- * Creates a new CFWheels application in current working directory.
- * This is the recommended route to start a new application
+ * Creates a new CFWheels application. This is the recommended route 
+ * to start a new application.
  *
  * This command will ask for:
  *
- *  - An Application Name
+ *  - An Application Name (a new directoery will be created with this name)
+ *  - What wheels version you want to install
  *  - A reload Password
  *  - A datasource name
- *  - What wheels version you want to install
- *  - Whether you want to setup a local h2 dev database
  *  - What local cfengine you want to run
+ *  - If using Lucee, do you want to setup a local h2 dev database
+ *  - Do you want to setup some basic Bootstrap templating
  *
  * {code:bash}
  * wheels new
@@ -26,8 +27,8 @@ component extends="base"  {
  		//---------------- Welcome
  		print.greenBoldLine( "========= Hello! =================================" )
  			 .greenBoldLine( "Welcome to the CFWheels app wizard. We're here" )
- 			 .greenBoldLine( "to try and give you a helping hand with your  " )
- 			 .greenBoldLine( "app.                                          " )
+ 			 .greenBoldLine( "to try and give you a helping hand to install " )
+ 			 .greenBoldLine( "your initial app.                            " )
  			 .greenBoldLine( "==================================================" )
  			 .line().toConsole();
 
@@ -36,34 +37,28 @@ component extends="base"  {
  		print.greenBoldLine( "========= We Need Some Information... ============" )
  			 .greenBoldLine( "To get going, we're going to need to know a    " )
  			 .greenBoldLine( "NAME for your application. We recommend        " )
- 			 .greenBoldLine( "something like myapp to start with             " )
+ 			 .greenBoldLine( "something like myapp to start with. Keep in    " )
+ 			 .greenBoldLine( "mind that a new directory will be created for  " )
+ 			 .greenBoldLine( "your app in #getCWD()#.                        " )
  			 .greenBoldLine( "==================================================" )
  			 .line().toConsole();
-		var appName = ask( 'Please enter a name for your application: ' );
+		var appName = ask( message='Please enter a name for your application: ', defaultResponse="myapp" );
 			appName=helpers.stripSpecialChars(appName);
 		print.line();
 
 		//---------------- Version
- 		print.greenBoldLine( "========= Version?... ============================" )
- 			 .greenBoldLine( "1) Master Branch via Git                     " )
- 			 .greenBoldLine( "2) 2.1.x Branch Stable Release               " )
- 			 .greenBoldLine( "3) 2.0.x Branch Stable Release               " )
- 			 .greenBoldLine( "4) 1.4.x Branch Stable Release               " )
+ 		print.greenBoldLine( "========= CF Wheels Version?... ==================" )
+ 			 .yellowBoldLine("1) Latest Stable Release                     " )
+ 			 .greenBoldLine( "2) Bleeding Edge (Current Master Branch)     " )
  			 .greenBoldLine( "==================================================" )
  			 .line().toConsole();
-		var version = ask( 'Please enter your preferred version [1-3]: ' );
+		var version = ask( message='Please enter your preferred version [1-2]: ' , defaultResponse='1');
 			switch(version){
  				case 1:
- 					setVersion="cfwheels/cfwheels";
+ 					setVersion="cfwheels";
  				break;
  				case 2:
- 					setVersion="cfwheels@2.1.x";
- 				break;
- 				case 3:
- 					setVersion="cfwheels@2.0.x";
- 				break;
- 				case 4:
- 					setVersion="cfwheels@1.4.x";
+ 					setVersion="cfwheels/cfwheels";
  				break;
  			}
 		print.line();
@@ -77,14 +72,14 @@ component extends="base"  {
 			 .greenBoldLine( "if you need! 								     " )
 			 .greenBoldLine( "==================================================" )
 			 .line().toConsole();
- 		var reloadPassword= ask('Please enter a "reload" password for your application: ');
+ 		var reloadPassword= ask(message='Please enter a "reload" password for your application: ', defaultResponse="changeMe");
  		print.line();
 
  	    //---------------- Set datasource Name
   		print.greenBoldLine( "========= Data...data...data..       =============" )
 			 .greenBoldLine( "All good apps need data. Unfortunately you're   " )
 			 .greenBoldLine( "going to have to be responsible for this bit.   " )
-			 .greenBoldLine( "We're expecting  a valid DataSource to be       " )
+			 .greenBoldLine( "We're expecting a valid DataSource to be        " )
 			 .greenBoldLine( "setup; so you'll need mySQL or some other       " )
 			 .greenBoldLine( "supported DB server running locally. Once       " )
 			 .greenBoldLine( "you've setup a database, you'll need to add it  " )
@@ -92,11 +87,11 @@ component extends="base"  {
 			 .greenBoldLine( "we'll start in a bit. For now, we just need to  " )
 			 .greenBoldLine( "know what that datasource name will be.         " )
 			 .greenBoldLine( "                                                " )
-			 .greenBoldLine( "if you're going to run lucee, we can autocreate " )
-			 .greenBoldLine( "a development database for you later            " )
+			 .greenBoldLine( "If you're going to run lucee, we can autocreate " )
+			 .greenBoldLine( "a development database for you later.           " )
 			 .greenBoldLine( "==================================================" )
 			 .line().toConsole();
- 		var datasourceName= ask('Please enter a datasource name if different from #appName#: ');
+ 		var datasourceName= ask(message='Please enter a datasource name if different from #appName#: ', defaultResponse="#appName#");
  			if(!len(datasourceName)){
  				datasourceName = appName;
  			}
@@ -110,53 +105,77 @@ component extends="base"  {
 			 .greenBoldLine( "local development: you can always change it    " )
 			 .greenBoldLine( "later!                                         " )
 			 .greenBoldLine( "                                               " )
-			 .greenBoldLine( " 1) lucee 4.5						             " )
-			 .greenBoldLine( " 2) lucee 5.x                                  " )
-			 .greenBoldLine( " 3) Adobe ColdFusion 10                        " )
-			 .greenBoldLine( " 4) Adobe ColdFusion 11                        " )
-			 .greenBoldLine( " 5) Adobe ColdFusion 2016                      " )
+			 .yellowBoldLine(" 1) Lucee (Latest Stable Release)              " )
+			 .greenBoldLine( " 2) Adobe ColdFusion (Latest Stable Release)   " )
+			 .greenBoldLine( " 3) Lucee 5.x                                  " )
+			 .greenBoldLine( " 4) Lucee 4.x                                  " )
+			 .greenBoldLine( " 5) Adobe ColdFusion 2021                      " )
 			 .greenBoldLine( " 6) Adobe ColdFusion 2018                      " )
-			 .greenBoldLine( " 7) Adobe ColdFusion 2021                      " )
+			 .greenBoldLine( " 7) Adobe ColdFusion 2016                      " )
+			 .greenBoldLine( " 8) Adobe ColdFusion 11                        " )
+			 .greenBoldLine( " 9) Adobe ColdFusion 10                        " )
 			 .greenBoldLine( "==================================================" )
 			 .line().toConsole();
- 		var defaultEngine= ask('Please enter your preferred engine: [1-5] ');
- 		var setEngine="lucee@5";
+ 		var defaultEngine= ask(message='Please enter your preferred engine: [1-9] ', defaultResponse="1");
+ 		var setEngine="lucee";
  		var allowH2Creation=false;
  			switch(defaultEngine){
  				case 1:
- 					setEngine="lucee@4";
+ 					setEngine="lucee";
  					allowH2Creation=true;
- 				break;
+	 				break;
  				case 2:
+ 					setEngine="adobe";
+ 					break;
+ 				case 3:
  					setEngine="lucee@5";
  					allowH2Creation=true;
- 				break;
- 				case 3:
- 					setEngine="adobe@10";
- 				break;
+ 					break;
  				case 4:
- 					setEngine="adobe@11";
- 				break;
+ 					setEngine="lucee@4";
+ 					allowH2Creation=true;
+ 					break;
  				case 5:
- 					setEngine="adobe@2016";
- 				break;
+ 					setEngine="adobe@2021";
+ 					break;
  				case 6:
  					setEngine="adobe@2018";
- 				break;
- 				case 7:
- 					setEngine="adobe@2021";
- 				break;
+ 					break;
+				case 7:
+ 					setEngine="adobe@2016";
+ 					break;
+				case 8:
+ 					setEngine="adobe@11";
+ 					break;
+				case 9:
+ 					setEngine="adobe@10";
+ 					break;
  			}
 		print.line();
 
 		//---------------- Test H2 Database?
 		if(allowH2Creation){
-			var createH2Embedded= confirm('As you are using Lucee, would you like to use an embedded H2 database for development? [y/n]');
+			print.greenBoldLine( "========= Setup H2 Database ======================" )
+			.greenBoldLine( "As you are using Lucee, would you like to setup        " )
+			.greenBoldLine( "and use the H2 Java embedded SQL database:             " )
+			.line()
+		  .yellowBoldLine("1) Yes, setup the H2 database for me                   " )
+		  .greenBoldLine( "2) No, I'll setup my own database for development      " )
+		  .greenBoldLine( "==================================================" )
+		  .line().toConsole();
+			var version = ask( message='Please enter your selection [1-2]: ' , defaultResponse='1');
+			switch(version){
+				case 1:
+					createH2Embedded=true;
+					break;
+				case 2:
+					createH2Embedded=false;
+					break;
+			}
 			print.line();
 		} else {
 			createH2Embedded=false;
 		}
-
 
  		//---------------- This is just an idea at the moment really.
   		print.greenBoldLine( "========= Twitter Bootstrap ======================" ).toConsole();
@@ -165,10 +184,22 @@ component extends="base"  {
 	    	useBootstrap3 = true;
 	    }
 
-		print.greenBoldLine( "==================================================" ).toConsole();
-		print.greenBoldLine( "Great! Think we all good to go. We're going to install CFWheels in '/#appName#/', with a reload password of '#reloadPassword#', and a datasource of '#datasourceName#'.").toConsole();
+		print.line();
+		print.line();
+		print.greenBoldLine( "==================================================" )
+		.greenBoldLine( "Great! Think we're all good to go. We're going to ")
+		.greenBoldLine( "install CFWheels in '#getCWD()##appName#', ") 
+		.greenBoldLine( "with a reload password of '#reloadPassword#',")
+		.greenBoldLine( "and a datasource of '#datasourceName#'.").toConsole();
+		print.line();
 		if(allowH2Creation && createH2Embedded){
-			print.greenBoldLine( "We're also going to try and setup an embedded H2 database for development mode." );
+			print.greenBoldLine( "We're also going to try and setup an embedded H2 " )
+			.greenBoldLine( "database for development mode. Pleae log into the     " )
+			.greenBoldLine( "Lucee Server admin and make sure the H2 Lucee " )
+			.greenBoldLine( "Extension is installed under  " )
+			.greenBoldLine( "Extension > Applications > Installed > H2 " )
+		  .greenBoldLine( "==================================================" )
+		  .line().toConsole();
 		}
  		if(confirm("Sound good? [y/n]")){
  			//var tempDir=createUUID();
