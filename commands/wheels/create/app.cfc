@@ -117,7 +117,11 @@ component {
 		}
 
 		// Run postInstallAll script
-		command( "package run-script postInstallAll" ).run();
+		command( "package run-script" )
+			.params(
+				scriptname = "postInstallAll"
+			)
+			.run();
 
 		// Prepare defaults on box.json so we remove template based ones
 		command( "package set" )
