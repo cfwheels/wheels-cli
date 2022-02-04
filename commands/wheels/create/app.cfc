@@ -1,5 +1,5 @@
 /**
- *  Create a blank CFWheels app from one of our app skeletons or a skeleton using a valid Endpoint ID which can come from .
+ *  Create a blank CFWheels app from one of our app templates or a template using a valid Endpoint ID which can come from .
  *  ForgeBox, HTTP/S, git, github, etc.
  *  By default it will create the application in your current directory.
  * .
@@ -7,19 +7,19 @@
  * wheels create app myApp
  * {code}
  * .
- *  Here are the basic skeletons that are available for you that come from ForgeBox
+ *  Here are the basic templates that are available for you that come from ForgeBox
  *  - Base (default)
  *  - HelloWorld
  *  - HelloDynamic
  * .
  * {code:bash}
- * wheels create app skeleton=base
+ * wheels create app template=base
  * {code}
  * .
- * The skeleton parameter can also be any valid Endpoint ID, which includes a Git repo or HTTP URL pointing to a package.
+ * The template parameter can also be any valid Endpoint ID, which includes a Git repo or HTTP URL pointing to a package.
  * .
  * {code:bash}
- * wheels create app skeleton=http://site.com/myCustomAppTemplate.zip
+ * wheels create app template=http://site.com/myCustomAppTemplate.zip
  * {code}
  *
  **/
@@ -44,14 +44,14 @@ component {
 
 	/**
 	 * @name The name of the app you want to create
-	 * @skeleton The name of the app skeleton to generate (or an endpoint ID like a forgebox slug)
-	 * @skeleton.optionsUDF skeletonComplete
+	 * @template The name of the app template to generate (or an endpoint ID like a forgebox slug)
+	 * @template.optionsUDF templateComplete
 	 * @directory The directory to create the app in
 	 * @init "init" the directory as a package if it isn't already
 	 **/
 	function run(
 		name               = "My CFWheels App",
-		skeleton           = "Base",
+		template           = "Base",
 		directory          = getCWD(),
 		boolean init       = false
 	){
@@ -63,15 +63,15 @@ component {
 			directoryCreate( arguments.directory );
 		}
 
-		// If the skeleton is one of our "shortcut" names
-		if ( variables.templateMap.keyExists( arguments.skeleton ) ) {
+		// If the template is one of our "shortcut" names
+		if ( variables.templateMap.keyExists( arguments.template ) ) {
 			// Replace it with the actual ForgeBox slug name.
-			arguments.skeleton = variables.templateMap[ arguments.skeleton ];
+			arguments.template = variables.templateMap[ arguments.template ];
 		}
 
-		// Install the skeleton
+		// Install the template
 		packageService.installPackage(
-			ID                      = arguments.skeleton,
+			ID                      = arguments.template,
 			directory               = arguments.directory,
 			save                    = false,
 			saveDev                 = false,
@@ -126,9 +126,9 @@ component {
 	}
 
 	/**
-	 * Returns an array of cfwheels skeletons available
+	 * Returns an array of cfwheels templates available
 	 */
-	function skeletonComplete(){
+	function templateComplete(){
 		return variables.templateMap.keyList().listToArray();
 	}
 
