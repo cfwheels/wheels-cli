@@ -177,12 +177,7 @@ component extends="base"  {
 			createH2Embedded=false;
 		}
 
- 		//---------------- This is just an idea at the moment really.
-  		print.greenBoldLine( "========= Twitter Bootstrap ======================" ).toConsole();
 		var useBootstrap3=false;
-	    if(confirm("Would you like us to setup some default Bootstrap3 settings? [y/n]")){
-	    	useBootstrap3 = true;
-	    }
 
 		print.line();
 		print.line();
