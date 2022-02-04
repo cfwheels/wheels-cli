@@ -19,7 +19,7 @@
  * The skeleton parameter can also be any valid Endpoint ID, which includes a Git repo or HTTP URL pointing to a package.
  * .
  * {code:bash}
- * coldbox create app skeleton=http://site.com/myCustomAppTemplate.zip
+ * wheels create app skeleton=http://site.com/myCustomAppTemplate.zip
  * {code}
  *
  **/
@@ -48,23 +48,13 @@ component {
 	 * @skeleton.optionsUDF skeletonComplete
 	 * @directory The directory to create the app in
 	 * @init "init" the directory as a package if it isn't already
-	 * @wizard Run the ColdBox Creation wizard
-	 * @initWizard Run the init creation package wizard
 	 **/
 	function run(
 		name               = "My CFWheels App",
 		skeleton           = "Base",
 		directory          = getCWD(),
-		boolean init       = false,
-		boolean wizard     = false,
-		boolean initWizard = false
+		boolean init       = false
 	){
-		// Check for wizard argument
-		if ( arguments.wizard ) {
-			runCommand( "wheels create app-wizard" );
-			return;
-		}
-
 		// This will make the directory canonical and absolute
 		arguments.directory = resolvePath( arguments.directory );
 
