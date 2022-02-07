@@ -2,28 +2,28 @@
  *  Create a blank CFWheels app from one of our app templates or a template using a valid Endpoint ID which can come from .
  *  ForgeBox, HTTP/S, git, github, etc.
  *  By default an app named MyCFWheelsApp will be created in a sub directoryt call MyCFWheelsApp.
- * 
+ *
  *  The most basic call...
  *  {code:bash}
  *  wheels generate app
  *  {code}
- *  
- *  This can be shortened to... 
+ *
+ *  This can be shortened to...
  *  {code:bash}
  *  wheels g app
  *  {code}
- *  
+ *
  *  or simply
  *  {code:bash}
  *  wheels new
  *  {code}
- * 
+ *
  *  Here are the basic templates that are available for you that come from ForgeBox
  *  - Base (default)
  *  - HelloWorld
  *  - HelloDynamic
  *  - HelloPages
- * 
+ *
  * {code:bash}
  * wheels create app template=base
  * {code}
@@ -53,31 +53,30 @@ component aliases="wheels g app" extends="../base" {
   }
 
   /**
-   * @name                The name of the app you want to create
-   * @template            The name of the app template to generate (or an endpoint ID like a forgebox slug)
-   * @directory           The directory to create the app in
-   * @reloadPassword      The reload passwrod to set for the app
-   * @datasourceName      The datasource name to set for the app
-   * @cfmlEngine          The CFML engine to use for the app
-   * @setupH2             Setup the H2 database for development
-   * @init                "init" the directory as a package if it isn't already
+   * @name           The name of the app you want to create
+   * @template       The name of the app template to generate (or an endpoint ID like a forgebox slug)
+   * @directory      The directory to create the app in
+   * @reloadPassword The reload passwrod to set for the app
+   * @datasourceName The datasource name to set for the app
+   * @cfmlEngine     The CFML engine to use for the app
+   * @setupH2        Setup the H2 database for development
+   * @init           "init" the directory as a package if it isn't already
    **/
   function run(
-    name            = 'MyCFWheelsApp',
-    template        = 'Base',
+    name     = 'MyCFWheelsApp',
+    template = 'Base',
     directory,
-    reloadPassword  = 'changeMe',
+    reloadPassword = 'changeMe',
     datasourceName,
     cfmlEngine      = 'lucee',
     boolean setupH2 = false,
     boolean init    = false
   ) {
-
     // set defaults based on app name
-    if ( !len(arguments.directory) ) {
+    if ( !len( arguments.directory ) ) {
       arguments.directory = '#getCWD()##arguments.name#';
     }
-    if ( !len(arguments.datasourceName) ) {
+    if ( !len( arguments.datasourceName ) ) {
       arguments.datasourceName = '#arguments.name#';
     }
 
@@ -121,49 +120,25 @@ component aliases="wheels g app" extends="../base" {
 
     // Setting Application Name
     print.greenBoldLine( 'Setting application name...' ).toConsole();
-    command( 'tokenReplace' )
-      .params( 
-        path = "config/app.cfm",
-        token = "|appName|",
-        replacement = arguments.name
-      )
-      .run();
-      command( 'tokenReplace' )
-      .params( 
-        path = "server.json",
-        token = "|appName|",
-        replacement = arguments.name
-      )
-      .run();
+    command( 'tokenReplace' ).params( path = 'config/app.cfm', token = '|appName|', replacement = arguments.name ).run();
+    command( 'tokenReplace' ).params( path = 'server.json', token = '|appName|', replacement = arguments.name ).run();
 
     // Setting Reload Password
     print.greenBoldLine( 'Setting reload password...' ).toConsole();
     command( 'tokenReplace' )
-      .params( 
-        path = "config/settings.cfm",
-        token = "|reloadPassword|",
-        replacement = arguments.reloadPassword
-      )
+      .params( path = 'config/settings.cfm', token = '|reloadPassword|', replacement = arguments.reloadPassword )
       .run();
 
     // Setting Datasource Name
     print.greenBoldLine( 'Setting datasource name...' ).toConsole();
     command( 'tokenReplace' )
-      .params( 
-        path = "config/settings.cfm",
-        token = "|datasourceName|",
-        replacement = arguments.datasourceName
-      )
+      .params( path = 'config/settings.cfm', token = '|datasourceName|', replacement = arguments.datasourceName )
       .run();
 
     // Setting cfml Engine Name
     print.greenBoldLine( 'Setting CFML Engine name...' ).toConsole();
     command( 'tokenReplace' )
-      .params( 
-        path = "server.json",
-        token = "|cfmlEngine|",
-        replacement = arguments.cfmlEngine
-      )
+      .params( path = 'server.json', token = '|cfmlEngine|', replacement = arguments.cfmlEngine )
       .run();
 
 
@@ -180,16 +155,12 @@ component aliases="wheels g app" extends="../base" {
       print.greenline( 'Adding Datasource to app.cfm...' ).toConsole();
       var datasourceConfig = 'this.datasources[''#arguments.datasourceName#''] = {
           class: ''org.h2.Driver''
-        , connectionString: ''jdbc:h2:file:#expandPath("/db/h2/")##arguments.datasourceName#;MODE=MySQL''
+        , connectionString: ''jdbc:h2:file:#expandPath( '/db/h2/' )##arguments.datasourceName#;MODE=MySQL''
         ,  username = ''sa''
         };
         // CLI-Appends-Here';
       command( 'tokenReplace' )
-        .params( 
-          path = "config/app.cfm",
-          token = "// CLI-Appends-Here",
-          replacement = datasourceConfig
-        )
+        .params( path = 'config/app.cfm', token = '// CLI-Appends-Here', replacement = datasourceConfig )
         .run();
     }
 
@@ -230,7 +201,6 @@ component aliases="wheels g app" extends="../base" {
       .greenBoldLine( '| continue building out the app.                 |' )
       .greenBoldLine( '==================================================' )
       .line();
-
   }
 
   /**

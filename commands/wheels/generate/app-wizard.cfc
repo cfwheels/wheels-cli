@@ -1,20 +1,31 @@
 /**
- * Creates a new CFWheels application. This is the recommended route
- * to start a new application.
+ * Creates a new CFWheels application using our wizard to gather all the 
+ * necessary information. This is the recommended route to start a new application.
  *
  * This command will ask for:
  *
  *  - An Application Name (a new directoery will be created with this name)
- *  - What wheels version you want to install
+ *  - Template to use
  *  - A reload Password
  *  - A datasource name
  *  - What local cfengine you want to run
  *  - If using Lucee, do you want to setup a local h2 dev database
- *  - Do you want to setup some basic Bootstrap templating
+ *  - Do you want to initialize the app as a ForgBox opbject
  *
  * {code:bash}
  * wheels new
  * {code}
+ * 
+ * {code:bash}
+ * wheels g app-wizard
+ * {code}
+ * 
+ * {code:bash}
+ * wheels generate app-wizard
+ * {code}
+ * 
+ * All these three commands call the same wizard.
+ * 
  **/
 component aliases="wheels g app-wizard, wheels new" extends="../base" {
 
