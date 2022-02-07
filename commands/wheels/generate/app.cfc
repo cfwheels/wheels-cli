@@ -231,7 +231,6 @@ component aliases="wheels g app" extends="../base" {
       .greenBoldLine( '==================================================' )
       .line();
 
-
   }
 
   /**
