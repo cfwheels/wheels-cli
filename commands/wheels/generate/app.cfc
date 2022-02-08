@@ -186,7 +186,23 @@ component aliases="wheels g app" extends="../base" {
       )
       .run();
 
-    print.line()
+    // Remove the cfwheels-base from the dependencies
+    command( 'tokenReplace' )
+      .params( path = 'box.json', token = '"cfwheels-base":"^2.2"', replacement = '' )
+      .run();
+
+    // Remove the cfwheels-base from the install paths
+    command( 'tokenReplace' )
+      .params( path = 'box.json', token = '"cfwheels-base":"base/"', replacement = '' )
+      .run();
+
+    // Add the H2 Lucee extension to the dependencies
+    command( 'package set' )
+      .params( Dependencies = '{ "orgh213172lex":"lex:https://ext.lucee.org/org.h2-1.3.172.lex" }' )
+      .flags( 'append' )
+      .run();
+
+      print.line()
     print.greenBoldLine( '========= All Done! =============================' )
       .greenBoldLine( '| Your app has been successfully created. Type   |' )
       .greenBoldLine( '| ''start'' to start a server here.                |' )
