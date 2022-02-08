@@ -207,7 +207,16 @@ component aliases="wheels g app" extends="../base" {
       .greenBoldLine( '| Your app has been successfully created. Type   |' )
       .greenBoldLine( '| ''start'' to start a server here.                |' )
       .greenBoldLine( '|                                                |' );
-    if ( !arguments.setupH2 ) {
+    if ( arguments.setupH2 ) {
+      print.greenBoldLine( '| Since you opted to install the H2 Database we  |' )
+      .greenBoldLine( '| need to get the extension to get installed     | ')
+      .greenBoldLine( '| into our server. The easiest way to do this is | ')
+      .greenBoldLine( '| to start your Lucee server by typing ''start''   | ')
+      .greenBoldLine( '| after the server start up completely then type |' )
+      .greenBoldLine( '| ''install''. This will install the dependencies  |' )
+      .greenBoldLine( '| into your application server.                  |' )
+      .greenBoldLine( '|                                                |' );
+    } else {
       print.greenBoldLine( '| Don''t forget to add your datasource to either  |' )
         .greenBoldLine( '| /lucee/admin/server.cfm OR                     |' )
         .greenBoldLine( '| /CFIDE/administrator/index.cfm                 |' )
