@@ -1,6 +1,7 @@
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-0.2.10
-*
+0.4.2
+* Adds `create app` command [Peter Amiri]
+* Adds basic support for templates [Peter Amiri]
 
 0.2.9
 * Removes cfprocessdirective from default bootstrap layout
