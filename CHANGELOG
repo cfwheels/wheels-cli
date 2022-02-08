@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+0.5.0
+* app-wizard command [Peter Amiri]
+* Better h2 integration [Peter Amiri]
+
 0.4.2
 * Adds `create app` command [Peter Amiri]
 * Adds basic support for templates [Peter Amiri]
