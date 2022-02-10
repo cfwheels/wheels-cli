@@ -21,8 +21,10 @@ component excludeFromHelp=true {
 		if(!directoryExists( fileSystemUtil.resolvePath("wheels") ) ){
 			error("We're currently looking in #getCWD()#, but can't find a /wheels/ folder?");
 		}
-		if(fileExists(fileSystemUtil.resolvePath("box.json"))){
+		if(fileExists(fileSystemUtil.resolvePath("wheels/box.json"))){
+			command( 'cd wheels' ).run();
 			local.boxJSON = packageService.readPackageDescriptorRaw( getCWD() );
+			command( 'cd ../' ).run();
 			return local.boxJSON.version;
 		} else {
 			print.line("You've not got a box.json, so we don't know which version of wheels this is.");
