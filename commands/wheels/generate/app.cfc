@@ -204,12 +204,12 @@ component aliases="wheels g app" extends="../base" {
 
     // Remove the cfwheels-base from the dependencies
     command( 'tokenReplace' )
-      .params( path = 'box.json', token = '"cfwheels-base":"^2.2"', replacement = '' )
+      .params( path = 'box.json', token = '"cfwheels-base":"^2.2",', replacement = '' )
       .run();
 
     // Remove the cfwheels-base from the install paths
     command( 'tokenReplace' )
-      .params( path = 'box.json', token = '"cfwheels-base":"base/"', replacement = '' )
+      .params( path = 'box.json', token = '"cfwheels-base":"base/",', replacement = '' )
       .run();
 
     // Add the H2 Lucee extension to the dependencies
