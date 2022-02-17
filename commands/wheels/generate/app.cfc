@@ -94,6 +94,8 @@ component aliases="wheels g app" extends="../base" {
       }
     }
 
+    print.greenBoldLine( 'Currently working in #getCWD()#');
+
     // If the template is one of our "shortcut" names
     if ( variables.templateMap.keyExists( arguments.template ) ) {
       // Replace it with the actual ForgeBox slug name.
@@ -164,17 +166,18 @@ component aliases="wheels g app" extends="../base" {
       var datadirectory = fileSystemUtil.resolvePath( 'db/h2/' );
 
       if ( !directoryExists( datadirectory ) ) {
-        print.greenline( 'Creating /db/h2/ path...' ).toConsole();
+        print.greenline( 'Creating #arguments.directory# path...' ).toConsole();
         directoryCreate( datadirectory );
       }
 
       print.greenline( 'Adding Datasource to app.cfm...' ).toConsole();
       var datasourceConfig = 'this.datasources[''#arguments.datasourceName#''] = {
           class: ''org.h2.Driver''
-        , connectionString: ''jdbc:h2:file:#expandPath( '/db/h2/' )##arguments.datasourceName#;MODE=MySQL''
-        ,  username = ''sa''
+        , connectionString: ''jdbc:h2:file:#datadirectory##arguments.datasourceName#;MODE=MySQL''
+        , username = ''sa''
         };
-        // CLI-Appends-Here';
+  // CLI-Appends-Here';
+      print.yellowline( datasourceConfig ).toConsole();
       command( 'tokenReplace' )
         .params( path = 'config/app.cfm', token = '// CLI-Appends-Here', replacement = datasourceConfig )
         .run();
