@@ -1,4 +1,7 @@
-	// |ActionHint|
+
+	/**
+	* |ActionHint| Action
+	**/
 	function |Action|() {
 
 	}

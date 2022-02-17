@@ -226,7 +226,7 @@ component excludeFromHelp=true {
 
 	// Get information about the currently running server so we can send commmands
 	function $getServerInfo(){
-		var serverDetails = serverService.resolveServerDetails( serverProps={ name=listLast( getCWD(), '/\' ) } );
+		var serverDetails = serverService.resolveServerDetails( serverProps={ webroot=getCWD() } );
   		local.host              = serverDetails.serverInfo.host;
   		local.port              = serverDetails.serverInfo.port;
   		local.serverURL		  = "http://" & local.host & ":" & local.port;
@@ -250,9 +250,11 @@ component excludeFromHelp=true {
 
 		loc = new Http( url=targetURL ).send().getPrefix();
 		print.line("Sending: " & targetURL);
+		
 		if(isJson(loc.filecontent)){
   			loc.result=deserializeJSON(loc.filecontent);
   			if(structKeyexists(loc.result, "success") && loc.result.success){
+					print.line("Call to bridge was successful.");
   				return loc.result;
   				//if(structKeyExists(loc.result, "MESSAGE")){
 				//	return loc.result.message;
