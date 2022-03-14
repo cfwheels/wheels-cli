@@ -32,7 +32,6 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
 
   function run( ) {
     var appContent      = fileRead( helpers.getTemplate( '/ConfigAppContent.txt' ) );
-    var settingsContent = fileRead( helpers.getTemplate( '/ConfigSettingsContent.txt' ) );
     var routesContent   = fileRead( helpers.getTemplate( '/ConfigRoutes.txt' ) );
 
     // ---------------- Welcome
