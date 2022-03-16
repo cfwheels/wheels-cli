@@ -75,6 +75,7 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
         {value: 'cfwheels-template-helloworld', display: 'HelloWorld'},
         {value: 'cfwheels-template-hellodynamic', display: 'HelloDynamic'},
         {value: 'cfwheels-template-hellopages', display: 'HelloPages'},
+        {value: 'cfwheels-template-example-app', display: 'CFWheels Example App'},
         {value: 'custom', display: 'Enter a custom template endpoint'}
       ] )
       .required()
