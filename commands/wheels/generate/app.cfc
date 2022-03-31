@@ -116,11 +116,7 @@ component aliases="wheels g app" extends="../base" {
     print.greenBoldline( 'Navigating to new application...#arguments.directory#' ).toConsole();
     command( 'cd "#arguments.directory#"' ).run();
 
-    // Run postInstallAll script
-    print.greenBoldLine( 'Running the post install script...' ).toConsole();
-    command( 'package run-script' ).params( scriptname = 'postInstallAll' ).run();
-
-    // Copy server.json file
+        // Copy server.json file
     command( 'cp' )
       .params(
         path    = expandPath( '/cfwheels-cli/templates/ServerJSON.txt' ),
