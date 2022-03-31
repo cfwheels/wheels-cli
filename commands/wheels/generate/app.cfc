@@ -114,7 +114,7 @@ component aliases="wheels g app" extends="../base" {
     );
 
     print.greenBoldline( 'Navigating to new application...#arguments.directory#' ).toConsole();
-    command( 'cd #arguments.directory#' ).run();
+    command( 'cd "#arguments.directory#"' ).run();
 
     // Run postInstallAll script
     print.greenBoldLine( 'Running the post install script...' ).toConsole();
