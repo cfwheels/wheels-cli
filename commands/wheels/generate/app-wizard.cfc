@@ -71,8 +71,12 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
 
     var template = multiselect( 'Which CFWheels Template shall we use? ' )
       .options( [
-        {value: 'cfwheels-template-base', display: 'Base', selected: true},
+        {value: 'cfwheels-base-template', display: 'CFWheels Base Template', selected: true},
+        {value: 'cfwheels-template-helloworld', display: 'CFWheels Template - Hello World'},
+        {value: 'cfwheels-template-hellopages', display: 'CFWheels Template - Hello Pages'},
+        {value: 'cfwheels-template-hellodynamic', display: 'CFWheels Template - Hello Dynamic'},
         {value: 'cfwheels-template-example-app', display: 'CFWheels Example App'},
+        {value: 'cfwheels-todomvc-htmx', display: 'CFWheels - TodoMVC - HTMX - Demo App'},
         {value: 'custom', display: 'Enter a custom template endpoint'}
       ] )
       .required()
