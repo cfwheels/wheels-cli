@@ -5,7 +5,7 @@ Skips things like `rails server` which are provided by commandBox already.
 
 ## Install
 
-Simply run `install cfwheels-cli` from CommandBox to install the the latest release.
+Simply run `install cfwheels-cli` from CommandBox to install the latest release.
 
 ## Commands
 

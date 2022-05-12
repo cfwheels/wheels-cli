@@ -2,19 +2,19 @@
     "name":"CFWheels CLI Commands",
     "version":"0.8.0",
     "author":"Tom King, Peter Amiri",
-    "location":"neokoenig/cfwheels-cli#v0.8.0",
+    "location":"cfwheels/cfwheels-cli#v0.8.0",
     "directory":"",
     "createPackageDirectory":true,
     "packageDirectory":"cfwheels-cli",
-    "homepage":"https://github.com/neokoenig/cfwheels-cli",
+    "homepage":"https://github.com/cfwheels/cfwheels-cli",
     "documentation":"",
     "repository":{
         "type":"GIT",
-        "URL":"https://github.com/neokoenig/cfwheels-cli"
+        "URL":"https://github.com/cfwheels/cfwheels-cli"
     },
     "bugs":"",
     "slug":"cfwheels-cli",
-    "shortDescription":"Highly Experimental CFWheels CLI Commands for CommandBox: use at your own risk",
+    "shortDescription":"CFWheels CLI Commands for CommandBox",
     "description":"",
     "instructions":"Install via CommandBox by typing 'install cfwheels-cli'",
     "changelog":"",
@@ -22,7 +22,7 @@
     "keywords":"cfwheels,cli,commands",
     "private":false,
     "scripts":{
-        "postVersion":"package set location='neokoenig/cfwheels-cli#v`package version`'",
+        "postVersion":"package set location='cfwheels/cfwheels-cli#v`package version`'",
         "postPublish":"!git push --follow-tags",
         "patch-release":"bump --patch && publish",
         "minor-release":"bump --minor && publish",
