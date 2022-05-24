@@ -19,6 +19,8 @@ component excludeFromHelp=true {
 	string function $getWheelsVersion(){
 		// First, look for a wheels folder..
 		if(!directoryExists( fileSystemUtil.resolvePath("wheels") ) ){
+			print.line(fileSystemUtil.resolvePath("wheels"));
+
 			error("We're currently looking in #getCWD()#, but can't find a /wheels/ folder?");
 		}
 		if(fileExists(fileSystemUtil.resolvePath("wheels/box.json"))){
@@ -26,6 +28,13 @@ component excludeFromHelp=true {
 			local.boxJSON = packageService.readPackageDescriptorRaw( getCWD() );
 			command( 'cd ../' ).run();
 			return local.boxJSON.version;
+		} else if(fileExists(fileSystemUtil.resolvePath("wheels/events/onapplicationstart.cfm"))) { 
+			command( 'cd wheels' ).run();
+			local.target=fileSystemUtil.resolvePath("events/onapplicationstart.cfm");
+			local.content=fileRead(local.target);
+			local.content=listFirst(mid(local.content, (find('application.$wheels.version',local.content)+31),20),'"');
+			command( 'cd ../' ).run();
+			return local.content;
 		} else {
 			print.line("You've not got a box.json, so we don't know which version of wheels this is.");
 			print.line("We're currently looking in #getCWD()#");
