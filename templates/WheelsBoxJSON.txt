@@ -1,0 +1,5 @@
+{
+    "VERSION":"|version|",
+    "SLUG":"cfwheels",
+    "TYPE":"mvc"
+}
