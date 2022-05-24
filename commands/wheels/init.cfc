@@ -36,16 +36,30 @@ component  extends="base"  {
 		}
 
 		var serverJsonLocation=fileSystemUtil.resolvePath("server.json");
+		var wheelsBoxJsonLocation=fileSystemUtil.resolvePath("wheels/box.json");
+		var boxJsonLocation=fileSystemUtil.resolvePath("box.json");
 
-		// getWheelsVersion will prompt and create box.json with user supplied version number
-		// if there isn't one.
 		var wheelsVersion = $getWheelsVersion();
+		print.greenline(wheelsVersion);
 
+		// Create a wheels/box.json if one doesn't exist
+		if(!fileExists(wheelsBoxJsonLocation)){
+			var wheelsBoxJSON = fileRead( helpers.getTemplate('/WheelsBoxJSON.txt' ) );
+			wheelsBoxJSON = replaceNoCase( wheelsBoxJSON, "|version|", trim(wheelsVersion), 'all' );
+
+				 // Make box.json 
+	 		print.greenline( "========= Creating wheels/box.json" ).toConsole();
+			file action='write' file=wheelsBoxJsonLocation mode ='777' output='#trim(wheelsBoxJSON)#';
+
+		} else {
+ 			print.greenline( "========= wheels/box.json exists, skipping" ).toConsole();
+		}
+		
 		// Create a server.json if one doesn't exist
 		if(!fileExists(serverJsonLocation)){
 			var appName       = ask("Please enter an application name: we use this to make the server.json servername unique: ");
 				appName 	  = helpers.stripSpecialChars(appName);
-			var setEngine     = ask("Please enter a default cfengine, i.e lucee@4: ");
+			var setEngine     = ask("Please enter a default cfengine, i.e lucee@5: ");
 
 			// Make server.json server name unique to this app: assumes lucee by default
 	 		print.greenline( "========= Creating default server.json" ).toConsole();
@@ -58,6 +72,23 @@ component  extends="base"  {
  			print.greenline( "========= server.json exists, skipping" ).toConsole();
 		}
 
+		// Create a box.json if one doesn't exist
+		if(!fileExists(boxJsonLocation)){
+			if(!isDefined("appName")) {
+				var appName = ask("Please enter an application name: we use this to make the box.json servername unique: ");
+				appName 	  = helpers.stripSpecialChars(appName);
+			}
+			var boxJSON = fileRead( helpers.getTemplate('/BoxJSON.txt' ) );
+			boxJSON = replaceNoCase( boxJSON, "|version|", trim(wheelsVersion), 'all' );
+			boxJSON = replaceNoCase( boxJSON, "|appName|", trim(appName), 'all' );
+
+				 // Make box.json 
+	 		print.greenline( "========= Creating box.json" ).toConsole();
+			file action='write' file=boxJsonLocation mode ='777' output='#trim(boxJSON)#';
+
+		} else {
+ 			print.greenline( "========= box.json exists, skipping" ).toConsole();
+		}
 
 	}
 
