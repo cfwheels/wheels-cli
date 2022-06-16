@@ -61,6 +61,7 @@ component aliases="wheels g app" extends="../base" {
    * @cfmlEngine     The CFML engine to use for the app
    * @setupH2        Setup the H2 database for development
    * @init           "init" the directory as a package if it isn't already
+   * @force          Force installation into an none empty directory
    **/
   function run(
     name     = 'MyCFWheelsApp',
@@ -70,7 +71,8 @@ component aliases="wheels g app" extends="../base" {
     datasourceName,
     cfmlEngine      = 'lucee',
     boolean setupH2 = false,
-    boolean init    = false
+    boolean init    = false,
+    boolean force   = false
   ) {
     // set defaults based on app name
     if ( !len( arguments.directory ) ) {
@@ -88,8 +90,9 @@ component aliases="wheels g app" extends="../base" {
       print.greenBoldLine( 'Creating the target directory...' ).toConsole();
       directoryCreate( arguments.directory );
     } else {
-      if ( arrayLen( directoryList( arguments.directory, false ) ) ) {
+      if ( arrayLen( directoryList( arguments.directory, false ) ) && !force) {
         print.greenBoldLine( 'The target directory is not empty. The installation cannot continue.' ).toConsole();
+        print.greenBoldLine( force ).toConsole();
         return;
       }
     }
