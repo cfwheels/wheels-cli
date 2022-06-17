@@ -19,8 +19,6 @@ component excludeFromHelp=true {
 	string function $getWheelsVersion(){
 		// First, look for a wheels folder..
 		if(!directoryExists( fileSystemUtil.resolvePath("wheels") ) ){
-			print.line(fileSystemUtil.resolvePath("wheels"));
-
 			error("We're currently looking in #getCWD()#, but can't find a /wheels/ folder?");
 		}
 		if(fileExists(fileSystemUtil.resolvePath("wheels/box.json"))){
