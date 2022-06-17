@@ -1,5 +1,5 @@
 /**
- * Reloads a wheels app: will ask for your reload password (and optional mode, we assume design)
+ * Reloads a wheels app: will ask for your reload password (and optional mode, we assume development)
  * Will only work on a running server
  *
  * {code:bash}
@@ -14,10 +14,10 @@ component aliases='wheels r'  extends="base"  {
 
 	/**
 	 * @mode.hint Mode to switch to
-	 * @mode.options design,development,testing,maintenance,production
+	 * @mode.options development,testing,maintenance,production
 	 * @password The reload password
 	 **/
-	function run(string mode="design", required string password) {
+	function run(string mode="development", required string password) {
 
   		var serverDetails = $getServerInfo();
 
