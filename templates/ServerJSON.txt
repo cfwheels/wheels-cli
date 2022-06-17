@@ -11,6 +11,6 @@
         }
     },
     "app":{
-        "cfengine":"|cfmlEngine|"
+        "cfengine":"|setEngine|"
     }
 }
