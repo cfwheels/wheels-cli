@@ -17,19 +17,19 @@ component  extends="base"  {
 	 **/
 	function run() {
 
-		print.greenBoldLine( "========= Wheels init ============================" )
-			 .greenBoldLine( "= This function will attempt to add a few things " )
-			 .greenBoldLine( "= to an EXISTING CFWheels installation to help   " )
-			 .greenBoldLine( "= the CLI interact." )
-			 .greenBoldLine( "= " )
-			 .greenBoldLine( "= We're going to assume the following:" )
-			 .greenBoldLine( "=  - you've already setup a local datasource/database" )
-			 .greenBoldLine( "=  - you've already set a reload password" )
-			 .greenBoldLine( "= " )
-			 .greenBoldLine( "= We're going to try and do the following:" )
-			 .greenBoldLine( "=  - create a box.json to help keep track of the wheels version" )
-			 .greenBoldLine( "=  - create a server.json" )
-			 .greenBoldLine( "==================================================" )
+		print.greenBoldLine( "==================================== Wheels init ===================================" )
+			   .greenBoldLine( " This function will attempt to add a few things " )
+				 .greenBoldLine( " to an EXISTING CFWheels installation to help   " )
+				 .greenBoldLine( " the CLI interact." )
+				 .greenBoldLine( " " )
+				 .greenBoldLine( " We're going to assume the following:" )
+				 .greenBoldLine( "  - you've already setup a local datasource/database" )
+				 .greenBoldLine( "  - you've already set a reload password" )
+				 .greenBoldLine( " " )
+				 .greenBoldLine( " We're going to try and do the following:" )
+				 .greenBoldLine( "  - create a box.json to help keep track of the wheels version" )
+				 .greenBoldLine( "  - create a server.json" )
+				 .greenBoldLine( "====================================================================================" )
 			 .line().toConsole();
 		if(!confirm("Sound ok? [y/n] ")){
 			error("Ok, aborting...");
@@ -57,9 +57,9 @@ component  extends="base"  {
 		
 		// Create a server.json if one doesn't exist
 		if(!fileExists(serverJsonLocation)){
-			var appName       = ask("Please enter an application name: we use this to make the server.json servername unique: ");
+			var appName       = ask( message = "Please enter an application name: we use this to make the server.json servername unique: ", defaultResponse = 'myapp');
 				appName 	  = helpers.stripSpecialChars(appName);
-			var setEngine     = ask("Please enter a default cfengine, i.e lucee@5: ");
+			var setEngine     = ask( message = 'Please enter a default cfengine: ', defaultResponse = 'lucee@5' );
 
 			// Make server.json server name unique to this app: assumes lucee by default
 	 		print.greenline( "========= Creating default server.json" ).toConsole();
