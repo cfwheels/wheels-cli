@@ -43,7 +43,7 @@ component
 
     if ( len( arguments.actionList ) && arguments.actionList != 'CRUD' ) {
       var allactions        = '';
-      var controllerContent = fileRead( helpers.getTemplate( '/ControllerContent.txt' ) );
+      var controllerContent = fileRead( getTemplate( '/ControllerContent.txt' ) );
       // Loop Over actions to generate them
       for ( var thisAction in listToArray( arguments.actionList ) ) {
         if ( thisAction == 'init' ) {
@@ -55,7 +55,7 @@ component
       actionContent = allactions;
     } else {
       // Do Crud: overrwrite whole controllerContent with CRUD template
-      controllerContent = fileRead( helpers.getTemplate( '/CRUDContent.txt' ) );
+      controllerContent = fileRead( getTemplate( '/CRUDContent.txt' ) );
       print.yellowLine( 'Generating CRUD' );
     }
 
