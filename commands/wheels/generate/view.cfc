@@ -46,9 +46,9 @@ component aliases='wheels g view' extends="../base"  {
  		// Read in Template
 		var viewContent 	= "";
  		if(!len(arguments.template)){
- 			viewContent 	= fileRead( helpers.getTemplate( '/viewContent.txt'));
+ 			viewContent 	= fileRead( getTemplate( '/viewContent.txt'));
 		} else {
-			viewContent 	= fileRead( helpers.getTemplate( arguments.template & '.txt'));
+			viewContent 	= fileRead( getTemplate( arguments.template & '.txt'));
 		}
 		// Replace Object tokens
 		viewContent=$replaceDefaultObjectNames(viewContent, obj);
