@@ -1,4 +1,5 @@
 component accessors="true" singleton {
+    property name="serverService" inject="ServerService";
 
     // Return commonly used model name variants
     public struct function getNameVariants(required string name){
@@ -14,26 +15,7 @@ component accessors="true" singleton {
     public string function stripSpecialChars(required string str) {
         return trim(reReplace(str,"[{}()^$&%##!@=<>:;,~`'*?/+|\[\]\-\\]",'','all'));
     }
-//=====================================================================
-//=     Templates
-//=====================================================================
 
-    // Return .txt template location
-    public string function getTemplate(required string template){
-        var templateDirectory=getTemplateDirectory();
-        var rv=templateDirectory & "/" & template;
-        return rv;
-    }
-
-    // NB, this path is the only place with the module folder name in it: would be good to find a way around that
-    public string function getTemplateDirectory(){
-        var templateDirectory=expandPath("/cfwheels-cli/templates");
-        // Validate Template
-        if( !directoryExists(templateDirectory) ) {
-            error( "#templateDirectory# Template Directory can't be found." );
-        }
-        return templateDirectory;
-    }
 //=====================================================================
 //=     String Functions stolen from cfwheels
 //=====================================================================

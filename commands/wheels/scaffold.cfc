@@ -21,9 +21,10 @@ component extends="base"  {
 
 		print.yellowline( "Creating Model" ).toConsole();
 			command('wheels g model').params(objectname=objectname).run();
-			//command('wheels g test').params(type="model", objectname=objectname).run();
+			command('wheels g test').params(type="model", objectname=objectname).run();
 		print.line();
 
+		/*
 		print.yellowline( "Creating Controller" ).toConsole();
 			command('wheels g controller').params(objectname=objectname, actionlist="crud").run();
 			//command('wheels g test').params(type="controller", objectname=objectname).run();
@@ -45,6 +46,7 @@ component extends="base"  {
 			command('wheels db latest').run();
 	    }
 		print.line();
+		*/
 	}
 
 }
