@@ -13,7 +13,7 @@ component aliases='wheels db create blank' extends="../../base"  {
 	function run(required string name) {
 
 		// Get Template
-		var content=fileRead(helpers.getTemplate("dbmigrate/blank.txt")); 
+		var content=fileRead(getTemplate("dbmigrate/blank.txt")); 
 
 		// Make File
 		$createMigrationFile(name=lcase(trim(arguments.name)),	action="",	content=content);
