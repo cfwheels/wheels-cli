@@ -13,7 +13,7 @@ component aliases='wheels db remove table' extends="../../base"  {
 		required string name ) {
 
 		// Get Template
-		var content=fileRead(helpers.getTemplate("dbmigrate/remove-table.txt"));
+		var content=fileRead(getTemplate("dbmigrate/remove-table.txt"));
 
 		// Changes here
 		content=replaceNoCase(content, "|tableName|", "#name#", "all");
