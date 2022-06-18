@@ -11,8 +11,8 @@ component  aliases='wheels g route' extends="../base"  {
 
 		var inject = '.resources("' & obj.objectNamePlural & '")';
 
-		content = replaceNoCase(content, '// CLI-Appends-Here', inject & cr & '// CLI-Appends-Here', 'all');
-        file action='write' file='#target#' mode ='777' output='#trim(content)#';
+		content = replaceNoCase(content, '// CLI-Appends-Here', inject & cr & '    // CLI-Appends-Here', 'all');
+    file action='write' file='#target#' mode ='777' output='#trim(content)#';
 	}
 
 }
