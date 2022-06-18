@@ -45,7 +45,7 @@ component aliases='wheels g model' extends="../base"  {
  		}
 
  		// Read in Template
-		var modelContent 	= fileRead( helpers.getTemplate('/ModelContent.txt'));
+		var modelContent 	= fileRead( getTemplate('/ModelContent.txt'));
 		var modelName = obj.objectNameSingularC & ".cfc";
 		var modelPath = directory & "/" & modelName;
 
