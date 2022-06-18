@@ -44,7 +44,7 @@ component  extends="base"  {
 
 		// Create a wheels/box.json if one doesn't exist
 		if(!fileExists(wheelsBoxJsonLocation)){
-			var wheelsBoxJSON = fileRead( helpers.getTemplate('/WheelsBoxJSON.txt' ) );
+			var wheelsBoxJSON = fileRead( getTemplate('/WheelsBoxJSON.txt' ) );
 			wheelsBoxJSON = replaceNoCase( wheelsBoxJSON, "|version|", trim(wheelsVersion), 'all' );
 
 				 // Make box.json 
@@ -63,7 +63,7 @@ component  extends="base"  {
 
 			// Make server.json server name unique to this app: assumes lucee by default
 	 		print.greenline( "========= Creating default server.json" ).toConsole();
-			var serverJSON = fileRead( helpers.getTemplate('/ServerJSON.txt' ) );
+			var serverJSON = fileRead( getTemplate('/ServerJSON.txt' ) );
 		 		serverJSON = replaceNoCase( serverJSON, "|appName|", trim(appName), 'all' );
 		 		serverJSON = replaceNoCase( serverJSON, "|setEngine|", setEngine, 'all' );
 		 		file action='write' file=serverJsonLocation mode ='777' output='#trim(serverJSON)#';
@@ -78,7 +78,7 @@ component  extends="base"  {
 				var appName = ask("Please enter an application name: we use this to make the box.json servername unique: ");
 				appName 	  = helpers.stripSpecialChars(appName);
 			}
-			var boxJSON = fileRead( helpers.getTemplate('/BoxJSON.txt' ) );
+			var boxJSON = fileRead( getTemplate('/BoxJSON.txt' ) );
 			boxJSON = replaceNoCase( boxJSON, "|version|", trim(wheelsVersion), 'all' );
 			boxJSON = replaceNoCase( boxJSON, "|appName|", trim(appName), 'all' );
 
