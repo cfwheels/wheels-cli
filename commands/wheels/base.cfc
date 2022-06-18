@@ -122,7 +122,7 @@ component excludeFromHelp=true {
     	var name = trim(arguments.name);
     	var hint = trim(arguments.hint);
 
-    	rv = fileRead( helpers.getTemplateDirectory() & '/ActionContent.txt' );
+    	rv = fileRead( getTemplateDirectory() & '/ActionContent.txt' );
 
     	if(len(hint) == 0){
     		hint = name;
@@ -289,6 +289,37 @@ component excludeFromHelp=true {
 			var filePath=directory & "/" & fileName;
 			file action='write' file='#filePath#' mode ='777' output='#trim( content )#';
 			print.line( 'Created #fileName#' );
+	}
+
+	//=====================================================================
+//=     Templates
+//=====================================================================
+
+    // Return .txt template location
+    public string function getTemplate(required string template){
+			var templateDirectory=getTemplateDirectory();
+			var rv=templateDirectory & "/" & template;
+			return rv;
+	}
+
+	// NB, this path is the only place with the module folder name in it: would be good to find a way around that
+	public string function getTemplateDirectory(){
+			var current={
+		webRoot		= getCWD(),
+		moduleRoot	= expandPath("/cfwheels-cli/")
+	};
+
+			// attempt to get the templates directory from the current web root
+			if ( directoryExists( current.webRoot & "templates" ) ) {
+					print.yellowline("Found templates directory in current working directory.");
+					var templateDirectory=current.webRoot & "templates";
+			} else if ( directoryExists( current.moduleRoot & "templates" ) ) {
+					print.yellowline("Found templates directory in current module directory.");
+					var templateDirectory=current.moduleRoot & "templates";
+			} else {
+					error( "#templateDirectory# Template Directory can't be found." );
+			}
+			return templateDirectory;
 	}
 
 }
