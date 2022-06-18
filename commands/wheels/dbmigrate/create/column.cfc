@@ -38,7 +38,7 @@ component aliases='wheels db create column' extends="../../base"  {
 		number scale) {
 
 		// Get Template
-		var content=fileRead(helpers.getTemplate("dbmigrate/create-column.txt"));
+		var content=fileRead(getTemplate("dbmigrate/create-column.txt"));
 		var argumentArr=[];
 		var argumentString="";
 
