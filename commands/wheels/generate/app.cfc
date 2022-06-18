@@ -163,10 +163,12 @@ component aliases="wheels g app" extends="../base" {
     if ( arguments.setupH2 ) {
       print.greenline( 'Creating Development H2 Database...' ).toConsole();
       var datadirectory = fileSystemUtil.resolvePath( 'db/h2/' );
+      print.greenline( '...Finished Creating Development H2 Database.' ).toConsole();
 
       if ( !directoryExists( datadirectory ) ) {
         print.greenline( 'Creating #arguments.directory# path...' ).toConsole();
         directoryCreate( datadirectory );
+        print.greenline( '...Finished Creating #arguments.directory# path.' ).toConsole();
       }
 
       print.greenline( 'Adding Datasource to app.cfm...' ).toConsole();
@@ -180,7 +182,8 @@ component aliases="wheels g app" extends="../base" {
       command( 'tokenReplace' )
         .params( path = 'config/app.cfm', token = '// CLI-Appends-Here', replacement = datasourceConfig )
         .run();
-    }
+        print.greenline( '...Finished Adding Datasource to app.cfm.' ).toConsole();
+      }
 
     // Init, if not a package as a Box Package
     if ( arguments.init && !packageService.isPackage( arguments.directory ) ) {

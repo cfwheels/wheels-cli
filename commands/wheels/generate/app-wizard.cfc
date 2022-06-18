@@ -71,7 +71,8 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
 
     var template = multiselect( 'Which CFWheels Template shall we use? ' )
       .options( [
-        {value: 'cfwheels-base-template', display: 'CFWheels Base Template', selected: true},
+        {value: 'cfwheels-base-template', display: 'CFWheels Base Template - Stable Release', selected: true},
+        {value: 'cfwheels-base-template@BE', display: 'CFWheels Base Template - Bleeding Edge'},
         {value: 'cfwheels-template-helloworld', display: 'CFWheels Template - Hello World'},
         {value: 'cfwheels-template-hellopages', display: 'CFWheels Template - Hello Pages'},
         {value: 'cfwheels-template-hellodynamic', display: 'CFWheels Template - Hello Dynamic'},
@@ -211,7 +212,8 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
         datasourceName  = '#datasourceName#',
         cfmlEngine      = '#cfmlEngine#',
         setupH2         = #createH2Embedded#,
-        init            = #initPackage#).run();
+        init            = #initPackage#,
+        initWizard      = true).run();
 
     } else {
       print.greenBoldLine( 'OK, another time then. *sobs* ' ).toConsole();
