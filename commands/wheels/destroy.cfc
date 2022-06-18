@@ -13,13 +13,15 @@ component aliases='wheels d'  extends="base"  {
 	 **/
 	function run(required string name) {
 
-		var obj            = helpers.getNameVariants(arguments.name);
-		var modelFile      = fileSystemUtil.resolvePath("models/#obj.objectNameSingularC#.cfc");
-		var controllerFile = fileSystemUtil.resolvePath("controllers/#obj.objectNamePluralC#.cfc");
-		var viewFolder     = fileSystemUtil.resolvePath("views/#obj.objectNamePlural#/");
-		var modelFile      = fileSystemUtil.resolvePath("tests/models/#obj.objectNameSingularC#.cfc");
-		var controllerFile = fileSystemUtil.resolvePath("tests/controllers/#obj.objectNamePluralC#.cfc");
-		var viewFolder     = fileSystemUtil.resolvePath("tests/views/#obj.objectNamePlural#/");
+		var obj            		 = helpers.getNameVariants(arguments.name);
+		var modelFile      		 = fileSystemUtil.resolvePath("models/#obj.objectNameSingularC#.cfc");
+		var controllerFile 		 = fileSystemUtil.resolvePath("controllers/#obj.objectNamePluralC#.cfc");
+		var viewFolder     		 = fileSystemUtil.resolvePath("views/#obj.objectNamePlural#/");
+		var testmodelFile  		 = fileSystemUtil.resolvePath("tests/models/#obj.objectNameSingularC#.cfc");
+		var testcontrollerFile = fileSystemUtil.resolvePath("tests/controllers/#obj.objectNamePluralC#.cfc");
+		var testviewFolder     = fileSystemUtil.resolvePath("tests/views/#obj.objectNamePlural#/");
+		var routeFile   			 = fileSystemUtil.resolvePath("config/routes.cfm");
+		var resourceName			 = '.resources("' & obj.objectNamePlural & '")';
 
 		print.redBoldLine("================================================")
 			 .redBoldLine("= Watch Out!                                   =")
@@ -33,6 +35,8 @@ component aliases='wheels d'  extends="base"  {
 			 .line("#testmodelFile#")
 			 .line("#testcontrollerFile#")
 			 .line("#testviewFolder#")
+			 .line("#routeFile#")
+			 .line("#resourceName#")
 			 .line();
 
 		if(confirm("Are you sure? [y/n]")){
@@ -43,6 +47,13 @@ component aliases='wheels d'  extends="base"  {
 			command('delete').params(path=testcontrollerFile, force=true).run();
 			command('delete').params(path=testviewFolder, force=true, recurse=true).run();
 
+			//remove the resource from the route config
+			var routeContent = fileRead(routeFile);
+			routeContent = replaceNoCase(routeContent, resourceName & cr, '', 'all');
+			routeContent = replaceNoCase(routeContent, '    ', '  ', 'all');
+			file action='write' file='#routeFile#' mode ='777' output='#trim(routeContent)#';
+	
+			//drop the table
 			print.greenline( "Migrating DB" ).toConsole();
 			command('wheels dbmigrate remove table').params(name=obj.objectNamePlural).run();
 			command('wheels dbmigrate latest').run();
