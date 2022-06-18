@@ -31,8 +31,8 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
 
 
   function run( ) {
-    var appContent      = fileRead( helpers.getTemplate( '/ConfigAppContent.txt' ) );
-    var routesContent   = fileRead( helpers.getTemplate( '/ConfigRoutes.txt' ) );
+    var appContent      = fileRead( getTemplate( '/ConfigAppContent.txt' ) );
+    var routesContent   = fileRead( getTemplate( '/ConfigRoutes.txt' ) );
 
     // ---------------- Welcome
     print.greenBoldLine( '========= Hello! Welcome to the Wizard ===========' )
@@ -172,13 +172,15 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
 
     // ---------------- Test H2 Database?
     if ( allowH2Creation ) {
-      var createH2Embedded = confirm( 'As you are using Lucee, would you like to setup and use the H2 Java embedded SQL database for development? [y,n]' );
+      print.greenBoldLine( 'As you are using Lucee, would you like to setup and use the' ).toConsole();
+      var createH2Embedded = confirm( 'H2 Java embedded SQL database for development? [y,n]' );
     } else {
       createH2Embedded = false;
     }
     
     // ---------------- Initialize as a package
-    var initPackage = confirm( 'Finally, shall we initialize your application as a package by creating a box.json file? [y,n]' );
+    print.greenBoldLine( 'Finally, shall we initialize your application as a package' ).toConsole();
+    var initPackage = confirm( 'by creating a box.json file? [y,n]' );
     
     print.line();
     print.line();
