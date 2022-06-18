@@ -33,7 +33,7 @@ component aliases='wheels db create table' extends="../../base"  {
 		string primaryKey="id") {
 
 		// Get Template
-		var content=fileRead(helpers.getTemplate("dbmigrate/create-table.txt"));
+		var content=fileRead(getTemplate("dbmigrate/create-table.txt"));
 
 		// Changes here
 		content=replaceNoCase(content, "|tableName|", "#name#", "all");
