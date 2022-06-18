@@ -71,7 +71,7 @@ component aliases='wheels g test' extends="../base"  {
  		}
 
 		// Get test content
-		var testContent= fileRead(helpers.getTemplate("tests/#type#.txt"));
+		var testContent= fileRead(getTemplate("tests/#type#.txt"));
 		file action='write' file='#testPath#' mode ='777' output='#trim( testContent )#';
 		print.line( 'Created Test Stub #testPath#' );
 	}
