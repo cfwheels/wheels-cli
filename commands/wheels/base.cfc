@@ -311,10 +311,8 @@ component excludeFromHelp=true {
 
 			// attempt to get the templates directory from the current web root
 			if ( directoryExists( current.webRoot & "templates" ) ) {
-					print.yellowline("Found templates directory in current working directory.");
 					var templateDirectory=current.webRoot & "templates";
 			} else if ( directoryExists( current.moduleRoot & "templates" ) ) {
-					print.yellowline("Found templates directory in current module directory.");
 					var templateDirectory=current.moduleRoot & "templates";
 			} else {
 					error( "#templateDirectory# Template Directory can't be found." );
