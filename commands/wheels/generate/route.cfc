@@ -4,7 +4,10 @@
  **/
 component  aliases='wheels g route' extends="../base"  {
 
-	function run(required string objectname) {
+  /**
+   * @objectname     The name of the resource to add to the routes table
+   **/
+	 function run(required string objectname) {
 		var obj = helpers.getNameVariants(listLast( arguments.objectname, '/\' ));
 		var target	= fileSystemUtil.resolvePath("config/routes.cfm");
 		var content = fileRead(target);
