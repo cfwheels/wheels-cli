@@ -10,12 +10,12 @@ component aliases='wheels db exec' extends="../base" {
 	 *  Migrate to specific version
 	 * @version.hint Version to migrate to
 	 **/
-	function run(required string version) {
+	function run( required string version	) {
 		var loc={
 			version = arguments.version
 		}
 
-  		print.line("DBMigrateBridge > MigrateTo > #loc.version#");
-		print.line(Formatter.formatJson($sendToCliCommand("&command=migrateTo&version=#loc.version#")));
+		print.line("DBMigrateBridge > MigrateTo > #loc.version#");
+		print.redline($sendToCliCommand("&command=migrateTo&version=#loc.version#").message);
 	}
 }
