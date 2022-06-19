@@ -19,10 +19,13 @@
  *  {code}
  *
  *  Here are the basic templates that are available for you that come from ForgeBox
- *  - Base (default)
- *  - HelloWorld
- *  - HelloDynamic
- *  - HelloPages
+ *  - CFWheels Base Template - Stable (default)
+ *  - CFWheels Base Template - Bleeding Edge
+ *  - CFWheels Template - HelloWorld
+ *  - CFWheels Template - HelloDynamic
+ *  - CFWheels Template - HelloPages
+ *  - CFWheels Example App
+ *  - CFWheels - TodoMVC - HTMX - Demp App
  *
  * {code:bash}
  * wheels create app template=base
