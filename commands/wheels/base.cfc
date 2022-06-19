@@ -22,16 +22,16 @@ component excludeFromHelp=true {
 			error("We're currently looking in #getCWD()#, but can't find a /wheels/ folder?");
 		}
 		if(fileExists(fileSystemUtil.resolvePath("wheels/box.json"))){
-			command( 'cd wheels' ).run();
+			var output = command( 'cd wheels' ).run( returnOutput=true );
 			local.boxJSON = packageService.readPackageDescriptorRaw( getCWD() );
-			command( 'cd ../' ).run();
+			var output = command( 'cd ../' ).run( returnOutput=true );
 			return local.boxJSON.version;
 		} else if(fileExists(fileSystemUtil.resolvePath("wheels/events/onapplicationstart.cfm"))) { 
-			command( 'cd wheels' ).run();
+			var output = command( 'cd wheels' ).run( returnOutput=true );
 			local.target=fileSystemUtil.resolvePath("events/onapplicationstart.cfm");
 			local.content=fileRead(local.target);
 			local.content=listFirst(mid(local.content, (find('application.$wheels.version',local.content)+31),20),'"');
-			command( 'cd ../' ).run();
+			var output = command( 'cd ../' ).run( returnOutput=true );
 			return local.content;
 		} else {
 			print.line("You've not got a box.json, so we don't know which version of wheels this is.");
@@ -206,23 +206,28 @@ component excludeFromHelp=true {
  			if(!fileExists(serverJSON)){
  				error("We really need a server.json with a port number and a servername. We can't seem to find it.");
  			}
-		// Wheels folder in expected place? (just a good check to see if the user has actually installed wheels...)
+
+			 // Wheels folder in expected place? (just a good check to see if the user has actually installed wheels...)
  		var wheelsFolder=fileSystemUtil.resolvePath("wheels");
  			if(!directoryExists(wheelsFolder)){
  				error("We can't find your wheels folder. Check you have installed CFWheels, and you're running this from the site root: If you've not started an app yet, try wheels new myApp");
  			}
-		// Plugins in place?
+
+			 // Plugins in place?
  		var pluginsFolder=fileSystemUtil.resolvePath("plugins");
  			if(!directoryExists(wheelsFolder)){
  				error("We can't find your plugins folder. Check you have installed CFWheels, and you're running this from the site root.");
  			}
- 		// Wheels 1.x requires dbmigrate plugin
+
+			 // Wheels 1.x requires dbmigrate plugin
  		// Wheels 2.x has dbmigrate + dbmigratebridge equivalents in core
  		if($isWheelsVersion(1, "major")){
+
  			var DBMigratePluginLocation=fileSystemUtil.resolvePath("plugins/dbmigrate");
  			if(!directoryExists(DBMigratePluginLocation)){
  				error("We can't find your plugins/dbmigrate folder? Please check the plugin is successfully installed; if you've not started the server using server start for the first time, this folder may not be created yet.");
  			}
+
 			var DBMigrateBridgePluginLocation=fileSystemUtil.resolvePath("plugins/dbmigratebridge");
  			if(!directoryExists(DBMigrateBridgePluginLocation)){
  				error("We can't find your plugins/dbmigratebridge folder? Please check the plugin is successfully installed;  if you've not started the server using server start for the first time, this folder may not be created yet.");
@@ -250,7 +255,6 @@ component excludeFromHelp=true {
 
 	// Basically sends a command
 	function $sendToCliCommand(string urlstring="&command=info"){
-
 		targetURL=$getBridgeURL() & arguments.urlstring;
 
 		$preConnectionCheck();
@@ -263,11 +267,6 @@ component excludeFromHelp=true {
   			if(structKeyexists(loc.result, "success") && loc.result.success){
 					print.line("Call to bridge was successful.");
   				return loc.result;
-  				//if(structKeyExists(loc.result, "MESSAGE")){
-				//	return loc.result.message;
-				//} else {
-				//	return loc.result;
-				//}
   			}
   		} else {
   			print.line(helpers.stripTags(Formatter.unescapeHTML(loc.filecontent)));
