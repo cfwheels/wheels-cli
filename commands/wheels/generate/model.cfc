@@ -17,7 +17,6 @@ component aliases='wheels g model' extends="../base"  {
 
 	/**
 	 * @name.hint Name of the model to create without the .cfc: assumes singluar can be foo/foo
-	 * @fields.hint Comma Delimited list of fields with type after semicolon
 	 * @db.hint Boolean attribute specifying if the database table should be generated as well
 	 **/
 	function run(
