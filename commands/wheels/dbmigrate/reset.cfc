@@ -1,5 +1,5 @@
 /**
- * Migration to Latest
+ * Migration to version 0
  **/
 component  aliases='wheels db reset'  extends="../base"  {
 
