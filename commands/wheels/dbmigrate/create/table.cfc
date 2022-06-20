@@ -1,21 +1,16 @@
 /**
- * Create a migration CFC
- *
+ * wheels db create table
+ * 
+ * wheels dbmigrate create table [name] [force] [id] [primaryKey]
+ * | Parameter  | Required | Default | Description                                         |
+ * | ---------- | -------- | ------- | --------------------------------------------------- |
+ * | name       | true     |         | The name of the database table to create            |
+ * | force      | false    | false   | Force the creation of the table                     |
+ * | id         | false    | true    | Auto create ID column as autoincrement ID           |
+ * | primaryKey | false    | ID      | Overrides the default primary key column name       |
+ * 
  **/
- <!---
-    |----------------------------------------------------------------------------------------------|
-	| Parameter  | Required | Type    | Default | Description                                      |
-    |----------------------------------------------------------------------------------------------|
-	| name       | Yes      | string  |         | table name, in pluralized form                   |
-	| force      | No       | boolean | false   | drop existing table of same name before creating |
-	| id         | No       | boolean | true    | if false, defines a table with no primary key    |
-	| primaryKey | No       | string  | id      | overrides default primary key name
-    |----------------------------------------------------------------------------------------------|
-
-    EXAMPLE:
-      t = createTable(name='employees',force=false,id=true,primaryKey='empId');
---->
-component aliases='wheels db create table' extends="../../base"  {
+ component aliases='wheels db create table' extends="../../base"  {
 
 	/**
 	 * I create a migration file in /db/migrate
