@@ -7,7 +7,7 @@ component aliases='wheels db up' extends="../base"  {
 	 *
 	 **/
 	function run(  ) {
-		var DBMigrateInfo=$getDBMigrateInfo();
+		var DBMigrateInfo=$sendToCliCommand();
 		var migrations=DBMigrateInfo.migrations;
 
 		//print.line(Formatter.formatJson( $getDBMigrateInfo() ) );
@@ -36,6 +36,7 @@ component aliases='wheels db up' extends="../base"  {
 		} else {
 			print.line("No more versions to go to?");
 		}
+		command('wheels dbmigrate info').run();
 	}
 
 }
