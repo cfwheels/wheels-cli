@@ -73,9 +73,7 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
       .options( [
         {value: 'cfwheels-base-template', display: 'CFWheels Base Template - Stable Release', selected: true},
         {value: 'cfwheels-base-template@BE', display: 'CFWheels Base Template - Bleeding Edge'},
-        {value: 'cfwheels-template-helloworld', display: 'CFWheels Template - Hello World'},
-        {value: 'cfwheels-template-hellopages', display: 'CFWheels Template - Hello Pages'},
-        {value: 'cfwheels-template-hellodynamic', display: 'CFWheels Template - Hello Dynamic'},
+        {value: 'cfwheels-template-htmx-alpine-simple', display: 'CFWheels Template - HTMX - Alpine.js - Simple.css'},
         {value: 'cfwheels-template-example-app', display: 'CFWheels Example App'},
         {value: 'cfwheels-todomvc-htmx', display: 'CFWheels - TodoMVC - HTMX - Demo App'},
         {value: 'custom', display: 'Enter a custom template endpoint'}
@@ -172,33 +170,34 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
 
     // ---------------- Test H2 Database?
     if ( allowH2Creation ) {
-      print.greenBoldLine( 'As you are using Lucee, would you like to setup and use the' ).toConsole();
+      print.line();
+      print.Line( 'As you are using Lucee, would you like to setup and use the' ).toConsole();
       var createH2Embedded = confirm( 'H2 Java embedded SQL database for development? [y,n]' );
     } else {
       createH2Embedded = false;
     }
     
     // ---------------- Initialize as a package
-    print.greenBoldLine( 'Finally, shall we initialize your application as a package' ).toConsole();
+    print.line();
+    print.line( 'Finally, shall we initialize your application as a package' ).toConsole();
     var initPackage = confirm( 'by creating a box.json file? [y,n]' );
     
     print.line();
     print.line();
-    print.greenBoldLine( '==================================================' )
-      .greenBoldLine( '| Great! Think we''re all good to go. We''re going |' )
-      .greenBoldLine( '| to create a CFWheels application for you with  |' )
-      .greenBoldLine( '| the following parameters.                      |' )
-      .greenBoldLine( '==================================================' )
-      .greenBoldLine( '| Template              | #template# ' ) 
-      .greenBoldLine( '| Application Name      | #appName# ' )
-      .greenBoldLine( '| Install Directory     | #getCWD()##appName# ' ) 
-      .greenBoldLine( '| Reload Password       | #reloadPassword# ' )
-      .greenBoldLine( '| Datasource Name       | #datasourceName# ' )
-      .greenBoldLine( '| CF Engine             | #cfmlEngine#' )
-      .greenBoldLine( '| Setup H2 Database     | #createH2Embedded#' )
-      .greenBoldLine( '| Initialize as Package | #initPackage#' )
-      .greenBoldLine( '=========================' )
-      .toConsole();
+		print.greenBoldLine( "+-----------------------------------------------------------------------------------+" )
+         .greenBoldLine( '| Great! Think we''re all good to go. We''re going to create a Wheels application for |' )
+         .greenBoldLine( '| you with the following parameters.                                                |' )
+         .greenBoldLine( "+-----------------------+-----------------------------------------------------------+" )
+         .greenBoldLine( '| Template              | #ljustify(template,57)# |' ) 
+         .greenBoldLine( '| Application Name      | #ljustify(appName,57)# |' )
+         .greenBoldLine( '| Install Directory     | #ljustify(getCWD() & appName,57)# |' ) 
+         .greenBoldLine( '| Reload Password       | #ljustify(reloadPassword,57)# |' )
+         .greenBoldLine( '| Datasource Name       | #ljustify(datasourceName,57)# |' )
+         .greenBoldLine( '| CF Engine             | #ljustify(cfmlEngine,57)# |' )
+         .greenBoldLine( '| Setup H2 Database     | #ljustify(createH2Embedded,57)# |' )
+         .greenBoldLine( '| Initialize as Package | #ljustify(initPackage,57)# |' )
+         .greenBoldLine( "+-----------------------+-----------------------------------------------------------+" )
+         .toConsole();
 
     print.line();
 
