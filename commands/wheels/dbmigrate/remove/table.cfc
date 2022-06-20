@@ -1,13 +1,15 @@
 /**
- * Create a migration CFC
+ * Remove a table from the database
  *
  **/
 component aliases='wheels db remove table' extends="../../base"  {
 
 	/**
-	 * I create a migration file in /db/migrate
+	 * I create a migration file to remove a table
 	 *
 	 * Usage: wheels dbmigrate remove table [name]
+	 * @name The name of the table to remove
+	 * 
 	 **/
 	function run(
 		required string name ) {
