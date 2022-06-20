@@ -1,8 +1,8 @@
 {
     "name":"CFWheels CLI Commands",
-    "version":"0.15.0",
+    "version":"1.0.0",
     "author":"Tom King, Peter Amiri",
-    "location":"cfwheels/cfwheels-cli#v0.15.0",
+    "location":"cfwheels/cfwheels-cli#v1.0.0",
     "directory":"",
     "createPackageDirectory":true,
     "packageDirectory":"cfwheels-cli",
