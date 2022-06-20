@@ -7,7 +7,7 @@ component aliases='wheels db down' extends="../base"  {
 	 *
 	 **/
 	function run(  ) {
-		var DBMigrateInfo=$getDBMigrateInfo();
+		var DBMigrateInfo=$sendToCliCommand();
 		var migrations=DBMigrateInfo.migrations;
 
 		//print.line(Formatter.formatJson( $getDBMigrateInfo() ) );
@@ -39,6 +39,7 @@ component aliases='wheels db down' extends="../base"  {
 			if(migrateTo == 0){
 				print.line("Database should now be empty.");
 			}
-	}
+			command('wheels dbmigrate info').run();
+		}
 
 }
