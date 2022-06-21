@@ -9,4 +9,4 @@ Simply run `install cfwheels-cli` from CommandBox to install the latest release.
 
 ## Commands
 
-See https://guides.cfwheels.org/docs/cli-commands or use `help wheels` in Commandbox.
+See https://guides.cfwheels.org/docs/cli-commands or use `help wheels` in CommandBox.
