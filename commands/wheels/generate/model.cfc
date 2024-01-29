@@ -25,7 +25,7 @@ component aliases='wheels g model' extends="../base"  {
 	){
 
     var obj = helpers.getNameVariants(arguments.name);
-		var directory 			= fileSystemUtil.resolvePath("models");
+		var directory 			= fileSystemUtil.resolvePath("app/models");
 		//TODO: Refactor into a function that tries to get the app name from the server.json file
 		var appName				= listLast( getCWD(), '/\' );
 

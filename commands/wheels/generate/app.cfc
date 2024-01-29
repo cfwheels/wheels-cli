@@ -140,19 +140,19 @@ component aliases="wheels g app" extends="../base" {
     
     // Setting Application Name
     print.greenBoldLine( 'Setting application name...' ).toConsole();
-    command( 'tokenReplace' ).params( path = 'config/app.cfm', token = '|appName|', replacement = arguments.name ).run();
+    command( 'tokenReplace' ).params( path = 'app/config/app.cfm', token = '|appName|', replacement = arguments.name ).run();
     command( 'tokenReplace' ).params( path = 'server.json', token = '|appName|', replacement = arguments.name ).run();
 
     // Setting Reload Password
     print.greenBoldLine( 'Setting reload password...' ).toConsole();
     command( 'tokenReplace' )
-      .params( path = 'config/settings.cfm', token = '|reloadPassword|', replacement = arguments.reloadPassword )
+      .params( path = 'app/config/settings.cfm', token = '|reloadPassword|', replacement = arguments.reloadPassword )
       .run();
 
     // Setting Datasource Name
     print.greenBoldLine( 'Setting datasource name...' ).toConsole();
     command( 'tokenReplace' )
-      .params( path = 'config/settings.cfm', token = '|datasourceName|', replacement = arguments.datasourceName )
+      .params( path = 'app/config/settings.cfm', token = '|datasourceName|', replacement = arguments.datasourceName )
       .run();
 
     // Setting cfml Engine Name
@@ -183,7 +183,7 @@ component aliases="wheels g app" extends="../base" {
   // CLI-Appends-Here';
       print.yellowline( datasourceConfig ).toConsole();
       command( 'tokenReplace' )
-        .params( path = 'config/app.cfm', token = '// CLI-Appends-Here', replacement = datasourceConfig )
+        .params( path = 'app/config/app.cfm', token = '// CLI-Appends-Here', replacement = datasourceConfig )
         .run();
         print.greenline( '...Finished Adding Datasource to app.cfm.' ).toConsole();
       }

@@ -27,8 +27,8 @@ component aliases='wheels g view' extends="../base"  {
 		string template=""
 	){
 		var obj = helpers.getNameVariants(listLast( arguments.objectname, '/\' ));
-		var viewdirectory     = fileSystemUtil.resolvePath( "views" );
-		var directory 		  = fileSystemUtil.resolvePath( "views" & "/" & obj.objectNamePlural);
+		var viewdirectory     = fileSystemUtil.resolvePath( "app/views" );
+		var directory 		  = fileSystemUtil.resolvePath( "app/views" & "/" & obj.objectNamePlural);
 		print.line( "Creating View File..." ).toConsole();
 
 		// Validate directory

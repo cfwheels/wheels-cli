@@ -26,7 +26,7 @@ component
   function run(
     required string name,
     string actionList = '',
-    directory         = 'controllers'
+    directory         = 'app/controllers'
   ) {
     var obj             = helpers.getNameVariants( arguments.name );
     arguments.directory = fileSystemUtil.resolvePath( arguments.directory );
