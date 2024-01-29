@@ -46,9 +46,19 @@ component aliases='wheels g view' extends="../base"  {
  		// Read in Template
 		var viewContent 	= "";
  		if(!len(arguments.template)){
- 			viewContent 	= fileRead( getTemplate( '/viewContent.txt'));
+			if(fileExists(fileSystemUtil.resolvePath('app/snippets/viewContent.txt'))){
+				viewContent 	= fileRead(fileSystemUtil.resolvePath('app/snippets/viewContent.txt'));
+			}
+			else{
+				viewContent 	= fileRead( getTemplate( '/viewContent.txt'));
+			}
 		} else {
-			viewContent 	= fileRead( getTemplate( arguments.template & '.txt'));
+			if(fileExists(fileSystemUtil.resolvePath('app/snippets/' & arguments.template & '.txt'))){
+				viewContent 	= fileRead(fileSystemUtil.resolvePath('app/snippets/' & arguments.template & '.txt'));
+			}
+			else{
+				viewContent 	= fileRead( getTemplate( arguments.template & '.txt'));
+			}
 		}
 		// Replace Object tokens
 		viewContent=$replaceDefaultObjectNames(viewContent, obj);

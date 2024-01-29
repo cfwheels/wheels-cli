@@ -71,7 +71,12 @@ component aliases='wheels g test' extends="../base"  {
  		}
 
 		// Get test content
-		var testContent= fileRead(getTemplate("tests/#type#.txt"));
+		if(fileExists(fileSystemUtil.resolvePath('app/snippets/tests/#type#.txt'))){
+			var testContent= fileRead(fileSystemUtil.resolvePath('app/snippets/tests/#type#.txt'));
+		}
+		else{
+			var testContent= fileRead(getTemplate("tests/#type#.txt"));
+		}
 		file action='write' file='#testPath#' mode ='777' output='#trim( testContent )#';
 		print.line( 'Created Test Stub #testPath#' );
 	}
