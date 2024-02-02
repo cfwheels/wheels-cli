@@ -36,7 +36,7 @@ component  extends="base"  {
 		}
 
 		var serverJsonLocation=fileSystemUtil.resolvePath("server.json");
-		var wheelsBoxJsonLocation=fileSystemUtil.resolvePath("vendor/cfwheels/box.json");
+		var wheelsBoxJsonLocation=fileSystemUtil.resolvePath("vendor/wheels/box.json");
 		var boxJsonLocation=fileSystemUtil.resolvePath("box.json");
 
 		var wheelsVersion = $getWheelsVersion();

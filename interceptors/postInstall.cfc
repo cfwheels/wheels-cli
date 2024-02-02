@@ -21,7 +21,7 @@ component {
 
     function postInstall( required struct interceptData ) {
        var pluginFolder                 = fileSystemUtil.resolvePath("app/plugins");
-       var isValidWheelsInstallation    = directoryExists( fileSystemUtil.resolvePath("vendor/cfwheels")) ? true:false;
+       var isValidWheelsInstallation    = directoryExists( fileSystemUtil.resolvePath("vendor/wheels")) ? true:false;
        var isValidPluginsDirectory      = directoryExists( pluginFolder ) ? true:false;
 
        if(isValidWheelsInstallation && isValidPluginsDirectory){

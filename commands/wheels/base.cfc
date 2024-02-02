@@ -18,16 +18,16 @@ component excludeFromHelp=true {
 	// we could also test for the existence of /wheels/dbmigrate, but that only gives us the major version.
 	string function $getWheelsVersion(){
 		// First, look for a wheels folder..
-		if(!directoryExists( fileSystemUtil.resolvePath("vendor/cfwheels") ) ){
-			error("We're currently looking in #getCWD()#, but can't find a /cfwheels/ folder?");
+		if(!directoryExists( fileSystemUtil.resolvePath("vendor/wheels") ) ){
+			error("We're currently looking in #getCWD()#, but can't find a /wheels/ folder?");
 		}
-		if(fileExists(fileSystemUtil.resolvePath("vendor/cfwheels/box.json"))){
-			var output = command( 'cd vendor\cfwheels' ).run( returnOutput=true );
+		if(fileExists(fileSystemUtil.resolvePath("vendor/wheels/box.json"))){
+			var output = command( 'cd vendor\wheels' ).run( returnOutput=true );
 			local.boxJSON = packageService.readPackageDescriptorRaw( getCWD() );
 			var output = command( 'cd ../' ).run( returnOutput=true );
 			return local.boxJSON.version;
-		} else if(fileExists(fileSystemUtil.resolvePath("vendor/cfwheels/events/onapplicationstart.cfm"))) { 
-			var output = command( 'cd vendor\cfwheels' ).run( returnOutput=true );
+		} else if(fileExists(fileSystemUtil.resolvePath("vendor/wheels/events/onapplicationstart.cfm"))) { 
+			var output = command( 'cd vendor\wheels' ).run( returnOutput=true );
 			local.target=fileSystemUtil.resolvePath("app/events/onapplicationstart.cfm");
 			local.content=fileRead(local.target);
 			local.content=listFirst(mid(local.content, (find('application.$wheels.version',local.content)+31),20),'"');
@@ -208,7 +208,7 @@ component excludeFromHelp=true {
  			}
 
 			 // Wheels folder in expected place? (just a good check to see if the user has actually installed wheels...)
- 		var wheelsFolder=fileSystemUtil.resolvePath("vendor/cfwheels");
+ 		var wheelsFolder=fileSystemUtil.resolvePath("vendor/wheels");
  			if(!directoryExists(wheelsFolder)){
  				error("We can't find your wheels folder. Check you have installed CFWheels, and you're running this from the site root: If you've not started an app yet, try wheels new myApp");
  			}
