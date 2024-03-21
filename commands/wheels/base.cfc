@@ -18,17 +18,17 @@ component excludeFromHelp=true {
 	// we could also test for the existence of /wheels/dbmigrate, but that only gives us the major version.
 	string function $getWheelsVersion(){
 		// First, look for a wheels folder..
-		if(!directoryExists( fileSystemUtil.resolvePath("wheels") ) ){
+		if(!directoryExists( fileSystemUtil.resolvePath("vendor/wheels") ) ){
 			error("We're currently looking in #getCWD()#, but can't find a /wheels/ folder?");
 		}
-		if(fileExists(fileSystemUtil.resolvePath("wheels/box.json"))){
-			var output = command( 'cd wheels' ).run( returnOutput=true );
+		if(fileExists(fileSystemUtil.resolvePath("vendor/wheels/box.json"))){
+			var output = command( 'cd vendor\wheels' ).run( returnOutput=true );
 			local.boxJSON = packageService.readPackageDescriptorRaw( getCWD() );
 			var output = command( 'cd ../' ).run( returnOutput=true );
 			return local.boxJSON.version;
-		} else if(fileExists(fileSystemUtil.resolvePath("wheels/events/onapplicationstart.cfm"))) { 
-			var output = command( 'cd wheels' ).run( returnOutput=true );
-			local.target=fileSystemUtil.resolvePath("events/onapplicationstart.cfm");
+		} else if(fileExists(fileSystemUtil.resolvePath("vendor/wheels/events/onapplicationstart.cfm"))) { 
+			var output = command( 'cd vendor\wheels' ).run( returnOutput=true );
+			local.target=fileSystemUtil.resolvePath("app/events/onapplicationstart.cfm");
 			local.content=fileRead(local.target);
 			local.content=listFirst(mid(local.content, (find('application.$wheels.version',local.content)+31),20),'"');
 			var output = command( 'cd ../' ).run( returnOutput=true );
@@ -83,10 +83,10 @@ component excludeFromHelp=true {
     // Inject CLI content into template
     function $injectIntoView(required struct objectNames, required string property, required string type, string action="input"){
         if(arguments.action EQ "input"){
-            local.target=fileSystemUtil.resolvePath("views/#objectNames.objectNamePlural#/_form.cfm");
+            local.target=fileSystemUtil.resolvePath("app/views/#objectNames.objectNamePlural#/_form.cfm");
             local.inject=$generateFormField(objectname=objectNames.objectNameSingular, property=arguments.property, type=arguments.type);
         } else if(arguments.action EQ "output"){
-            local.target=fileSystemUtil.resolvePath("views/#objectNames.objectNamePlural#/show.cfm");
+            local.target=fileSystemUtil.resolvePath("app/views/#objectNames.objectNamePlural#/show.cfm");
             local.inject=$generateOutputField(objectname=objectNames.objectNameSingular, property=arguments.property, type=arguments.type);
         }
         local.content=fileRead(local.target);
@@ -101,7 +101,7 @@ component excludeFromHelp=true {
 
     // Inject CLI content into index template
     function $injectIntoIndex(required struct objectNames, required string property, required string type){
-        local.target=fileSystemUtil.resolvePath("views/#objectNames.objectNamePlural#/index.cfm");
+        local.target=fileSystemUtil.resolvePath("app/views/#objectNames.objectNamePlural#/index.cfm");
         local.thead="					<th>#helpers.capitalize(arguments.property)#</th>";
         local.tbody="					<td>" & cr & "						~[~#arguments.property#~]~" & cr & "					</td>";
 
@@ -208,7 +208,7 @@ component excludeFromHelp=true {
  			}
 
 			 // Wheels folder in expected place? (just a good check to see if the user has actually installed wheels...)
- 		var wheelsFolder=fileSystemUtil.resolvePath("wheels");
+ 		var wheelsFolder=fileSystemUtil.resolvePath("vendor/wheels");
  			if(!directoryExists(wheelsFolder)){
  				error("We can't find your wheels folder. Check you have installed CFWheels, and you're running this from the site root: If you've not started an app yet, try wheels new myApp");
  			}
@@ -223,12 +223,12 @@ component excludeFromHelp=true {
  		// Wheels 2.x has dbmigrate + dbmigratebridge equivalents in core
  		if($isWheelsVersion(1, "major")){
 
- 			var DBMigratePluginLocation=fileSystemUtil.resolvePath("plugins/dbmigrate");
+ 			var DBMigratePluginLocation=fileSystemUtil.resolvePath("app/plugins/dbmigrate");
  			if(!directoryExists(DBMigratePluginLocation)){
  				error("We can't find your plugins/dbmigrate folder? Please check the plugin is successfully installed; if you've not started the server using server start for the first time, this folder may not be created yet.");
  			}
 
-			var DBMigrateBridgePluginLocation=fileSystemUtil.resolvePath("plugins/dbmigratebridge");
+			var DBMigrateBridgePluginLocation=fileSystemUtil.resolvePath("app/plugins/dbmigratebridge");
  			if(!directoryExists(DBMigrateBridgePluginLocation)){
  				error("We can't find your plugins/dbmigratebridge folder? Please check the plugin is successfully installed;  if you've not started the server using server start for the first time, this folder may not be created yet.");
  			}
@@ -249,7 +249,7 @@ component excludeFromHelp=true {
 	string function $getBridgeURL() {
 		var serverInfo=$getServerInfo();
 		var geturl=serverInfo.serverUrl;
-  			getURL &= "/rewrite.cfm?controller=wheels&action=wheels&view=cli";
+  			getURL &= "/public/rewrite.cfm?controller=wheels&action=wheels&view=cli";
   		return geturl;
 	}
 

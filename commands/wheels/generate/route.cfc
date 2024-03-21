@@ -9,7 +9,7 @@ component  aliases='wheels g route' extends="../base"  {
    **/
 	 function run(required string objectname) {
 		var obj = helpers.getNameVariants(listLast( arguments.objectname, '/\' ));
-		var target	= fileSystemUtil.resolvePath("config/routes.cfm");
+		var target	= fileSystemUtil.resolvePath("app/config/routes.cfm");
 		var content = fileRead(target);
 
 		var inject = '.resources("' & obj.objectNamePlural & '")';

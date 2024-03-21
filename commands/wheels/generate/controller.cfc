@@ -26,7 +26,7 @@ component
   function run(
     required string name,
     string actionList = '',
-    directory         = 'controllers'
+    directory         = 'app/controllers'
   ) {
     var obj             = helpers.getNameVariants( arguments.name );
     arguments.directory = fileSystemUtil.resolvePath( arguments.directory );
@@ -55,7 +55,12 @@ component
       actionContent = allactions;
     } else {
       // Do Crud: overrwrite whole controllerContent with CRUD template
-      controllerContent = fileRead( getTemplate( '/CRUDContent.txt' ) );
+      if(fileExists(fileSystemUtil.resolvePath('app/snippets/CRUDContent.txt'))){
+				controllerContent 	= fileRead(fileSystemUtil.resolvePath('app/snippets/CRUDContent.txt'));
+			}
+			else{
+        controllerContent = fileRead( getTemplate( '/CRUDContent.txt' ) );
+			}
       print.yellowLine( 'Generating CRUD' );
     }
 
