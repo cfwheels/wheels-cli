@@ -27,7 +27,7 @@ component aliases='wheels g test' extends="../base"  {
 		string name=""
 	){
 		var obj = helpers.getNameVariants(listLast( arguments.objectname, '/\' ));
-		var testsdirectory     = fileSystemUtil.resolvePath( "tests" );
+		var testsdirectory     = fileSystemUtil.resolvePath( "tests\Testbox\specs" );
 
 		// Validate directories
 		if( !directoryExists( testsdirectory ) ) {
@@ -41,23 +41,23 @@ component aliases='wheels g test' extends="../base"  {
  		switch(arguments.type){
  			case "model":
  				var testName=obj.objectNameSingularC & ".cfc";
- 				var testPath=fileSystemUtil.resolvePath("tests/models/#testName#");
- 				if( !directoryExists(fileSystemUtil.resolvePath("tests/models"))){
- 					directoryCreate(fileSystemUtil.resolvePath("tests/models"));
+ 				var testPath=fileSystemUtil.resolvePath("tests/Testbox/specs/models/#testName#");
+ 				if( !directoryExists(fileSystemUtil.resolvePath("tests/Testbox/specs/models"))){
+ 					directoryCreate(fileSystemUtil.resolvePath("tests/Testbox/specs/models"));
  				}
  			break;
  			case "controller":
  				var testName=obj.objectNamePluralC & ".cfc";
- 				var testPath=fileSystemUtil.resolvePath("tests/controllers/#testName#");
- 				if( !directoryExists(fileSystemUtil.resolvePath("tests/controllers"))){
- 					directoryCreate(fileSystemUtil.resolvePath("tests/controllers"));
+ 				var testPath=fileSystemUtil.resolvePath("tests/Testbox/specs/controllers/#testName#");
+ 				if( !directoryExists(fileSystemUtil.resolvePath("tests/Testbox/specs/controllers"))){
+ 					directoryCreate(fileSystemUtil.resolvePath("tests/Testbox/specs/controllers"));
  				}
  			break;
  			case "view":
- 				var testObjPath=fileSystemUtil.resolvePath("tests/views/#obj.objectNamePlural#");
+ 				var testObjPath=fileSystemUtil.resolvePath("tests/Testbox/specs/views/#obj.objectNamePlural#");
  				var testName=obj.objectNamePlural & '/' &  lcase(arguments.name) & ".cfc";
- 				var testPath=fileSystemUtil.resolvePath("tests/views/#testName#");
- 				if( !directoryExists(fileSystemUtil.resolvePath("tests/views/#obj.objectNamePlural#"))){
+ 				var testPath=fileSystemUtil.resolvePath("tests/Testbox/specs/views/#testName#");
+ 				if( !directoryExists(fileSystemUtil.resolvePath("tests/Testbox/specs/views/#obj.objectNamePlural#"))){
  					directoryCreate(testObjPath);
  				}
  			break;
