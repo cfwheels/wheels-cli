@@ -249,7 +249,7 @@ component excludeFromHelp=true {
 	string function $getBridgeURL() {
 		var serverInfo=$getServerInfo();
 		var geturl=serverInfo.serverUrl;
-  			getURL &= "/public/rewrite.cfm?controller=wheels&action=wheels&view=cli";
+  			getURL &= "/public/index.cfm?controller=wheels&action=wheels&view=cli";
   		return geturl;
 	}
 
