@@ -19,8 +19,8 @@
  *  {code}
  *
  *  Here are the basic templates that are available for you that come from ForgeBox
- *  - CFWheels Base Template - Stable (default)
- *  - CFWheels Base Template - Bleeding Edge
+ *  - Wheels Base Template - Stable (default)
+ *  - Wheels Base Template - Bleeding Edge
  *  - CFWheels Template - HelloWorld
  *  - CFWheels Template - HelloDynamic
  *  - CFWheels Template - HelloPages
@@ -46,7 +46,7 @@ component aliases="wheels g app" extends="../base" {
   function init( ) {
     // Map these shortcut names to the actual ForgeBox slugs
     variables.templateMap = {
-      'Base'        : 'cfwheels-base-template',
+      'Base'        : 'wheels-base-template',
       'HelloWorld'  : 'cfwheels-template-helloworld',
       'HelloDynamic': 'cfwheels-template-hellodynamic',
       'HelloPages'  : 'cfwheels-template-hellopages'
