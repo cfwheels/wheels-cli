@@ -122,22 +122,6 @@ component aliases="wheels g app" extends="../base" {
     print.greenBoldline( 'Navigating to new application...#arguments.directory#' ).toConsole();
     command( 'cd "#arguments.directory#"' ).run();
 
-        // Copy server.json file
-    command( 'cp' )
-      .params(
-        path    = expandPath( '/cfwheels-cli/templates/ServerJSON.txt' ),
-        newPath = fileSystemUtil.resolvePath( 'server.json' )
-      )
-      .run();
-
-    // Copy urlrewrite.xml
-    command( 'cp' )
-      .params(
-        path    = expandPath( '/cfwheels-cli/templates/urlrewrite.xml' ),
-        newPath = fileSystemUtil.resolvePath( 'urlrewrite.xml' )
-      )
-      .run();
-    
     // Setting Application Name
     print.greenBoldLine( 'Setting application name...' ).toConsole();
     command( 'tokenReplace' ).params( path = 'app/config/app.cfm', token = '|appName|', replacement = arguments.name ).run();
