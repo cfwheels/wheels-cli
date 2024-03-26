@@ -1,11 +1,11 @@
 {
-    "name":"CFWheels CLI Commands",
-    "version":"3.0.7",
+    "name":"Wheels CLI Commands",
+    "version":"3.0.0",
     "author":"Tom King, Peter Amiri",
-    "location":"cfwheels/cfwheels-cli#v3.0.7",
+    "location":"cfwheels/cfwheels-cli#v3.0.0",
     "directory":"",
     "createPackageDirectory":true,
-    "packageDirectory":"cfwheels-cli",
+    "packageDirectory":"wheels-cli",
     "homepage":"https://github.com/cfwheels/cfwheels-cli",
     "documentation":"",
     "repository":{
@@ -13,13 +13,13 @@
         "URL":"https://github.com/cfwheels/cfwheels-cli"
     },
     "bugs":"",
-    "slug":"cfwheels-cli",
-    "shortDescription":"CFWheels CLI Commands for CommandBox",
+    "slug":"wheels-cli",
+    "shortDescription":"Wheels CLI Commands for CommandBox",
     "description":"",
-    "instructions":"Install via CommandBox by typing 'install cfwheels-cli'",
+    "instructions":"Install via CommandBox by typing 'install wheels-cli'",
     "changelog":"",
     "type":"commandbox-modules",
-    "keywords":"cfwheels,cli,commands",
+    "keywords":"wheels,cli,commands",
     "private":false,
     "scripts":{
         "postVersion":"package set location='cfwheels/cfwheels-cli#v`package version`'",
