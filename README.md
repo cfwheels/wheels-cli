@@ -1,11 +1,11 @@
-# CFWheels CLI for CommandBox
+# Wheels CLI commands for CommandBox
 
 This is a basic port of the Rails command line;
-Skips things like `rails server` which are provided by commandBox already.
+Skips things like `rails server` which are provided by CommandBox already.
 
 ## Install
 
-Simply run `install cfwheels-cli` from CommandBox to install the latest release.
+Simply run `install wheels-cli` from CommandBox to install the latest release.
 
 ## Commands
 
