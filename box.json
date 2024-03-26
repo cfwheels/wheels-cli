@@ -22,7 +22,7 @@
     "keywords":"wheels,cli,commands",
     "private":false,
     "scripts":{
-        "postVersion":"package set location='cfwheels/cfwheels-cli#v`package version`'",
+        "postVersion":"package set location='cfwheels/wheels-cli#v`package version`'",
         "postPublish":"!git push --follow-tags",
         "patch-release":"bump --patch && publish",
         "minor-release":"bump --minor && publish",
