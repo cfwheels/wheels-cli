@@ -305,7 +305,7 @@ component excludeFromHelp=true {
 	public string function getTemplateDirectory(){
 			var current={
 		webRoot		= getCWD(),
-		moduleRoot	= expandPath("/cfwheels-cli/")
+		moduleRoot	= expandPath("/wheels-cli/")
 	};
 
 			// attempt to get the templates directory from the current web root
