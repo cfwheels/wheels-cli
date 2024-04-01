@@ -46,7 +46,7 @@ component aliases="wheels g app" extends="../base" {
   function init( ) {
     // Map these shortcut names to the actual ForgeBox slugs
     variables.templateMap = {
-      'Base'        : 'wheels-base-template',
+      'Base'        : 'cfwheels-base-template',
       'HelloWorld'  : 'cfwheels-template-helloworld',
       'HelloDynamic': 'cfwheels-template-hellodynamic',
       'HelloPages'  : 'cfwheels-template-hellopages'
