@@ -24,14 +24,14 @@ component excludeFromHelp=true {
 		if(fileExists(fileSystemUtil.resolvePath("vendor/wheels/box.json"))){
 			var output = command( 'cd vendor\wheels' ).run( returnOutput=true );
 			local.boxJSON = packageService.readPackageDescriptorRaw( getCWD() );
-			var output = command( 'cd ../' ).run( returnOutput=true );
+			var output = command( 'cd ../../' ).run( returnOutput=true );
 			return local.boxJSON.version;
 		} else if(fileExists(fileSystemUtil.resolvePath("vendor/wheels/events/onapplicationstart.cfm"))) { 
 			var output = command( 'cd vendor\wheels' ).run( returnOutput=true );
 			local.target=fileSystemUtil.resolvePath("app/events/onapplicationstart.cfm");
 			local.content=fileRead(local.target);
 			local.content=listFirst(mid(local.content, (find('application.$wheels.version',local.content)+31),20),'"');
-			var output = command( 'cd ../' ).run( returnOutput=true );
+			var output = command( 'cd ../../' ).run( returnOutput=true );
 			return local.content;
 		} else {
 			print.line("You've not got a box.json, so we don't know which version of wheels this is.");
@@ -249,7 +249,7 @@ component excludeFromHelp=true {
 	string function $getBridgeURL() {
 		var serverInfo=$getServerInfo();
 		var geturl=serverInfo.serverUrl;
-  			getURL &= "/public/index.cfm?controller=wheels&action=wheels&view=cli";
+  			getURL &= "/?controller=wheels&action=wheels&view=cli";
   		return geturl;
 	}
 
