@@ -21,10 +21,8 @@ component excludeFromHelp=true {
 		if(!directoryExists( fileSystemUtil.resolvePath("vendor/wheels") ) ){
 			error("We're currently looking in #getCWD()#, but can't find a /wheels/ folder?");
 		}
-		if(fileExists(fileSystemUtil.resolvePath("vendor/wheels/box.json"))){
-			var output = command( 'cd vendor\wheels' ).run( returnOutput=true );
+		if(fileExists(fileSystemUtil.resolvePath("box.json"))){
 			local.boxJSON = packageService.readPackageDescriptorRaw( getCWD() );
-			var output = command( 'cd ../../' ).run( returnOutput=true );
 			return local.boxJSON.version;
 		} else if(fileExists(fileSystemUtil.resolvePath("vendor/wheels/events/onapplicationstart.cfm"))) { 
 			var output = command( 'cd vendor\wheels' ).run( returnOutput=true );
@@ -214,9 +212,9 @@ component excludeFromHelp=true {
  			}
 
 			 // Plugins in place?
- 		var pluginsFolder=fileSystemUtil.resolvePath("plugins");
+ 		var pluginsFolder=fileSystemUtil.resolvePath("app/plugins");
  			if(!directoryExists(wheelsFolder)){
- 				error("We can't find your plugins folder. Check you have installed CFWheels, and you're running this from the site root.");
+ 				error("We can't find your app/plugins folder. Check you have installed CFWheels, and you're running this from the site root.");
  			}
 
 			 // Wheels 1.x requires dbmigrate plugin
@@ -225,12 +223,12 @@ component excludeFromHelp=true {
 
  			var DBMigratePluginLocation=fileSystemUtil.resolvePath("app/plugins/dbmigrate");
  			if(!directoryExists(DBMigratePluginLocation)){
- 				error("We can't find your plugins/dbmigrate folder? Please check the plugin is successfully installed; if you've not started the server using server start for the first time, this folder may not be created yet.");
+ 				error("We can't find your app/plugins/dbmigrate folder? Please check the plugin is successfully installed; if you've not started the server using server start for the first time, this folder may not be created yet.");
  			}
 
 			var DBMigrateBridgePluginLocation=fileSystemUtil.resolvePath("app/plugins/dbmigratebridge");
  			if(!directoryExists(DBMigrateBridgePluginLocation)){
- 				error("We can't find your plugins/dbmigratebridge folder? Please check the plugin is successfully installed;  if you've not started the server using server start for the first time, this folder may not be created yet.");
+ 				error("We can't find your app/plugins/dbmigratebridge folder? Please check the plugin is successfully installed;  if you've not started the server using server start for the first time, this folder may not be created yet.");
  			}
  		}
 
