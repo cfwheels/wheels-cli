@@ -29,8 +29,12 @@
  **/
 component aliases="wheels g app-wizard, wheels new" extends="../base" {
 
-
-  function run( ) {
+  /**
+   * @force          Force installation into an none empty directory
+   **/
+  function run(
+    boolean force   = false
+   ) {
     var appContent      = fileRead( getTemplate( '/ConfigAppContent.txt' ) );
     var routesContent   = fileRead( getTemplate( '/ConfigRoutes.txt' ) );
 
@@ -196,6 +200,7 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
          .greenBoldLine( '| CF Engine             | #ljustify(cfmlEngine,57)# |' )
          .greenBoldLine( '| Setup H2 Database     | #ljustify(createH2Embedded,57)# |' )
          .greenBoldLine( '| Initialize as Package | #ljustify(initPackage,57)# |' )
+         .greenBoldLine( '| Force Installation    | #ljustify(force,57)# |' )
          .greenBoldLine( "+-----------------------+-----------------------------------------------------------+" )
          .toConsole();
 
@@ -214,6 +219,7 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
         cfmlEngine      = '#cfmlEngine#',
         setupH2         = #createH2Embedded#,
         init            = #initPackage#,
+        force           = #force#,
         initWizard      = true).run();
 
     } else {
