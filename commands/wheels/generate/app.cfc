@@ -223,12 +223,12 @@ component aliases="wheels g app" extends="../base" {
        print.greenBoldLine( '| Since you opted to install the H2 Database we    |' )
             .greenBoldLine( '| need to installed the extension into the         | ')
             .greenBoldLine( '| Lucee server. The easiest way to do this is      | ')
-            .greenBoldLine( '| to start your Lucee server by typing ''start'',  | ')
+            .greenBoldLine( '| to start your Lucee server by typing ''start'',    | ')
             .greenBoldLine( '| wait for the server to start up. Once it is      |' )
-            .greenBoldLine( '| running type ''install''. This will install      |' )
+            .greenBoldLine( '| running type ''install''. This will install        |' )
             .greenBoldLine( '| the dependencies into your Lucee server. Then    |' )
-            .greenBoldLine( '| ''restart'' your server. This process can take   |' )
-            .greenBoldLine( '| up to a minute to complete. We''l attempt to run |' )
+            .greenBoldLine( '| ''restart'' your server. This process can take     |' )
+            .greenBoldLine( '| up to a minute to complete. We''l attempt to run  |' )
             .greenBoldLine( '| that for you now. Please wait till the script    |' )
             .greenBoldLine( '| has finished running.                            |' );
       command( 'start && install && restart' ).run();
