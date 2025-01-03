@@ -6,20 +6,20 @@
     "directory":"",
     "createPackageDirectory":true,
     "packageDirectory":"wheels-cli",
-    "homepage":"https://github.com/cfwheels/cfwheels-cli",
+    "homepage":"https://github.com/cfwheels/wheels-cli",
     "documentation":"",
     "repository":{
         "type":"GIT",
-        "URL":"https://github.com/cfwheels/cfwheels-cli"
+        "URL":"https://github.com/cfwheels/wheels-cli"
     },
     "bugs":"",
     "slug":"wheels-cli",
-    "shortDescription":"Wheels CLI Commands for CommandBox",
+    "shortDescription":"Wheels.dev CLI Commands",
     "description":"",
     "instructions":"Install via CommandBox by typing 'install wheels-cli'",
     "changelog":"",
     "type":"commandbox-modules",
-    "keywords":"wheels,cli,commands",
+    "keywords":"wheels.dev,wheels,cli,commands",
     "private":false,
     "scripts":{
         "postVersion":"package set location='cfwheels/wheels-cli#v`package version`'",
