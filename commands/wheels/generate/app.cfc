@@ -163,6 +163,11 @@ component aliases="wheels g app" extends="../base" {
         , connectionString: ''jdbc:h2:file:#datadirectory##arguments.datasourceName#;MODE=MySQL''
         , username = ''sa''
         };
+        this.datasources[''wheelstestdb_h2''] = {
+          class: ''org.h2.Driver''
+        , connectionString: ''jdbc:h2:file:#datadirectory#wheelstestdb_h2;MODE=MySQL''
+        , username = ''sa''
+        };
   // CLI-Appends-Here';
       print.yellowline( datasourceConfig ).toConsole();
       command( 'tokenReplace' )
