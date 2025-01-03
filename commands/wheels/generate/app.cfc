@@ -210,7 +210,7 @@ component aliases="wheels g app" extends="../base" {
 
     // Add the H2 Lucee extension to the dependencies
     command( 'package set' )
-      .params( Dependencies = '{ "orgluceeh2212140001Llex":"lex:https://ext.lucee.org/org.lucee.h2-2.1.214.0001L.lex" }' )
+      .params( Dependencies = '{ "orgh213172lex":"lex:https://ext.lucee.org/org.h2-1.3.172.lex" }' )
       .flags( 'append' )
       .run();
 
@@ -229,6 +229,7 @@ component aliases="wheels g app" extends="../base" {
       .greenBoldLine( '| the dependencies into your Lucee server. This  |' )
       .greenBoldLine( '| process can take up to a minute to complete.   |' )
       .greenBoldLine( '|                                                |' );
+      command( 'start && install && restart' ).run();
     } else {
       print.greenBoldLine( '| Don''t forget to add your datasource to either  |' )
         .greenBoldLine( '| /lucee/admin/server.cfm OR                     |' )
