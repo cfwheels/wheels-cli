@@ -277,11 +277,11 @@ component excludeFromHelp=true {
 
   	// Create the physical migration cfc in /db/migrate/
 	function $createMigrationFile(required string name, required string action, required string content){
-			var directory=fileSystemUtil.resolvePath("migrator/migrations");
+			var directory=fileSystemUtil.resolvePath("app/migrator/migrations");
 			if(!directoryExists(directory)){
 				directoryCreate(directory);
 			}
-	  		extendsPath="wheels.migrator.Migration";
+	  		extendsPath="wheels.app.migrator.Migration";
 	  		content=replaceNoCase(content, "|DBMigrateExtends|", extendsPath, "all");
 			content=replaceNoCase(content, "|DBMigrateDescription|", "CLI #action#_#name#", "all");
 			var fileName=dateformat(now(),'yyyymmdd') & timeformat(now(),'HHMMSS') & "_cli_#action#_" & name & ".cfc";
