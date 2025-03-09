@@ -281,7 +281,7 @@ component excludeFromHelp=true {
 			if(!directoryExists(directory)){
 				directoryCreate(directory);
 			}
-	  		extendsPath="wheels.app.migrator.Migration";
+	  		extendsPath="wheels.migrator.Migration";
 	  		content=replaceNoCase(content, "|DBMigrateExtends|", extendsPath, "all");
 			content=replaceNoCase(content, "|DBMigrateDescription|", "CLI #action#_#name#", "all");
 			var fileName=dateformat(now(),'yyyymmdd') & timeformat(now(),'HHMMSS') & "_cli_#action#_" & name & ".cfc";
