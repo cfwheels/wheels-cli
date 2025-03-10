@@ -172,6 +172,14 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
       allowH2Creation = true
     }
 
+    //---------------- This is just an idea at the moment really.
+    print.line();
+    print.greenBoldLine( "========= Twitter Bootstrap ======================" ).toConsole();
+     var useBootstrap=false;
+       if(confirm("Would you like us to setup some default Bootstrap settings? [y/n]")){
+         useBootstrap = true;
+       }
+ 
     // ---------------- Test H2 Database?
     if ( allowH2Creation ) {
       print.line();
@@ -198,6 +206,7 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
          .greenBoldLine( '| Reload Password       | #ljustify(reloadPassword,57)# |' )
          .greenBoldLine( '| Datasource Name       | #ljustify(datasourceName,57)# |' )
          .greenBoldLine( '| CF Engine             | #ljustify(cfmlEngine,57)# |' )
+         .greenBoldLine( '| Setup Bootstrap       | #ljustify(useBootstrap,57)# |' )
          .greenBoldLine( '| Setup H2 Database     | #ljustify(createH2Embedded,57)# |' )
          .greenBoldLine( '| Initialize as Package | #ljustify(initPackage,57)# |' )
          .greenBoldLine( '| Force Installation    | #ljustify(force,57)# |' )
@@ -217,6 +226,7 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
         reloadPassword  = '#reloadPassword#',
         datasourceName  = '#datasourceName#',
         cfmlEngine      = '#cfmlEngine#',
+        useBootstrap    = #useBootstrap#,
         setupH2         = #createH2Embedded#,
         init            = #initPackage#,
         force           = #force#,

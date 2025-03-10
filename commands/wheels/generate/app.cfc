@@ -62,6 +62,7 @@ component aliases="wheels g app" extends="../base" {
    * @reloadPassword The reload passwrod to set for the app
    * @datasourceName The datasource name to set for the app
    * @cfmlEngine     The CFML engine to use for the app
+   * @useBootstrap   Add Bootstrap to the app
    * @setupH2        Setup the H2 database for development
    * @init           "init" the directory as a package if it isn't already
    * @force          Force installation into an none empty directory
@@ -73,6 +74,7 @@ component aliases="wheels g app" extends="../base" {
     reloadPassword = 'changeMe',
     datasourceName,
     cfmlEngine      = 'lucee',
+    boolean useBootstrap = false,
     boolean setupH2 = false,
     boolean init    = false,
     boolean force   = false
@@ -214,6 +216,29 @@ component aliases="wheels g app" extends="../base" {
       .flags( 'append' )
       .run();
 
+    // Definitely refactor this into some sort of templating system?
+    if(useBootstrap){
+      print.greenline( "========= Installing Bootstrap Settings").toConsole();
+      
+      // Replace Default Template with something more sensible
+      var bsLayout=fileRead( getTemplate('/bootstrap/layout.cfm' ) );
+      bsLayout = replaceNoCase( bsLayout, "|appName|", arguments.name, 'all' );
+      file action='write' file='#fileSystemUtil.resolvePath("app/views/layout.cfm")#' mode ='777' output='#trim(bsLayout)#';
+      
+      // Add Bootstrap default form settings
+      var bsSettings=fileRead( getTemplate('/bootstrap/settings.cfm' ) );
+      bsSettings = bsSettings & cr & '// CLI-Appends-Here';
+      command( 'tokenReplace' )
+        .params( path = 'app/config/settings.cfm', token = '// CLI-Appends-Here', replacement = bsSettings )
+        .run();
+        print.greenline( '...Finished Adding Bootstrap to app.cfm.' ).toConsole();
+      }
+
+      // New Flashwrapper Plugin needed - install it via Forgebox
+      command( 'install cfwheels-flashmessages-bootstrap' ).run();
+      print.line();
+    }
+     
       print.line()
     print.greenBoldLine( '========= All Done! =============================' )
       .greenBoldLine( '| Your app has been successfully created. Type   |' )
