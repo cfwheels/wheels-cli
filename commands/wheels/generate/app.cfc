@@ -170,13 +170,12 @@ component aliases="wheels g app" extends="../base" {
         , connectionString: ''jdbc:h2:file:#datadirectory#wheelstestdb_h2;MODE=MySQL''
         , username = ''sa''
         };
-  // CLI-Appends-Here';
+        // CLI-Appends-Here';
       print.yellowline( datasourceConfig ).toConsole();
       command( 'tokenReplace' )
         .params( path = 'app/config/app.cfm', token = '// CLI-Appends-Here', replacement = datasourceConfig )
         .run();
         print.greenline( '...Finished Adding Datasource to app.cfm.' ).toConsole();
-      }
 
     // Init, if not a package as a Box Package
     if ( arguments.init && !packageService.isPackage( arguments.directory ) ) {
