@@ -230,12 +230,14 @@ component aliases="wheels g app" extends="../base" {
       command( 'tokenReplace' )
         .params( path = 'app/config/settings.cfm', token = '// CLI-Appends-Here', replacement = bsSettings )
         .run();
-        print.greenline( '...Finished Adding Bootstrap to app.cfm.' ).toConsole();
-      }
+      print.greenline( '...Finished Adding Bootstrap to app.cfm.' ).toConsole();
 
       // New Flashwrapper Plugin needed - install it via Forgebox
       command( 'install cfwheels-flashmessages-bootstrap' ).run();
       print.line();
+
+      }
+
     }
      
       print.line()
