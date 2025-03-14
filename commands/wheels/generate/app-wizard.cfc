@@ -75,8 +75,8 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
 
     var template = multiselect( 'Which Wheels Template shall we use? ' )
       .options( [
-        {value: 'cfwheels-base-template', display: 'Wheels Base Template - Stable Release', selected: true},
-        {value: 'wheels-base-template@BE', display: 'Wheels Base Template - Bleeding Edge'},
+        {value: 'cfwheels-base-template', display: '2.5.x - Wheels Base Template - Stable Release', selected: true},
+        {value: 'wheels-base-template@BE', display: '3.0.x - Wheels Base Template - Bleeding Edge'},
         {value: 'cfwheels-template-htmx-alpine-simple', display: 'CFWheels Template - HTMX - Alpine.js - Simple.css'},
         {value: 'cfwheels-template-example-app', display: 'CFWheels Example App'},
         {value: 'cfwheels-todomvc-htmx', display: 'CFWheels - TodoMVC - HTMX - Demo App'},
@@ -151,13 +151,11 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
       .options( [
         {value: 'lucee', display: 'Lucee (Latest)', selected: true},
         {value: 'adobe', display: 'Adobe ColdFusion (Latest)'},
+        {value: 'lucee@6', display: 'Lucee 6.x'},
         {value: 'lucee@5', display: 'Lucee 5.x'},
-        {value: 'lucee@4', display: 'Lucee 4.x'},
+        {value: 'adobe@2023', display: 'Adobe ColdFusion 2023'},
         {value: 'adobe@2021', display: 'Adobe ColdFusion 2021'},
         {value: 'adobe@2018', display: 'Adobe ColdFusion 2018'},
-        {value: 'adobe@2016', display: 'Adobe ColdFusion 2016'},
-        {value: 'adobe@11', display: 'Adobe ColdFusion 11'},
-        {value: 'adobe@10', display: 'Adobe ColdFusion 10'},
         {value: 'custom', display: 'Enter a custom engine endpoint'}
       ] )
       .required()
@@ -172,14 +170,6 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
       allowH2Creation = true
     }
 
-    //---------------- This is just an idea at the moment really.
-    print.line();
-    print.greenBoldLine( "========= Twitter Bootstrap ======================" ).toConsole();
-     var useBootstrap=false;
-       if(confirm("Would you like us to setup some default Bootstrap settings? [y/n]")){
-         useBootstrap = true;
-       }
- 
     // ---------------- Test H2 Database?
     if ( allowH2Creation ) {
       print.line();
@@ -189,6 +179,14 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
       createH2Embedded = false;
     }
     
+    //---------------- This is just an idea at the moment really.
+    print.line();
+    print.greenBoldLine( "========= Twitter Bootstrap ======================" ).toConsole();
+    var useBootstrap=false;
+      if(confirm("Would you like us to setup some default Bootstrap settings? [y/n]")){
+        useBootstrap = true;
+      }
+
     // ---------------- Initialize as a package
     print.line();
     print.line( 'Finally, shall we initialize your application as a package' ).toConsole();
