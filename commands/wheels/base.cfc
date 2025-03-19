@@ -21,10 +21,8 @@ component excludeFromHelp=true {
 		if(!directoryExists( fileSystemUtil.resolvePath("vendor/wheels") ) ){
 			error("We're currently looking in #getCWD()#, but can't find a /wheels/ folder?");
 		}
-		if(fileExists(fileSystemUtil.resolvePath("vendor/wheels/box.json"))){
-			var output = command( 'cd vendor\wheels' ).run( returnOutput=true );
+		if(fileExists(fileSystemUtil.resolvePath("box.json"))){
 			local.boxJSON = packageService.readPackageDescriptorRaw( getCWD() );
-			var output = command( 'cd ../../' ).run( returnOutput=true );
 			return local.boxJSON.version;
 		} else if(fileExists(fileSystemUtil.resolvePath("vendor/wheels/events/onapplicationstart.cfm"))) { 
 			var output = command( 'cd vendor\wheels' ).run( returnOutput=true );
