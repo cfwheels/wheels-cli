@@ -307,8 +307,8 @@ component excludeFromHelp=true {
 	};
 
 			// attempt to get the templates directory from the current web root
-			if ( directoryExists( current.webRoot & "templates" ) ) {
-					var templateDirectory=current.webRoot & "templates";
+			if ( directoryExists( current.webRoot & "app/snippets" ) ) {
+					var templateDirectory=current.webRoot & "app/snippets";
 			} else if ( directoryExists( current.moduleRoot & "templates" ) ) {
 					var templateDirectory=current.moduleRoot & "templates";
 			} else {
