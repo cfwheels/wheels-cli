@@ -310,7 +310,12 @@ component excludeFromHelp=true {
 			if ( directoryExists( current.webRoot & "app/snippets" ) ) {
 					var templateDirectory=current.webRoot & "app/snippets";
 			} else if ( directoryExists( current.moduleRoot & "templates" ) ) {
-					var templateDirectory=current.moduleRoot & "templates";
+					directoryCopy( current.moduleRoot & "templates", current.webRoot & "app/snippets", true );
+					// copy the templates to the app/snippets folder
+					// this is a bit of a hack, but it means we can use the same templates for both
+					// the CLI and the web interface
+					//var templateDirectory=current.moduleRoot & "templates";
+					var templateDirectory=current.webRoot & "app/snippets";
 			} else {
 					error( "#templateDirectory# Template Directory can't be found." );
 			}
