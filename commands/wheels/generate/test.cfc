@@ -70,13 +70,10 @@ component aliases='wheels g test' extends="../base"  {
 			error( "[#testPath#] already exists?" );
  		}
 
+		//Copy template files to the application folder if they do not exist there
+		ensureSnippetTemplatesExist();
 		// Get test content
-		if(fileExists(fileSystemUtil.resolvePath('app/snippets/tests/#type#.txt'))){
-			var testContent= fileRead(fileSystemUtil.resolvePath('app/snippets/tests/#type#.txt'));
-		}
-		else{
-			var testContent= fileRead(getTemplate("tests/#type#.txt"));
-		}
+		var testContent = fileRead(fileSystemUtil.resolvePath('app/snippets/tests/#type#.txt'));
 		file action='write' file='#testPath#' mode ='777' output='#trim( testContent )#';
 		print.line( 'Created Test Stub #testPath#' );
 	}

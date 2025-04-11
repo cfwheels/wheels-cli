@@ -29,6 +29,8 @@ component aliases='wheels g model' extends="../base"  {
 		//TODO: Refactor into a function that tries to get the app name from the server.json file
 		var appName				= listLast( getCWD(), '/\' );
 
+		//Copy template files to the application folder if they do not exist there 
+		ensureSnippetTemplatesExist();
 		if(db){
 			print.line( "Trying to Generate DB Tables").toConsole();
 			command('wheels dbmigrate create table #obj.objectNamePlural#').run();
@@ -44,12 +46,7 @@ component aliases='wheels g model' extends="../base"  {
  		}
 
  		// Read in Template
-		if(fileExists(fileSystemUtil.resolvePath('app/snippets/ModelContent.txt'))){
-			var modelContent 	= fileRead(fileSystemUtil.resolvePath('app/snippets/ModelContent.txt'));
-		}
-		else{
-			var modelContent 	= fileRead( getTemplate('/ModelContent.txt'));
-		}
+		var modelContent = fileRead(fileSystemUtil.resolvePath('app/snippets/ModelContent.txt'));
 		var modelName = obj.objectNameSingularC & ".cfc";
 		var modelPath = directory & "/" & modelName;
 

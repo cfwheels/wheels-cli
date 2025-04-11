@@ -310,11 +310,6 @@ component excludeFromHelp=true {
 			if ( directoryExists( current.webRoot & "app/snippets" ) ) {
 					var templateDirectory=current.webRoot & "app/snippets";
 			} else if ( directoryExists( current.moduleRoot & "templates" ) ) {
-					directoryCopy( current.moduleRoot & "templates", current.webRoot & "app/snippets", true );
-					// copy the templates to the app/snippets folder
-					// this is a bit of a hack, but it means we can use the same templates for both
-					// the CLI and the web interface
-					//var templateDirectory=current.moduleRoot & "templates";
 					var templateDirectory=current.webRoot & "app/snippets";
 			} else {
 					error( "#templateDirectory# Template Directory can't be found." );
@@ -322,4 +317,41 @@ component excludeFromHelp=true {
 			return templateDirectory;
 	}
 
+	//Copies template files to the application folder if they do not exist there
+	public void function ensureSnippetTemplatesExist() {
+		var current = {
+			webRoot     = getCWD(),
+			moduleRoot  = expandPath("/wheels-cli/templates/"),
+			targetDir   = getCWD() & "app/snippets/"
+		};
+	
+		// Skip copying if the target already exists
+		if (!directoryExists(current.targetDir)) {
+			directoryCreate(current.targetDir);
+	
+			// List of files in the root of templates to exclude
+			var excludedRootFiles = ["BoxJSON.txt", "ConfigAppContent.txt", "ConfigDataSourceH2Content.txt", "ConfigReloadPasswordContent.txt", "ConfigRoutes.txt", "WheelsBoxJSON.txt"];
+			var excludedFolders = ["bootstrap"];
+	
+			// Get all entries (files + folders) in the templates directory
+			var entries = directoryList(current.moduleRoot, false, "query");
+	
+			for (var entry in entries) {
+				var entryPath = current.moduleRoot & entry.name;
+				var targetPath = current.targetDir & entry.name;
+	
+				if (entry.type == "File") {
+					// Skip excluded root-level files
+					if (!arrayContainsNoCase(excludedRootFiles, entry.name)) {
+						fileCopy(entryPath, targetPath);
+					}
+				} else if (entry.type == "Dir") {
+					// Skip excluded folders (like bootstrap)
+					if (!arrayContainsNoCase(excludedFolders, entry.name)) {
+						directoryCopy(entryPath, targetPath, true);
+					}
+				}
+			}
+		}
+	}
 }
