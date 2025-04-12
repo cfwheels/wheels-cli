@@ -54,13 +54,10 @@ component
       }
       actionContent = allactions;
     } else {
+      //Copy template files to the application folder if they do not exist there
+      ensureSnippetTemplatesExist();
       // Do Crud: overrwrite whole controllerContent with CRUD template
-      if(fileExists(fileSystemUtil.resolvePath('app/snippets/CRUDContent.txt'))){
-				controllerContent 	= fileRead(fileSystemUtil.resolvePath('app/snippets/CRUDContent.txt'));
-			}
-			else{
-        controllerContent = fileRead( getTemplate( '/CRUDContent.txt' ) );
-			}
+      controllerContent = fileRead(fileSystemUtil.resolvePath('app/snippets/CRUDContent.txt'));
       print.yellowLine( 'Generating CRUD' );
     }
 
