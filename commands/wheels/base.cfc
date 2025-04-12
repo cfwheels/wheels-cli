@@ -294,6 +294,8 @@ component excludeFromHelp=true {
 
     // Return .txt template location
     public string function getTemplate(required string template){
+			//Copy template files to the application folder if they do not exist there
+			ensureSnippetTemplatesExist();
 			var templateDirectory=getTemplateDirectory();
 			var rv=templateDirectory & "/" & template;
 			return rv;
