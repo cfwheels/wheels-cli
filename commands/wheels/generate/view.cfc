@@ -27,8 +27,8 @@ component aliases='wheels g view' extends="../base"  {
 		string template=""
 	){
 		var obj = helpers.getNameVariants(listLast( arguments.objectname, '/\' ));
-		var viewdirectory     = fileSystemUtil.resolvePath( "views" );
-		var directory 		  = fileSystemUtil.resolvePath( "views" & "/" & obj.objectNamePlural);
+		var viewdirectory     = fileSystemUtil.resolvePath( "app/views" );
+		var directory 		  = fileSystemUtil.resolvePath( "app/views" & "/" & obj.objectNamePlural);
 		print.line( "Creating View File..." ).toConsole();
 
 		// Validate directory
@@ -43,12 +43,14 @@ component aliases='wheels g view' extends="../base"  {
  			print.line( "#directory# created" ).toConsole();
  		}
 
+		//Copy template files to the application folder if they do not exist there
+		ensureSnippetTemplatesExist();
  		// Read in Template
 		var viewContent 	= "";
  		if(!len(arguments.template)){
- 			viewContent 	= fileRead( getTemplate( '/viewContent.txt'));
+			viewContent = fileRead(fileSystemUtil.resolvePath('app/snippets/viewContent.txt'));
 		} else {
-			viewContent 	= fileRead( getTemplate( arguments.template & '.txt'));
+			viewContent = fileRead(fileSystemUtil.resolvePath('app/snippets/' & arguments.template & '.txt'));
 		}
 		// Replace Object tokens
 		viewContent=$replaceDefaultObjectNames(viewContent, obj);

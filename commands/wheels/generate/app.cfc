@@ -19,8 +19,8 @@
  *  {code}
  *
  *  Here are the basic templates that are available for you that come from ForgeBox
- *  - CFWheels Base Template - Stable (default)
- *  - CFWheels Base Template - Bleeding Edge
+ *  - Wheels Base Template - Stable (default)
+ *  - Wheels Base Template - Bleeding Edge
  *  - CFWheels Template - HelloWorld
  *  - CFWheels Template - HelloDynamic
  *  - CFWheels Template - HelloPages
@@ -62,6 +62,7 @@ component aliases="wheels g app" extends="../base" {
    * @reloadPassword The reload passwrod to set for the app
    * @datasourceName The datasource name to set for the app
    * @cfmlEngine     The CFML engine to use for the app
+   * @useBootstrap   Add Bootstrap to the app
    * @setupH2        Setup the H2 database for development
    * @init           "init" the directory as a package if it isn't already
    * @force          Force installation into an none empty directory
@@ -73,6 +74,7 @@ component aliases="wheels g app" extends="../base" {
     reloadPassword = 'changeMe',
     datasourceName,
     cfmlEngine      = 'lucee',
+    boolean useBootstrap = false,
     boolean setupH2 = false,
     boolean init    = false,
     boolean force   = false
@@ -94,8 +96,7 @@ component aliases="wheels g app" extends="../base" {
       directoryCreate( arguments.directory );
     } else {
       if ( arrayLen( directoryList( arguments.directory, false ) ) && !force) {
-        print.greenBoldLine( 'The target directory is not empty. The installation cannot continue.' ).toConsole();
-        print.greenBoldLine( force ).toConsole();
+        print.greenBoldLine( 'The target directory is not empty. The installation cannot continue. Use --force to force the installation into a none empty directory.' ).toConsole();
         return;
       }
     }
@@ -122,37 +123,21 @@ component aliases="wheels g app" extends="../base" {
     print.greenBoldline( 'Navigating to new application...#arguments.directory#' ).toConsole();
     command( 'cd "#arguments.directory#"' ).run();
 
-        // Copy server.json file
-    command( 'cp' )
-      .params(
-        path    = expandPath( '/cfwheels-cli/templates/ServerJSON.txt' ),
-        newPath = fileSystemUtil.resolvePath( 'server.json' )
-      )
-      .run();
-
-    // Copy urlrewrite.xml
-    command( 'cp' )
-      .params(
-        path    = expandPath( '/cfwheels-cli/templates/urlrewrite.xml' ),
-        newPath = fileSystemUtil.resolvePath( 'urlrewrite.xml' )
-      )
-      .run();
-    
     // Setting Application Name
     print.greenBoldLine( 'Setting application name...' ).toConsole();
-    command( 'tokenReplace' ).params( path = 'config/app.cfm', token = '|appName|', replacement = arguments.name ).run();
+    command( 'tokenReplace' ).params( path = 'app/config/app.cfm', token = '|appName|', replacement = arguments.name ).run();
     command( 'tokenReplace' ).params( path = 'server.json', token = '|appName|', replacement = arguments.name ).run();
 
     // Setting Reload Password
     print.greenBoldLine( 'Setting reload password...' ).toConsole();
     command( 'tokenReplace' )
-      .params( path = 'config/settings.cfm', token = '|reloadPassword|', replacement = arguments.reloadPassword )
+      .params( path = 'app/config/settings.cfm', token = '|reloadPassword|', replacement = arguments.reloadPassword )
       .run();
 
     // Setting Datasource Name
     print.greenBoldLine( 'Setting datasource name...' ).toConsole();
     command( 'tokenReplace' )
-      .params( path = 'config/settings.cfm', token = '|datasourceName|', replacement = arguments.datasourceName )
+      .params( path = 'app/config/settings.cfm', token = '|datasourceName|', replacement = arguments.datasourceName )
       .run();
 
     // Setting cfml Engine Name
@@ -180,13 +165,17 @@ component aliases="wheels g app" extends="../base" {
         , connectionString: ''jdbc:h2:file:#datadirectory##arguments.datasourceName#;MODE=MySQL''
         , username = ''sa''
         };
-  // CLI-Appends-Here';
+        this.datasources[''wheelstestdb_h2''] = {
+          class: ''org.h2.Driver''
+        , connectionString: ''jdbc:h2:file:#datadirectory#wheelstestdb_h2;MODE=MySQL''
+        , username = ''sa''
+        };
+        // CLI-Appends-Here';
       print.yellowline( datasourceConfig ).toConsole();
       command( 'tokenReplace' )
-        .params( path = 'config/app.cfm', token = '// CLI-Appends-Here', replacement = datasourceConfig )
+        .params( path = 'app/config/app.cfm', token = '// CLI-Appends-Here', replacement = datasourceConfig )
         .run();
         print.greenline( '...Finished Adding Datasource to app.cfm.' ).toConsole();
-      }
 
     // Init, if not a package as a Box Package
     if ( arguments.init && !packageService.isPackage( arguments.directory ) ) {
@@ -226,21 +215,49 @@ component aliases="wheels g app" extends="../base" {
       .flags( 'append' )
       .run();
 
+    // Definitely refactor this into some sort of templating system?
+    if(useBootstrap){
+      print.greenline( "========= Installing Bootstrap Settings").toConsole();
+      
+      // Replace Default Template with something more sensible
+      var bsLayout=fileRead( getTemplate('/bootstrap/layout.cfm' ) );
+      bsLayout = replaceNoCase( bsLayout, "|appName|", arguments.name, 'all' );
+      file action='write' file='#fileSystemUtil.resolvePath("app/views/layout.cfm")#' mode ='777' output='#trim(bsLayout)#';
+      
+      // Add Bootstrap default form settings
+      var bsSettings=fileRead( getTemplate('/bootstrap/settings.cfm' ) );
+      bsSettings = bsSettings & cr & '// CLI-Appends-Here';
+      command( 'tokenReplace' )
+        .params( path = 'app/config/settings.cfm', token = '// CLI-Appends-Here', replacement = bsSettings )
+        .run();
+      print.greenline( '...Finished Adding Bootstrap to app.cfm.' ).toConsole();
+
+      // New Flashwrapper Plugin needed - install it via Forgebox
+      command( 'install cfwheels-flashmessages-bootstrap' ).run();
+      print.line();
+
+      }
+
+    }
+     
       print.line()
     print.greenBoldLine( '========= All Done! =============================' )
       .greenBoldLine( '| Your app has been successfully created. Type   |' )
       .greenBoldLine( '| ''start'' to start a server here.                |' )
       .greenBoldLine( '|                                                |' );
     if ( arguments.setupH2 ) {
-      print.greenBoldLine( '| Since you opted to install the H2 Database we  |' )
-      .greenBoldLine( '| need to installed the extension in to the      | ')
-      .greenBoldLine( '| Lucee server. The easiest way to do this is    | ')
-      .greenBoldLine( '| to start your Lucee server by typing ''start'',  | ')
-      .greenBoldLine( '| then wait for the server to start up. Once it  |' )
-      .greenBoldLine( '| is running type ''install''. This will install   |' )
-      .greenBoldLine( '| the dependencies into your Lucee server. This  |' )
-      .greenBoldLine( '| process can take up to a minute to complete.   |' )
-      .greenBoldLine( '|                                                |' );
+       print.greenBoldLine( '| Since you opted to install the H2 Database we    |' )
+            .greenBoldLine( '| need to installed the extension into the         | ')
+            .greenBoldLine( '| Lucee server. The easiest way to do this is      | ')
+            .greenBoldLine( '| to start your Lucee server by typing ''start'',    | ')
+            .greenBoldLine( '| wait for the server to start up. Once it is      |' )
+            .greenBoldLine( '| running type ''install''. This will install        |' )
+            .greenBoldLine( '| the dependencies into your Lucee server. Then    |' )
+            .greenBoldLine( '| ''restart'' your server. This process can take     |' )
+            .greenBoldLine( '| up to a minute to complete. We''l attempt to run  |' )
+            .greenBoldLine( '| that for you now. Please wait till the script    |' )
+            .greenBoldLine( '| has finished running.                            |' );
+      command( 'start && install && restart' ).run();
     } else {
       print.greenBoldLine( '| Don''t forget to add your datasource to either  |' )
         .greenBoldLine( '| /lucee/admin/server.cfm OR                     |' )

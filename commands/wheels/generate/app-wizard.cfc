@@ -29,8 +29,12 @@
  **/
 component aliases="wheels g app-wizard, wheels new" extends="../base" {
 
-
-  function run( ) {
+  /**
+   * @force          Force installation into an none empty directory
+   **/
+  function run(
+    boolean force   = false
+   ) {
     var appContent      = fileRead( getTemplate( '/ConfigAppContent.txt' ) );
     var routesContent   = fileRead( getTemplate( '/ConfigRoutes.txt' ) );
 
@@ -69,10 +73,10 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
       .greenBoldLine( '==================================================' )
       .toConsole();
 
-    var template = multiselect( 'Which CFWheels Template shall we use? ' )
+    var template = multiselect( 'Which Wheels Template shall we use? ' )
       .options( [
-        {value: 'cfwheels-base-template', display: 'CFWheels Base Template - Stable Release', selected: true},
-        {value: 'cfwheels-base-template@BE', display: 'CFWheels Base Template - Bleeding Edge'},
+        {value: 'cfwheels-base-template', display: '2.5.x - Wheels Base Template - Stable Release', selected: true},
+        {value: 'wheels-base-template@BE', display: '3.0.x - Wheels Base Template - Bleeding Edge'},
         {value: 'cfwheels-template-htmx-alpine-simple', display: 'CFWheels Template - HTMX - Alpine.js - Simple.css'},
         {value: 'cfwheels-template-example-app', display: 'CFWheels Example App'},
         {value: 'cfwheels-todomvc-htmx', display: 'CFWheels - TodoMVC - HTMX - Demo App'},
@@ -147,13 +151,11 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
       .options( [
         {value: 'lucee', display: 'Lucee (Latest)', selected: true},
         {value: 'adobe', display: 'Adobe ColdFusion (Latest)'},
+        {value: 'lucee@6', display: 'Lucee 6.x'},
         {value: 'lucee@5', display: 'Lucee 5.x'},
-        {value: 'lucee@4', display: 'Lucee 4.x'},
+        {value: 'adobe@2023', display: 'Adobe ColdFusion 2023'},
         {value: 'adobe@2021', display: 'Adobe ColdFusion 2021'},
         {value: 'adobe@2018', display: 'Adobe ColdFusion 2018'},
-        {value: 'adobe@2016', display: 'Adobe ColdFusion 2016'},
-        {value: 'adobe@11', display: 'Adobe ColdFusion 11'},
-        {value: 'adobe@10', display: 'Adobe ColdFusion 10'},
         {value: 'custom', display: 'Enter a custom engine endpoint'}
       ] )
       .required()
@@ -177,6 +179,14 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
       createH2Embedded = false;
     }
     
+    //---------------- This is just an idea at the moment really.
+    print.line();
+    print.greenBoldLine( "========= Twitter Bootstrap ======================" ).toConsole();
+    var useBootstrap=false;
+      if(confirm("Would you like us to setup some default Bootstrap settings? [y/n]")){
+        useBootstrap = true;
+      }
+
     // ---------------- Initialize as a package
     print.line();
     print.line( 'Finally, shall we initialize your application as a package' ).toConsole();
@@ -194,8 +204,10 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
          .greenBoldLine( '| Reload Password       | #ljustify(reloadPassword,57)# |' )
          .greenBoldLine( '| Datasource Name       | #ljustify(datasourceName,57)# |' )
          .greenBoldLine( '| CF Engine             | #ljustify(cfmlEngine,57)# |' )
+         .greenBoldLine( '| Setup Bootstrap       | #ljustify(useBootstrap,57)# |' )
          .greenBoldLine( '| Setup H2 Database     | #ljustify(createH2Embedded,57)# |' )
          .greenBoldLine( '| Initialize as Package | #ljustify(initPackage,57)# |' )
+         .greenBoldLine( '| Force Installation    | #ljustify(force,57)# |' )
          .greenBoldLine( "+-----------------------+-----------------------------------------------------------+" )
          .toConsole();
 
@@ -212,8 +224,10 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
         reloadPassword  = '#reloadPassword#',
         datasourceName  = '#datasourceName#',
         cfmlEngine      = '#cfmlEngine#',
+        useBootstrap    = #useBootstrap#,
         setupH2         = #createH2Embedded#,
         init            = #initPackage#,
+        force           = #force#,
         initWizard      = true).run();
 
     } else {

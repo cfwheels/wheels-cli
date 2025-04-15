@@ -67,11 +67,19 @@ component extends="base" {
 
 	  		// Construct Test URL
 	  		// Always force JSON as return format
-	  		loc.testurl = "http://" & loc.host & ":" & loc.port
-	  					   & "/" & "?controller=wheels&action=wheels&view=tests"
-	  					   & "&type=#loc.type#"
-	  					   & "&format=#loc.format#"
-	  					   & "&reload=#loc.reload#";
+			if(loc.type eq 'app'){
+				loc.testurl = "http://" & loc.host & ":" & loc.port
+							   & "/" & "?controller=tests&action=runner&view=runner"
+							   & "&type=#loc.type#"
+							   & "&format=#loc.format#"
+							   & "&reload=#loc.reload#";
+			} else if(loc.type eq 'core'){
+				loc.testurl = "http://" & loc.host & ":" & loc.port
+							   & "/" & "?controller=wheels.tests_testbox&action=runner&view=runner"
+							   & "&type=#loc.type#"
+							   & "&format=#loc.format#"
+							   & "&reload=#loc.reload#";
+			}
 	  		// Optional Adapter Override
 	  		if(len(loc.adapter)){
 	  			loc.testurl&="&adapter=#loc.adapter#"
@@ -119,39 +127,47 @@ component extends="base" {
 	// Output pls
 	function $outputTestResults(result, debug){
 	  	var hiddenCount = 0;
-
-		if(result.ok){
+		if(result.totalError == 0 && result.totalFail == 0){
 			print.greenBoldLine( "================ Tests Complete: All Good! =============" );
 		} else {
 			print.redBoldLine( "================ Tests Complete: Failures! =============" );
 		}
 
 		print.boldLine( "================ Results: =======================" );
-			 for(r in result.results){
-			 	if(r.status != "Success"){
-			 		print.boldLine("Test Case:")
-			 			 .boldRedLine("       #r.cleantestcase#:")
-			 		 	 .boldLine("Test Name: :")
-			 			 .boldRedLine("       #r.testname#:")
-			 		 	 .boldLine("Message:")
-			 		 	 .line("#Formatter.HTML2ANSI(r.message)#")
-			 		 	 .line("----------------------------------------------------")
-			 		 	 .line();
-		 		} else {
-		 			if(debug){
-		 				print.greenline("#r.cleantestcase#: #r.testname# :#r.time#");
-	 				} else {
-		 				hiddenCount++;
-	 				}
-		 		}
-			 }
+		for(bundle in result.bundleStats){
+			for(suite in bundle.suiteStats){
+				for(spec in suite.specStats){
+
+					if(spec.status != "Passed" && spec.status != "Skipped"){
+						print.boldLine("Test Bundle:")
+							 .boldRedLine("       #bundle.name#:")
+							 .boldLine("Test Suite: :")
+							 .boldRedLine("       #suite.name#:")
+							  .boldLine("Test Name: :")
+							 .boldRedLine("       #spec.name#:")
+							  .boldLine("Message:")
+							  .line("#Formatter.HTML2ANSI(spec.failMessage)#")
+							  .line("----------------------------------------------------")
+							  .line();
+					} else {
+						if(debug){
+							print.greenline("#bundle.name# #suite.name#: #spec.name# :#spec.totalDuration#");
+						} else {
+							hiddenCount++;
+						}
+					}
+				}
+			}
+		}
 		print.boldLine( "Output from #hiddenCount# tests hidden");
 		print.Line("================ Summary: =======================" )
-			 .line("= Tests: #result.numtests#")
-			 .line("= Cases: #result.numcases#")
-			 .line("= Errors: #result.numerrors#")
-			 .line("= Failures: #result.numfailures#")
-			 .line("= Successes: #result.numsuccesses#")
+			 .line("= Bundles: #result.totalBundles#")
+			 .line("= Suites: #result.totalSuites#")
+			 .line("= Specs: #result.totalSpecs#")
+			 .line("= Skipped: #result.totalSkipped#")
+			 .line("= Errors: #result.totalError#")
+			 .line("= Failures: #result.totalFail#")
+			 .line("= Successes: #result.totalPass#")
 			 .Line("==================================================" );
  	}
 

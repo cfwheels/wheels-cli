@@ -20,8 +20,8 @@ component {
     property name='packageService' inject='packageService';
 
     function postInstall( required struct interceptData ) {
-       var pluginFolder                 = fileSystemUtil.resolvePath("plugins");
-       var isValidWheelsInstallation    = directoryExists( fileSystemUtil.resolvePath("wheels")) ? true:false;
+       var pluginFolder                 = fileSystemUtil.resolvePath("app/plugins");
+       var isValidWheelsInstallation    = directoryExists( fileSystemUtil.resolvePath("vendor/wheels")) ? true:false;
        var isValidPluginsDirectory      = directoryExists( pluginFolder ) ? true:false;
 
        if(isValidWheelsInstallation && isValidPluginsDirectory){

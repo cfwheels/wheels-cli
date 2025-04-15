@@ -14,13 +14,13 @@ component aliases='wheels d'  extends="base"  {
 	function run(required string name) {
 
 		var obj            		 = helpers.getNameVariants(arguments.name);
-		var modelFile      		 = fileSystemUtil.resolvePath("models/#obj.objectNameSingularC#.cfc");
-		var controllerFile 		 = fileSystemUtil.resolvePath("controllers/#obj.objectNamePluralC#.cfc");
-		var viewFolder     		 = fileSystemUtil.resolvePath("views/#obj.objectNamePlural#/");
-		var testmodelFile  		 = fileSystemUtil.resolvePath("tests/models/#obj.objectNameSingularC#.cfc");
-		var testcontrollerFile = fileSystemUtil.resolvePath("tests/controllers/#obj.objectNamePluralC#.cfc");
-		var testviewFolder     = fileSystemUtil.resolvePath("tests/views/#obj.objectNamePlural#/");
-		var routeFile   			 = fileSystemUtil.resolvePath("config/routes.cfm");
+		var modelFile      		 = fileSystemUtil.resolvePath("app/models/#obj.objectNameSingularC#.cfc");
+		var controllerFile 		 = fileSystemUtil.resolvePath("app/controllers/#obj.objectNamePluralC#.cfc");
+		var viewFolder     		 = fileSystemUtil.resolvePath("app/views/#obj.objectNamePlural#/");
+		var testmodelFile  		 = fileSystemUtil.resolvePath("tests/Testbox/specs/models/#obj.objectNameSingularC#.cfc");
+		var testcontrollerFile = fileSystemUtil.resolvePath("tests/Testbox/specs/controllers/#obj.objectNamePluralC#.cfc");
+		var testviewFolder     = fileSystemUtil.resolvePath("tests/Testbox/specs/views/#obj.objectNamePlural#/");
+		var routeFile   			 = fileSystemUtil.resolvePath("app/config/routes.cfm");
 		var resourceName			 = '.resources("' & obj.objectNamePlural & '")';
 
 		print.redBoldLine("================================================")

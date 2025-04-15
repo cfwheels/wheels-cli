@@ -22,7 +22,7 @@ component aliases='wheels r'  extends="base"  {
   		var serverDetails = $getServerInfo();
 
   		getURL = serverDetails.serverURL &
-  			"/rewrite.cfm?reload=#mode#&password=#password#";
+  			"/public/index.cfm?reload=#mode#&password=#password#";
   		var loc = new Http( url=getURL ).send().getPrefix();
   		print.line("Reload Request sent");
 	}
