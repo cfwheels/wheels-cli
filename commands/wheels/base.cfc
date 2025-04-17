@@ -319,7 +319,9 @@ component excludeFromHelp=true {
 			return templateDirectory;
 	}
 
-	//Copies template files to the application folder if they do not exist there
+	/*
+	 * Copies template files to the application folder if they do not exist there
+	 */
 	public void function ensureSnippetTemplatesExist() {
 		var current = {
 			webRoot     = getCWD(),
@@ -327,33 +329,67 @@ component excludeFromHelp=true {
 			targetDir   = getCWD() & "app/snippets/"
 		};
 	
-		// Skip copying if the target already exists
+		// Create target directory if it doesn't exist
 		if (!directoryExists(current.targetDir)) {
 			directoryCreate(current.targetDir);
+		}
 	
-			// List of files in the root of templates to exclude
-			var excludedRootFiles = ["BoxJSON.txt", "ConfigAppContent.txt", "ConfigDataSourceH2Content.txt", "ConfigReloadPasswordContent.txt", "ConfigRoutes.txt", "WheelsBoxJSON.txt"];
-			var excludedFolders = ["bootstrap"];
+		// List of root-level files and folders to exclude
+		var excludedRootFiles = [
+			"BoxJSON.txt", "ConfigAppContent.txt", "ConfigDataSourceH2Content.txt", "ConfigReloadPasswordContent.txt", "ConfigRoutes.txt", "WheelsBoxJSON.txt"
+		];
+		var excludedFolders = ["bootstrap"];
 	
-			// Get all entries (files + folders) in the templates directory
-			var entries = directoryList(current.moduleRoot, false, "query");
+		// Get all entries in the templates directory
+		var entries = directoryList(current.moduleRoot, false, "query");
 	
-			for (var entry in entries) {
-				var entryPath = current.moduleRoot & entry.name;
-				var targetPath = current.targetDir & entry.name;
+		for (var entry in entries) {
+			var entryPath = current.moduleRoot & entry.name;
+			var targetPath = current.targetDir & entry.name;
 	
-				if (entry.type == "File") {
-					// Skip excluded root-level files
-					if (!arrayContainsNoCase(excludedRootFiles, entry.name)) {
+			if (entry.type == "File") {
+				// Copy only non-excluded files that are missing
+				if (!arrayContainsNoCase(excludedRootFiles, entry.name)) {
+					if (!fileExists(targetPath)) {
 						fileCopy(entryPath, targetPath);
 					}
-				} else if (entry.type == "Dir") {
-					// Skip excluded folders (like bootstrap)
-					if (!arrayContainsNoCase(excludedFolders, entry.name)) {
-						directoryCopy(entryPath, targetPath, true);
+				}
+			} else if (entry.type == "Dir") {
+				// Copy only non-excluded folders that are missing
+				if (!arrayContainsNoCase(excludedFolders, entry.name)) {
+					// Ensure directory exists
+					if (!directoryExists(targetPath)) {
+						directoryCreate(targetPath);
 					}
+					// Recursively copy missing contents
+					copyMissingFolderContents(entryPath, targetPath);
 				}
 			}
 		}
 	}
+	
+	/**
+	 * Recursively copies missing files and folders from source to target.
+	 */
+	private void function copyMissingFolderContents(required string source, required string target) {
+		var items = directoryList(arguments.source, false, "query");
+	
+		for (var item in items) {
+			var sourcePath = arguments.source & "/" & item.name;
+			var targetPath = arguments.target & "/" & item.name;
+	
+			if (item.type == "File") {
+				if (!fileExists(targetPath)) {
+					fileCopy(sourcePath, targetPath);
+				}
+			} else if (item.type == "Dir") {
+				if (!directoryExists(targetPath)) {
+					directoryCreate(targetPath);
+				}
+				// Recursive call to handle nested folders
+				copyMissingFolderContents(sourcePath, targetPath);
+			}
+		}
+	}
+	
 }
