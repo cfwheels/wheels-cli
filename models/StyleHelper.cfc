@@ -3,9 +3,10 @@
  **/
 component {
 
-    // Initialize with injected Print instance
-    function init(required print) {
-        variables.print = arguments.print;
+    property name="print" inject="Print";
+    
+    // Initialize
+    function init() {
         return this;
     }
 
