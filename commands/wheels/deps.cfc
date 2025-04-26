@@ -1,5 +1,5 @@
 /**
- * Manage CFWheels-specific dependencies and plugins
+ * Manage Wheels-specific dependencies and plugins
  * 
  * {code:bash}
  * wheels deps list
@@ -23,7 +23,7 @@ component extends="base" {
     ) {
         // Welcome message
         print.line();
-        print.boldMagentaLine("CFWheels Dependency Manager");
+        print.boldMagentaLine("Wheels Dependency Manager");
         print.line();
         
         // Validate action

@@ -1,6 +1,6 @@
 # DevOps Commands
 
-The CFWheels CLI includes commands to streamline DevOps processes, including CI/CD configuration and Docker containerization.
+The Wheels CLI includes commands to streamline DevOps processes, including CI/CD configuration and Docker containerization.
 
 ## CI/CD Configuration
 

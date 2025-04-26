@@ -22,7 +22,7 @@ component extends="../base" {
     ) {
         // Welcome message
         print.line();
-        print.boldMagentaLine("CFWheels API Resource Generator");
+        print.boldMagentaLine("Wheels API Resource Generator");
         print.line();
         
         // Process resource name

@@ -1,10 +1,10 @@
 # Performance Analysis Commands
 
-The CFWheels CLI provides tools to analyze and optimize the performance of your application.
+The Wheels CLI provides tools to analyze and optimize the performance of your application.
 
 ## Analyze
 
-Identify performance bottlenecks in your CFWheels application.
+Identify performance bottlenecks in your Wheels application.
 
 ### Usage
 

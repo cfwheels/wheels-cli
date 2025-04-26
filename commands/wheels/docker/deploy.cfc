@@ -23,7 +23,7 @@ component extends="../base" {
     ) {
         // Welcome message
         print.line();
-        print.boldMagentaLine("CFWheels Docker Production Deployment");
+        print.boldMagentaLine("Wheels Docker Production Deployment");
         print.line();
         
         // Validate inputs
@@ -377,18 +377,18 @@ TZ=UTC
         local.deployPath = fileSystemUtil.resolvePath("deploy.sh");
         
         local.deployContent = "#!/bin/bash
-# Deployment script for CFWheels Docker
+# Deployment script for Wheels Docker
 
 # Usage: ./deploy.sh [environment]
 ENV=\${1:-production}
 
-echo \"Deploying CFWheels to \$ENV environment...\"
+echo \"Deploying Wheels to \$ENV environment...\"
 
 # Build and start the containers
 docker-compose -f docker-compose.\$ENV.yml build --no-cache
 docker-compose -f docker-compose.\$ENV.yml up -d
 
-echo \"CFWheels deployed to \$ENV environment!\"
+echo \"Wheels deployed to \$ENV environment!\"
 ";
         
         file action='write' file='#local.deployPath#' mode='777' output='#local.deployContent#';

@@ -19,7 +19,7 @@ component  extends="base"  {
 
 		print.greenBoldLine( "==================================== Wheels init ===================================" )
 			   .greenBoldLine( " This function will attempt to add a few things " )
-				 .greenBoldLine( " to an EXISTING CFWheels installation to help   " )
+				 .greenBoldLine( " to an EXISTING Wheels installation to help   " )
 				 .greenBoldLine( " the CLI interact." )
 				 .greenBoldLine( " " )
 				 .greenBoldLine( " We're going to assume the following:" )

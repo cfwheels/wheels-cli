@@ -1,14 +1,14 @@
 # Frontend and API Development Commands
 
-The CFWheels CLI provides commands to help integrate modern frontend frameworks and build API endpoints in your application.
+The Wheels CLI provides commands to help integrate modern frontend frameworks and build API endpoints in your application.
 
 ## Frontend Integration
 
-Modern web applications often use JavaScript frontend frameworks. The CFWheels CLI provides tools to scaffold and integrate popular frontend frameworks with your CFWheels application.
+Modern web applications often use JavaScript frontend frameworks. The Wheels CLI provides tools to scaffold and integrate popular frontend frameworks with your Wheels application.
 
 ### Generate Frontend
 
-Scaffold and integrate modern frontend frameworks with CFWheels.
+Scaffold and integrate modern frontend frameworks with Wheels.
 
 #### Usage
 
@@ -42,7 +42,7 @@ The frontend generator creates:
 1. **Project Structure**: Directory structure for the selected framework
 2. **Dependencies**: package.json with appropriate dependencies
 3. **Build Configuration**: Vite configuration for modern build process
-4. **Asset Pipeline**: Integration helpers for including built assets in CFWheels views
+4. **Asset Pipeline**: Integration helpers for including built assets in Wheels views
 5. **Example Components**: Sample components to help you get started
 6. **Optional API**: API endpoints if the `--api` flag is enabled
 
@@ -76,7 +76,7 @@ When selecting Alpine.js, the generator creates:
 
 ## API Development
 
-Modern applications often need to expose data via APIs. The CFWheels CLI provides tools to build RESTful API endpoints.
+Modern applications often need to expose data via APIs. The Wheels CLI provides tools to build RESTful API endpoints.
 
 ### Generate API Resource
 

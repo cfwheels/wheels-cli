@@ -15,12 +15,12 @@ component {
 
     // Runs when module is loaded
     function onLoad(){
-        log.info('CFWheels Module loaded successfully.' );
+        log.info('Wheels Module loaded successfully.' );
     }
 
     // Runs when module is unloaded
     function onUnLoad(){
-        log.info('CFWheels Module unloaded successfully.' );
+        log.info('Wheels Module unloaded successfully.' );
     }
 
 }

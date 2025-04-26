@@ -21,7 +21,7 @@ component extends="../base" {
     ) {
         // Welcome message
         print.line();
-        print.boldMagentaLine("CFWheels CI/CD Configuration Generator");
+        print.boldMagentaLine("Wheels CI/CD Configuration Generator");
         print.line();
         
         // Validate platform selection
@@ -64,7 +64,7 @@ component extends="../base" {
         // Create CI workflow
         local.ciWorkflowPath = local.workflowsDir & "/ci.yml";
         
-        local.ciWorkflowContent = "name: CFWheels CI
+        local.ciWorkflowContent = "name: Wheels CI
 
 on:
   push:
@@ -103,7 +103,7 @@ jobs:
       - name: Install dependencies
         run: box install
         
-      - name: Set up CFWheels
+      - name: Set up Wheels
         run: |
           box server start
           box wheels reload
@@ -128,7 +128,7 @@ jobs:
         if (arguments.includeDeployment) {
             local.deployWorkflowPath = local.workflowsDir & "/deploy.yml";
             
-            local.deployWorkflowContent = "name: CFWheels Deploy
+            local.deployWorkflowContent = "name: Wheels Deploy
 
 on:
   push:

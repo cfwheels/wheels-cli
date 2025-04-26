@@ -1,5 +1,5 @@
 /**
- * Creates a new CFWheels application using our wizard to gather all the 
+ * Creates a new Wheels application using our wizard to gather all the 
  * necessary information. This is the recommended route to start a new application.
  *
  * This command will ask for:
@@ -40,9 +40,9 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
 
     // ---------------- Welcome
     print.greenBoldLine( '========= Hello! Welcome to the Wizard ===========' )
-      .greenBoldLine( '| Welcome to the CFWheels app wizard. We''re here |' )
+      .greenBoldLine( '| Welcome to the Wheels app wizard. We''re here |' )
       .greenBoldLine( '| to try and give you a helping hand to start yo |' )
-      .greenBoldLine( '| CFWheels app.                                  |' )
+      .greenBoldLine( '| Wheels app.                                  |' )
       .greenBoldLine( '==================================================' )
       .line()
       .toConsole();
@@ -52,14 +52,14 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
     print.greenBoldLine( '========= We Need Some Information ===============' )
       .greenBoldLine( '| To get going, we''re going to need to know a    |' )
       .greenBoldLine( '| NAME for your application. We''ll start with    |' )
-      .greenBoldLine( '| a name like MyCFWheelsApp. Keep in  mind       |' )
+      .greenBoldLine( '| a name like MyWheelsApp. Keep in  mind       |' )
       .greenBoldLine( '| that a new directory will be created for your  |' )
       .greenBoldLine( '| app in your current working directory.         |' )
       .greenBoldLine( '==================================================' )
       .line()
       .toConsole();
 
-    var appName = ask( message = 'Please enter a name for your application: ', defaultResponse = 'MyCFWheelsApp' );
+    var appName = ask( message = 'Please enter a name for your application: ', defaultResponse = 'MyWheelsApp' );
     appName     = helpers.stripSpecialChars( appName );
     print.line().toConsole();
 
@@ -77,9 +77,9 @@ component aliases="wheels g app-wizard, wheels new" extends="../base" {
       .options( [
         {value: 'cfwheels-base-template', display: '2.5.x - Wheels Base Template - Stable Release', selected: true},
         {value: 'wheels-base-template@BE', display: '3.0.x - Wheels Base Template - Bleeding Edge'},
-        {value: 'cfwheels-template-htmx-alpine-simple', display: 'CFWheels Template - HTMX - Alpine.js - Simple.css'},
-        {value: 'cfwheels-template-example-app', display: 'CFWheels Example App'},
-        {value: 'cfwheels-todomvc-htmx', display: 'CFWheels - TodoMVC - HTMX - Demo App'},
+        {value: 'cfwheels-template-htmx-alpine-simple', display: 'Wheels Template - HTMX - Alpine.js - Simple.css'},
+        {value: 'cfwheels-template-example-app', display: 'Wheels Example App'},
+        {value: 'cfwheels-todomvc-htmx', display: 'Wheels - TodoMVC - HTMX - Demo App'},
         {value: 'custom', display: 'Enter a custom template endpoint'}
       ] )
       .required()

@@ -1,21 +1,21 @@
 {
     "name":"|appName|",
     "version":"1.0.0",
-    "author":"CFWheels Core Team and Community, repackaged by Peter Amiri",
-    "shortDescription":"CFWheels MVC Framework Base Template",
+    "author":"Wheels Core Team and Community, repackaged by Peter Amiri",
+    "shortDescription":"Wheels MVC Framework Base Template",
     "location":"",
     "slug":"myapp",
     "createPackageDirectory":false,
-    "type":"cfwheels-templates",
+    "type":"wheels-templates",
     "keywords":[
         "mvc",
         "rails",
         "wheels",
-        "cfwheels",
+        "wheels",
         "core"
     ],
-    "homepage":"https://cfwheels.org/",
-    "documentation":"https://docs.cfwheels.org/",
+    "homepage":"https://wheels.dev/",
+    "documentation":"https://docs.wheels.dev/",
     "repository":{
         "type":"git",
         "URL":"https://github.com/cfwheels/cfwheels"
@@ -31,10 +31,10 @@
         "commandbox-cfformat":"*"
     },
     "installPaths":{
-        "cfwheels":"wheels/"
+        "wheels":"wheels/"
     },
     "dependencies":{
-        "cfwheels":"|version|",
+        "wheels":"|version|",
         "orgh213172lex":"lex:https://ext.lucee.org/org.h2-1.3.172.lex"
     },
     "private":false,

@@ -1,6 +1,6 @@
 # Database Commands
 
-The CFWheels CLI includes comprehensive database management commands, including migrations, seeding, and schema visualization.
+The Wheels CLI includes comprehensive database management commands, including migrations, seeding, and schema visualization.
 
 ## DBMigrate Commands
 

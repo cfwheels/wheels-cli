@@ -23,7 +23,7 @@ component extends="../base" {
     ) {
         // Welcome message
         print.line();
-        print.boldMagentaLine("CFWheels Docker Configuration");
+        print.boldMagentaLine("Wheels Docker Configuration");
         print.line();
         
         // Validate inputs
@@ -226,7 +226,7 @@ CMD ["/opt/coldfusion/bin/coldfusion", "start"]";
     private void function createMySqlInit(required string path) {
         local.initSqlPath = arguments.path & "/init.sql";
         
-        local.initSqlContent = "-- MySQL initialization script for CFWheels Docker setup
+        local.initSqlContent = "-- MySQL initialization script for Wheels Docker setup
 CREATE DATABASE IF NOT EXISTS cfwheels;
 USE cfwheels;
 
@@ -248,7 +248,7 @@ FLUSH PRIVILEGES;
     private void function createPostgresInit(required string path) {
         local.initSqlPath = arguments.path & "/init.sql";
         
-        local.initSqlContent = "-- PostgreSQL initialization script for CFWheels Docker setup
+        local.initSqlContent = "-- PostgreSQL initialization script for Wheels Docker setup
 
 -- Create a user for the application
 CREATE USER cfwheels WITH PASSWORD 'cfwheels';
@@ -272,7 +272,7 @@ CREATE DATABASE cfwheels OWNER cfwheels;
     private void function createMsSqlInit(required string path) {
         local.initSqlPath = arguments.path & "/init.sql";
         
-        local.initSqlContent = "-- SQL Server initialization script for CFWheels Docker setup
+        local.initSqlContent = "-- SQL Server initialization script for Wheels Docker setup
 
 -- Create the database
 IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'cfwheels')
@@ -311,7 +311,7 @@ GO
     private void function createDockerIgnore() {
         local.dockerIgnorePath = fileSystemUtil.resolvePath(".dockerignore");
         
-        local.dockerIgnoreContent = "# .dockerignore for CFWheels application
+        local.dockerIgnoreContent = "# .dockerignore for Wheels application
 
 # Version control
 .git

@@ -1,6 +1,6 @@
-# CFWheels CLI Improvements
+# Wheels CLI Improvements
 
-This document outlines proposed improvements to the CFWheels CLI tool (wheels-cli CommandBox module).
+This document outlines proposed improvements to the Wheels CLI tool (wheels-cli CommandBox module).
 
 ## 1. Interactive Development Mode
 
@@ -42,7 +42,7 @@ This document outlines proposed improvements to the CFWheels CLI tool (wheels-cl
 
 **New Command:** `wheels generate frontend [framework]`
 
-**Description:** Scaffold and integrate modern frontend frameworks with CFWheels.
+**Description:** Scaffold and integrate modern frontend frameworks with Wheels.
 
 **Implementation:**
 - Support popular frameworks like React, Vue, Alpine.js
@@ -67,10 +67,10 @@ This document outlines proposed improvements to the CFWheels CLI tool (wheels-cl
 
 **New Command:** `wheels deps [action]`
 
-**Description:** Manage CFWheels-specific dependencies and plugins with version control.
+**Description:** Manage Wheels-specific dependencies and plugins with version control.
 
 **Implementation:**
-- Add commands to install, update, and remove CFWheels plugins
+- Add commands to install, update, and remove Wheels plugins
 - Create dependency tracking and resolution
 - Include compatibility checking between components
 - Generate dependency reports
@@ -131,4 +131,4 @@ This document outlines proposed improvements to the CFWheels CLI tool (wheels-cl
 4. Include tests for all new functionality
 5. Submit pull requests to the main wheels-cli repository
 
-These improvements will significantly enhance the developer experience when working with CFWheels applications, bringing modern workflow practices to the framework.
+These improvements will significantly enhance the developer experience when working with Wheels applications, bringing modern workflow practices to the framework.

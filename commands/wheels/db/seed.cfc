@@ -23,7 +23,7 @@ component extends="../base" {
     ) {
         // Welcome message
         print.line();
-        print.boldMagentaLine("CFWheels Database Seed");
+        print.boldMagentaLine("Wheels Database Seed");
         print.line();
         
         // Create URL parameters
