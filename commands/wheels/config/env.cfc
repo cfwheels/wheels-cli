@@ -21,7 +21,7 @@ component extends="../base" {
     ) {
         // Welcome message
         print.line();
-        print.boldMagentaLine("CFWheels Environment Manager");
+        print.boldMagentaLine("Wheels Environment Manager");
         print.line();
         
         // Handle different actions

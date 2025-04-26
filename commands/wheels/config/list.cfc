@@ -21,7 +21,7 @@ component extends="../base" {
     ) {
         // Welcome message
         print.line();
-        print.boldMagentaLine("CFWheels Configuration Settings");
+        print.boldMagentaLine("Wheels Configuration Settings");
         print.line();
         
         // Create URL parameters

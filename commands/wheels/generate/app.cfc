@@ -1,7 +1,7 @@
 /**
- *  Create a blank CFWheels app from one of our app templates or a template using a valid Endpoint ID which can come from .
+ *  Create a blank Wheels app from one of our app templates or a template using a valid Endpoint ID which can come from .
  *  ForgeBox, HTTP/S, git, github, etc.
- *  By default an app named MyCFWheelsApp will be created in a sub directoryt call MyCFWheelsApp.
+ *  By default an app named MyWheelsApp will be created in a sub directoryt call MyWheelsApp.
  *
  *  The most basic call...
  *  {code:bash}
@@ -21,11 +21,11 @@
  *  Here are the basic templates that are available for you that come from ForgeBox
  *  - Wheels Base Template - Stable (default)
  *  - Wheels Base Template - Bleeding Edge
- *  - CFWheels Template - HelloWorld
- *  - CFWheels Template - HelloDynamic
- *  - CFWheels Template - HelloPages
- *  - CFWheels Example App
- *  - CFWheels - TodoMVC - HTMX - Demp App
+ *  - Wheels Template - HelloWorld
+ *  - Wheels Template - HelloDynamic
+ *  - Wheels Template - HelloPages
+ *  - Wheels Example App
+ *  - Wheels - TodoMVC - HTMX - Demp App
  *
  * {code:bash}
  * wheels create app template=base
@@ -68,7 +68,7 @@ component aliases="wheels g app" extends="../base" {
    * @force          Force installation into an none empty directory
    **/
   function run(
-    name     = 'MyCFWheelsApp',
+    name     = 'MyWheelsApp',
     template = 'Base',
     directory,
     reloadPassword = 'changeMe',

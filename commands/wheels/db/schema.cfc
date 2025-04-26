@@ -21,7 +21,7 @@ component extends="../base" {
     ) {
         // Welcome message
         print.line();
-        print.boldMagentaLine("CFWheels Database Schema");
+        print.boldMagentaLine("Wheels Database Schema");
         print.line();
         
         // Validate format

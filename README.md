@@ -8,4 +8,4 @@ Skips things like `rails server` which are provided by CommandBox already.
 Simply run `install wheels-cli` from CommandBox to install the latest release.
 
 ## Commands
-See [the CLI command guides](https://guides.cfwheels.org/cfwheels-guides/3.0.0-snapshot/command-line-tools/cli-commands) or use `help wheels` in Commandbox.
+See [the CLI command guides](https://guides.wheels.dev/wheels-guides/3.0.0-snapshot/command-line-tools/cli-commands) or use `help wheels` in Commandbox.

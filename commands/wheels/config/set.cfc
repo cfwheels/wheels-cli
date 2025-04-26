@@ -20,7 +20,7 @@ component extends="../base" {
     ) {
         // Welcome message
         print.line();
-        print.boldMagentaLine("CFWheels Configuration Manager");
+        print.boldMagentaLine("Wheels Configuration Manager");
         print.line();
         
         // Parse the key-value pair

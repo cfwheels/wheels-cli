@@ -25,7 +25,7 @@ component extends="base" {
     ) {
         // Welcome message
         print.line();
-        print.boldMagentaLine("CFWheels Performance Analyzer");
+        print.boldMagentaLine("Wheels Performance Analyzer");
         print.line();
         
         // Validate target

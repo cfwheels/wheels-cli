@@ -1,10 +1,10 @@
 # Configuration Management Commands
 
-The CFWheels CLI provides tools to manage your application's configuration across different environments.
+The Wheels CLI provides tools to manage your application's configuration across different environments.
 
 ## Config List
 
-List all configuration settings for your CFWheels application.
+List all configuration settings for your Wheels application.
 
 ### Usage
 
@@ -36,7 +36,7 @@ wheels config:list --showSensitive=true
 
 ## Config Set
 
-Set configuration values for your CFWheels application.
+Set configuration values for your Wheels application.
 
 ### Usage
 
@@ -65,7 +65,7 @@ wheels config:set apiKey=1234567890 --encrypt=true
 
 ## Config Environment
 
-Manage environment-specific settings for your CFWheels application.
+Manage environment-specific settings for your Wheels application.
 
 ### Usage
 
@@ -115,7 +115,7 @@ wheels config:env copy development staging
 
 ## Configuration Files
 
-CFWheels uses several configuration files that can be managed through these commands:
+Wheels uses several configuration files that can be managed through these commands:
 
 - **config/settings.cfm**: Main application settings
 - **config/environment.cfm**: Environment detection and configuration
@@ -126,7 +126,7 @@ The configuration commands help manage these files without having to edit them d
 
 ## Working with Multiple Environments
 
-The CFWheels CLI configuration commands make it easy to manage configurations across different environments:
+The Wheels CLI configuration commands make it easy to manage configurations across different environments:
 
 ```bash
 # Setting up a new environment

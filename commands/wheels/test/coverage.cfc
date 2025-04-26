@@ -26,7 +26,7 @@ component extends="../base" {
     ) {
         // Welcome message
         print.line();
-        print.boldMagentaLine("CFWheels Test Coverage");
+        print.boldMagentaLine("Wheels Test Coverage");
         print.line();
         
         // Set target directory for report

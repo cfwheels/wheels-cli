@@ -1,10 +1,10 @@
 # Application Management Commands
 
-The CFWheels CLI provides several commands for managing your application's lifecycle.
+The Wheels CLI provides several commands for managing your application's lifecycle.
 
 ## Init
 
-Creates a new CFWheels application.
+Creates a new Wheels application.
 
 ### Usage
 
@@ -17,7 +17,7 @@ wheels init [name] [path] [reload] [version] [createFolders]
 - `name`: Name of the application (default: cfwheels)
 - `path`: Path for the new application (default: current directory)
 - `reload`: Force a reload of the application (default: false)
-- `version`: CFWheels version to use (default: latest)
+- `version`: Wheels version to use (default: latest)
 - `createFolders`: Create standard folders structure (default: true)
 
 ### Examples
@@ -35,7 +35,7 @@ wheels init myApp path=/path/to/apps
 
 ## Reload
 
-Reloads the CFWheels application, which is useful during development after making changes to the codebase.
+Reloads the Wheels application, which is useful during development after making changes to the codebase.
 
 ### Usage
 
@@ -52,7 +52,7 @@ wheels reload
 
 ## Info
 
-Displays information about the CFWheels application, including the version, environment, database configuration, and plugins.
+Displays information about the Wheels application, including the version, environment, database configuration, and plugins.
 
 ### Usage
 

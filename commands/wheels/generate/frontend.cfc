@@ -1,5 +1,5 @@
 /**
- * Scaffold and integrate modern frontend frameworks with CFWheels
+ * Scaffold and integrate modern frontend frameworks with Wheels
  * 
  * {code:bash}
  * wheels generate frontend --framework=react
@@ -21,7 +21,7 @@ component extends="../base" {
     ) {
         // Welcome message
         print.line();
-        print.boldMagentaLine("CFWheels Frontend Generator");
+        print.boldMagentaLine("Wheels Frontend Generator");
         print.line();
         
         // Validate framework selection
@@ -80,7 +80,7 @@ component extends="../base" {
         local.packageJson = {
             "name": "cfwheels-frontend",
             "version": "1.0.0",
-            "description": "Frontend for CFWheels application",
+            "description": "Frontend for Wheels application",
             "scripts": {
                 "dev": "vite",
                 "build": "vite build",
@@ -143,7 +143,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>CFWheels + React</h1>
+        <h1>Wheels + React</h1>
         <p>
           <button onClick={() => setCount((count) => count + 1)}>
             count is {count}
@@ -235,7 +235,7 @@ const count = ref(0);
 <template>
   <div class="app">
     <header class="app-header">
-      <h1>CFWheels + Vue</h1>
+      <h1>Wheels + Vue</h1>
       <p>
         <button type="button" @click="count++">count is {{ count }}</button>
       </p>
@@ -325,12 +325,12 @@ Alpine.start();';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CFWheels + Alpine.js</title>
+    <title>Wheels + Alpine.js</title>
   </head>
   <body>
     <div id="app" x-data="{ count: 0 }">
       <header class="app-header">
-        <h1>CFWheels + Alpine.js</h1>
+        <h1>Wheels + Alpine.js</h1>
         <p>
           <button type="button" x-on:click="count++">
             count is <span x-text="count"></span>
@@ -470,7 +470,7 @@ function frontendAssets() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CFWheels with #arguments.framework#</title>
+    <title>Wheels with #arguments.framework#</title>
     #frontendAssets()#
 </head>
 <body>

@@ -1,10 +1,10 @@
 # Dependency Management Commands
 
-The CFWheels CLI provides commands to manage CFWheels-specific dependencies and plugins, ensuring compatibility and proper versioning.
+The Wheels CLI provides commands to manage Wheels-specific dependencies and plugins, ensuring compatibility and proper versioning.
 
 ## Dependencies Command
 
-Manage CFWheels-specific dependencies and plugins with version control.
+Manage Wheels-specific dependencies and plugins with version control.
 
 ### Usage
 
@@ -108,7 +108,7 @@ wheels deps report
 This command produces a report containing:
 - List of installed plugins with versions
 - Dependencies between plugins
-- Compatibility status with your CFWheels version
+- Compatibility status with your Wheels version
 - Potential conflicts or issues
 
 ## Dependency Report
@@ -190,7 +190,7 @@ When you encounter plugin conflicts:
 
 ## Extending the Dependency System
 
-The CFWheels dependency system can be extended to handle:
+The Wheels dependency system can be extended to handle:
 
 ### Custom Repositories
 

@@ -1,5 +1,5 @@
 /**
- * Watch CFWheels application files for changes and automatically reload the application.
+ * Watch Wheels application files for changes and automatically reload the application.
  * 
  * {code:bash}
  * wheels watch
@@ -21,7 +21,7 @@ component extends="base" {
     ) {
         // Welcome message
         print.line();
-        print.boldMagentaLine( "CFWheels Watch Mode" );
+        print.boldMagentaLine( "Wheels Watch Mode" );
         print.line( "Monitoring files for changes..." );
         print.line( "Press Ctrl+C to stop watching" );
         print.line();

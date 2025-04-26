@@ -1,8 +1,8 @@
-# CFWheels CLI Improvements - Rationale
+# Wheels CLI Improvements - Rationale
 
 ## Background
 
-The current CFWheels CLI tool provides essential commands for creating and managing CFWheels applications. However, as modern web development practices evolve, there are opportunities to enhance the CLI to improve developer productivity, code quality, and application performance.
+The current Wheels CLI tool provides essential commands for creating and managing Wheels applications. However, as modern web development practices evolve, there are opportunities to enhance the CLI to improve developer productivity, code quality, and application performance.
 
 ## Why These Improvements Matter
 
@@ -16,7 +16,7 @@ The web development landscape has shifted toward API-centric applications and mo
 
 ### DevOps Integration
 
-As deployment processes become more automated, the proposed CI/CD and Docker integrations help CFWheels developers adopt modern DevOps practices, ensuring consistent builds, deployments, and environments.
+As deployment processes become more automated, the proposed CI/CD and Docker integrations help Wheels developers adopt modern DevOps practices, ensuring consistent builds, deployments, and environments.
 
 ### Performance Optimization
 
@@ -33,12 +33,12 @@ The proposed improvements are designed to be:
 
 ## Community Benefits
 
-These improvements will benefit the CFWheels community by:
+These improvements will benefit the Wheels community by:
 
-1. Making CFWheels more attractive to new developers
+1. Making Wheels more attractive to new developers
 2. Providing existing developers with modern tools to improve their workflow
 3. Reducing the friction when adopting best practices
-4. Encouraging standardization across CFWheels applications
+4. Encouraging standardization across Wheels applications
 
 ## Next Steps
 

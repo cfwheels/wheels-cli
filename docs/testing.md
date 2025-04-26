@@ -1,6 +1,6 @@
 # Testing Commands
 
-The CFWheels CLI provides robust tools for testing your application, including running tests, generating code coverage reports, and debugging test failures.
+The Wheels CLI provides robust tools for testing your application, including running tests, generating code coverage reports, and debugging test failures.
 
 ## Test
 

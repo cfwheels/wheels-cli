@@ -27,7 +27,7 @@ component extends="../base" {
     ) {
         // Welcome message
         print.line();
-        print.boldMagentaLine("CFWheels Test Debug Mode");
+        print.boldMagentaLine("Wheels Test Debug Mode");
         print.line();
         
         // Format URL parameters

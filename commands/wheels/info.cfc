@@ -22,10 +22,10 @@ component  extends="base"  {
 			.redLine("|  |    |  `--, |  |.'.|  ||  .-.  || .-. :| .-. :|  |(  .-'     |  |    |  |   |  | ")
 			.redLine("'  '--'\|  |`   |   ,'.   ||  | |  |\   --.\   --.|  |.-'  `)    '  '--'\|  '--.|  | ")
 			.redLine(" `-----'`--'    '--'   '--'`--' `--' `----' `----'`--'`----'      `-----'`-----'`--' ")
-			.yellowBoldLine( "=================================== CFWheels CLI ===================================" )
+			.yellowBoldLine( "=================================== Wheels CLI ===================================" )
 			.yellowBoldLine( "Current Working Directory: #current.directory#")
 			.yellowBoldLine( "CommandBox Module Root: #current.moduleRoot#")
-			.yellowBoldLine( "Current CFWheels Version in this directory: #current.wheelsVersion#")
+			.yellowBoldLine( "Current Wheels Version in this directory: #current.wheelsVersion#")
 			.yellowBoldLine( "====================================================================================" );
 	}
 

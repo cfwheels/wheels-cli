@@ -1,6 +1,6 @@
-# CFWheels CLI Documentation
+# Wheels CLI Documentation
 
-Welcome to the comprehensive documentation for the CFWheels CLI, a command-line tool that enhances your development experience when working with the CFWheels framework.
+Welcome to the comprehensive documentation for the Wheels CLI, a command-line tool that enhances your development experience when working with the Wheels framework.
 
 ## Documentation Sections
 
@@ -17,13 +17,13 @@ Welcome to the comprehensive documentation for the CFWheels CLI, a command-line 
 
 ## Quick Start
 
-Install the CFWheels CLI:
+Install the Wheels CLI:
 
 ```bash
 box install wheels-cli
 ```
 
-Create a new CFWheels application:
+Create a new Wheels application:
 
 ```bash
 wheels init myApp

@@ -1,6 +1,6 @@
 # Development Tools
 
-The CFWheels CLI provides a comprehensive set of tools to speed up the development process by generating code for common components.
+The Wheels CLI provides a comprehensive set of tools to speed up the development process by generating code for common components.
 
 ## Generate Controller
 
@@ -135,7 +135,7 @@ wheels generate api-resource products --auth=true
 
 ## Generate Frontend
 
-Scaffold and integrate modern frontend frameworks with CFWheels.
+Scaffold and integrate modern frontend frameworks with Wheels.
 
 ### Usage
 
@@ -221,5 +221,5 @@ The frontend integration provides:
 1. Project structure for the selected framework
 2. Package.json with appropriate dependencies
 3. Vite build configuration
-4. Integration helpers for including the frontend in CFWheels views
+4. Integration helpers for including the frontend in Wheels views
 5. Sample application structure

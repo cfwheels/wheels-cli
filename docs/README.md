@@ -1,6 +1,6 @@
-# CFWheels CLI Documentation
+# Wheels CLI Documentation
 
-The CFWheels CLI is a CommandBox module that provides command-line tools for CFWheels framework applications. This documentation covers all available commands and their usage.
+The Wheels CLI is a CommandBox module that provides command-line tools for Wheels framework applications. This documentation covers all available commands and their usage.
 
 ## Table of Contents
 
@@ -20,7 +20,7 @@ The CFWheels CLI is a CommandBox module that provides command-line tools for CFW
 
 ## Installation
 
-Install the CFWheels CLI as a CommandBox module:
+Install the Wheels CLI as a CommandBox module:
 
 ```bash
 box install wheels-cli
@@ -28,13 +28,13 @@ box install wheels-cli
 
 ## Getting Started
 
-To create a new CFWheels application:
+To create a new Wheels application:
 
 ```bash
 wheels init myApp
 ```
 
-This will create a new CFWheels application in the "myApp" directory.
+This will create a new Wheels application in the "myApp" directory.
 
 ## Command Reference
 
@@ -42,7 +42,7 @@ This will create a new CFWheels application in the "myApp" directory.
 
 #### Init
 
-Creates a new CFWheels application.
+Creates a new Wheels application.
 
 ```bash
 wheels init [name] [path] [reload] [version] [createFolders]
@@ -52,12 +52,12 @@ wheels init [name] [path] [reload] [version] [createFolders]
 - `name`: Name of the application
 - `path`: Path for the new application
 - `reload`: Force a reload of the application
-- `version`: CFWheels version to use
+- `version`: Wheels version to use
 - `createFolders`: Create standard folders structure
 
 #### Reload
 
-Reloads the CFWheels application.
+Reloads the Wheels application.
 
 ```bash
 wheels reload
@@ -65,7 +65,7 @@ wheels reload
 
 #### Info
 
-Displays information about the CFWheels application.
+Displays information about the Wheels application.
 
 ```bash
 wheels info
@@ -154,7 +154,7 @@ wheels generate api-resource [name] [--model=false] [--docs=false] [--auth=false
 
 #### Generate Frontend
 
-Scaffold and integrate modern frontend frameworks with CFWheels.
+Scaffold and integrate modern frontend frameworks with Wheels.
 
 ```bash
 wheels generate frontend --framework=[framework] [--path=app/assets/frontend] [--api=false]
@@ -421,7 +421,7 @@ wheels analyze [--target=all] [--duration=60] [--report=true] [--threshold=5]
 
 #### Dependencies
 
-Manage CFWheels-specific dependencies and plugins.
+Manage Wheels-specific dependencies and plugins.
 
 ```bash
 wheels deps [action] [name] [version]
