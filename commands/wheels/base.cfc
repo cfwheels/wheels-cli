@@ -8,6 +8,7 @@ component excludeFromHelp=true {
 	property name='packageService' inject='packageService';
 	property name="ConfigService" inject="ConfigService";
 	property name="JSONService" inject="JSONService";
+	property name="Style" inject="StyleHelper@wheels";
 
 //=====================================================================
 //= 	Scaffolding
